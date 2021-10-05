@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from accounts.models import StaffAccount
-from datetime import datetime
+from datetime import date
 
 
 class Course(models.Model):
@@ -44,9 +44,10 @@ class FieldOfStudy(models.Model):
         (PART_TIME, 'Part time'),
     )
 
+    name = models.CharField(max_length=60, blank=False, default='Untitled')
     study_type = models.CharField(default=FULL_TIME, choices=STUDY_TYPES, blank=False, null=False, max_length=10)
-    start_date = models.DateTimeField(auto_now_add=False, default=datetime.now)
-    end_date = models.DateTimeField(auto_now_add=False, default=datetime.now)
+    start_date = models.DateField(auto_now_add=False, default=date.today)
+    end_date = models.DateField(auto_now_add=False, default=date.today)
     students = models.ManyToManyField(Student, blank=True)
 
 
