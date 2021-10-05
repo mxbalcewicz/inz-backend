@@ -36,17 +36,6 @@ class Student(models.Model):
     surname = models.CharField(max_length=30, blank=False)
 
 
-# class StudyType(models.Model):  # typ studiów
-#     STATIONARY = 1
-#     NOSTATIONARY = 2
-#     STUDY_TYPES = (
-#         (STATIONARY, 'STATIONARY'),
-#         (NOSTATIONARY, 'NOSTATIONARY')
-#     )
-#
-#     id = models.PositiveSmallIntegerField(choices=STUDY_TYPES, primary_key=True)
-
-
 class FieldOfStudy(models.Model):
     FULL_TIME = 'Full time'
     PART_TIME = 'Part time'
@@ -80,15 +69,6 @@ class Room(models.Model):
     name = models.CharField(max_length=20, blank=False, unique=True)
     capacity = models.CharField(max_length=4, blank=False)
     room_type = models.ManyToManyField(RoomType, blank=False, primary_key=False)
-
-
-# class Lecturer(models.Model):
-#     user = models.OneToOneField('accounts.StaffAccount', on_delete=models.CASCADE, blank=False, primary_key=True)
-#     name = models.CharField(max_length=20, blank=False)
-#     surename = models.CharField(max_length=30, blank=False)
-#     institut = models.CharField(max_length=100, blank=False)
-#     jobTitle = models.CharField(max_length=50, blank=False)  # better name needed (stanowisko)
-#     academic_title = models.CharField(max_length=50, blank=False)
 
 
 class ECTSCard(models.Model):
