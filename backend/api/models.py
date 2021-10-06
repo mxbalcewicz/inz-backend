@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from accounts.models import StaffAccount
@@ -51,11 +52,11 @@ class FieldOfStudy(models.Model):
     students = models.ManyToManyField(Student, blank=True)
 
 
-class RoomType(models.Model):
-    LECTURE = 1
-    LABORATORY = 2
-    PROJECT = 3
-    SPORT_HALL = 4
+class Room(models.Model):
+    LECTURE = 'LECTURE'
+    LABORATORY = 'LABORATORY'
+    PROJECT = 'PROJECT'
+    SPORT_HALL = 'SPORT_HALL'
     ROOM_TYPES = (
         (LECTURE, 'LECTURE'),
         (LABORATORY, 'LABORATORY'),
@@ -63,13 +64,9 @@ class RoomType(models.Model):
         (SPORT_HALL, 'SPORT_HALL')
     )
 
-    id = models.PositiveSmallIntegerField(choices=ROOM_TYPES, primary_key=True)
-
-
-class Room(models.Model):
     name = models.CharField(max_length=20, blank=False, unique=True)
     capacity = models.CharField(max_length=4, blank=False)
-    room_type = models.ManyToManyField(RoomType, blank=False, primary_key=False)
+    room_type = ArrayField(models.CharField(choices=ROOM_TYPES, max_length=20, blank=True), default=['LECTURE'])
 
 
 class ECTSCard(models.Model):

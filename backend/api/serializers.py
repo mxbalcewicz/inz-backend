@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Student, Course, FieldOfStudy, Room, RoomType
+from api.models import Student, Course, FieldOfStudy, Room
 from accounts.models import User, StaffAccount, DeaneryAccount
 from accounts.serializers import UserSerializer
 
@@ -45,15 +45,7 @@ class FieldOfStudySerializer(serializers.ModelSerializer):
         fields = ['name', 'study_type', 'start_date', 'end_date', 'students']
 
 
-class RoomTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RoomType
-        fields = '__all__'
-
-
 class RoomSerializer(serializers.ModelSerializer):
-    room_type = RoomTypeSerializer(many=True)
-
     class Meta:
         model = Room
         fields = ['name', 'capacity', 'room_type']
