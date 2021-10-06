@@ -22,7 +22,7 @@ class StaffAccountSerializer(serializers.ModelSerializer):
         fields = ['user', 'name', 'surname', 'institute', 'job_title', 'academic_title']
 
 
-#TO FIX COURSE SERIALIZER CREATE()
+# TO FIX COURSE SERIALIZER CREATE()
 class CourseSerializer(serializers.ModelSerializer):
     instructors = StaffAccountSerializer()
 
@@ -37,12 +37,33 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ['index', 'email', 'name', 'surname']
 
 
+class StudentIndexSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['index']
+
+
 class FieldOfStudySerializer(serializers.ModelSerializer):
-    students = StudentSerializer(many=True)
+    #students = StudentIndexSerializer()
+    #students = serializers.JSONField()
 
     class Meta:
         model = FieldOfStudy
         fields = ['name', 'study_type', 'start_date', 'end_date', 'students']
+
+    def create(self, validated_data):
+        student_list = validated_data.get('students')
+        field_of_study = FieldOfStudy(name=validated_data.get('name'), study_type=validated_data.get('study_type'))
+        if validated_data.get('start_date') is not None:
+            field_of_study.start_date = validated_data.get('start_date')
+        if validated_data.get('end_date') is not None:
+            field_of_study.end_date=validated_data.get('end_date')
+        field_of_study.save()
+        for i in student_list:
+            if Student.objects.filter(index=i.index).exists():
+                field_of_study.students.add(i)
+        field_of_study.save()
+        return field_of_study
 
 
 class RoomSerializer(serializers.ModelSerializer):

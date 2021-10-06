@@ -32,9 +32,12 @@ class Course(models.Model):
 
 class Student(models.Model):
     email = models.EmailField(max_length=50, unique=True, blank=False)
-    index = models.CharField(max_length=8, blank=False)
+    index = models.CharField(max_length=8, blank=False, unique=True)
     name = models.CharField(max_length=20, blank=False)
     surname = models.CharField(max_length=30, blank=False)
+
+    def __str__(self):
+        return f'Mail:{self.email},  Name:{self.name}, Surname:{self.surname}, Index:{self.index}'
 
 
 class FieldOfStudy(models.Model):
@@ -45,11 +48,11 @@ class FieldOfStudy(models.Model):
         (PART_TIME, 'Part time'),
     )
 
-    name = models.CharField(max_length=60, blank=False, default='Untitled')
-    study_type = models.CharField(default=FULL_TIME, choices=STUDY_TYPES, blank=False, null=False, max_length=10)
+    name = models.CharField(max_length=60, blank=True, default='Untitled')
+    study_type = models.CharField(default=FULL_TIME, choices=STUDY_TYPES, blank=True, null=False, max_length=10)
     start_date = models.DateField(auto_now_add=False, default=date.today)
     end_date = models.DateField(auto_now_add=False, default=date.today)
-    students = models.ManyToManyField(Student, blank=True)
+    students = models.ManyToManyField(Student, blank=False)
 
 
 class Room(models.Model):
