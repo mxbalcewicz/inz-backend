@@ -1,11 +1,13 @@
 from rest_framework import serializers
-from api.models import Student, Course, FieldOfStudy, Room
+from api.models import (
+    Student,
+    Course,
+    FieldOfStudy,
+    Room,
+    ECTSCard
+)
 from accounts.models import User, StaffAccount, DeaneryAccount
 from accounts.serializers import UserSerializer
-
-
-class DeanUserSerializer(serializers.ModelSerializer):
-    pass
 
 
 class StaffUserSerializer(serializers.ModelSerializer):
@@ -22,10 +24,7 @@ class StaffAccountSerializer(serializers.ModelSerializer):
         fields = ['user', 'name', 'surname', 'institute', 'job_title', 'academic_title']
 
 
-# TO FIX COURSE SERIALIZER CREATE()
 class CourseSerializer(serializers.ModelSerializer):
-    instructors = StaffAccountSerializer()
-
     class Meta:
         model = Course
         fields = ['name', 'hours', 'class_type', 'points_value', 'instructors']
@@ -44,9 +43,6 @@ class StudentIndexSerializer(serializers.ModelSerializer):
 
 
 class FieldOfStudySerializer(serializers.ModelSerializer):
-    #students = StudentIndexSerializer()
-    #students = serializers.JSONField()
-
     class Meta:
         model = FieldOfStudy
         fields = ['name', 'study_type', 'start_date', 'end_date', 'students']
@@ -57,7 +53,7 @@ class FieldOfStudySerializer(serializers.ModelSerializer):
         if validated_data.get('start_date') is not None:
             field_of_study.start_date = validated_data.get('start_date')
         if validated_data.get('end_date') is not None:
-            field_of_study.end_date=validated_data.get('end_date')
+            field_of_study.end_date = validated_data.get('end_date')
         field_of_study.save()
         for i in student_list:
             if Student.objects.filter(index=i.index).exists():
@@ -70,3 +66,10 @@ class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ['name', 'capacity', 'room_type']
+
+
+class ECTSCardSerializer(serializers.ModelSerializer):
+    # TODO overwrite create() method for instructors list after staff-register fix
+    class Meta:
+        model = ECTSCard
+        fields = ['name', 'hours', 'class_type', 'points_value', 'instructors']

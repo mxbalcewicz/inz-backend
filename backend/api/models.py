@@ -31,8 +31,8 @@ class Course(models.Model):
 
 
 class Student(models.Model):
+    index = models.IntegerField(blank=False, unique=True, primary_key=True)
     email = models.EmailField(max_length=50, unique=True, blank=False)
-    index = models.CharField(max_length=8, blank=False, unique=True)
     name = models.CharField(max_length=20, blank=False)
     surname = models.CharField(max_length=30, blank=False)
 
@@ -53,6 +53,9 @@ class FieldOfStudy(models.Model):
     start_date = models.DateField(auto_now_add=False, default=date.today)
     end_date = models.DateField(auto_now_add=False, default=date.today)
     students = models.ManyToManyField(Student, blank=False)
+
+    def __str__(self):
+        return f'Name:{self.name} Type:{self.study_type} Start:{self.start_date} End:{self.end_date}'
 
 
 class Room(models.Model):
