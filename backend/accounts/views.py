@@ -1,5 +1,7 @@
-from .serializers import UserSerializer, UserRegisterSerializer
+from .serializers import UserSerializer, DeanRegisterSerializer, StaffRegisterSerializer
+from .models import DeaneryAccount
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
+from rest_framework.views import APIView
 from rest_framework_simplejwt import authentication
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
@@ -15,33 +17,29 @@ class ListUsers(RetrieveAPIView):
     serializer_class = UserSerializer(many=True)
 
 
-class RegisterDeanAccountView(CreateAPIView):
+class DeanRegisterView(APIView):
     """
-    Register view for dean's account registration
+    DeaneryAccount register view
     """
-    serializer_class = UserRegisterSerializer
+    serializer_class = DeanRegisterSerializer
     permission_classes = (AllowAny,)
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.create(validated_data=serializer.data, is_dean=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(status=status.HTTP_201_CREATED)
 
-
-class RegisterStaffAccountView(CreateAPIView):
+class StaffRegisterView(APIView):
     """
-    Register view for staff's account registration
+    StaffAccount register view
     """
-    serializer_class = UserRegisterSerializer
+    serializer_class = StaffRegisterSerializer
     permission_classes = (AllowAny,)
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.create(validated_data=serializer.data, is_staff=True)
-
-        return Response(status=status.HTTP_201_CREATED)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

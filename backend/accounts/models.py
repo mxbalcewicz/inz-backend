@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
         user = self.model(email=self.normalize_email(email), **kwargs)
         user.is_active = True
         user.set_password(password)
-        user.save()
 
         return user
 
@@ -58,10 +57,16 @@ class User(AbstractUser):
 
 
 class DeaneryAccount(models.Model):
+    """
+    DeaneryAccount model linked to User instance
+    """
     account = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
 
 
 class StaffAccount(models.Model):
+    """
+    StaffAccount model linked to User instance extended by additional information
+    """
     account = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
     name = models.CharField(max_length=20, blank=False, default='')
     surname = models.CharField(max_length=30, blank=False, default='')
