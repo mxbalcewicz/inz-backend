@@ -72,4 +72,4 @@ class ECTSCardSerializer(serializers.ModelSerializer):
     # TODO overwrite create() method for instructors list after staff-register fix
     class Meta:
         model = ECTSCard
-        fields = ['name', 'hours', 'class_type', 'points_value', 'instructors']
+        fields = ['courses', 'field_of_study', 'semester', 'year']
