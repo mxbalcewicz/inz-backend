@@ -41,12 +41,6 @@ class DeanRegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-class StaffAccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StaffAccount
-        fields = ['name', 'surname', 'institute', 'job_title', 'academic_title']
-
-
 class StaffRegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,
@@ -54,11 +48,10 @@ class StaffRegisterSerializer(serializers.ModelSerializer):
     )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
-    account = StaffAccountSerializer()
 
     class Meta:
-        model = User
-        fields = ['email', 'password', 'password2', 'account']
+        model = StaffAccount
+        fields = ['name', 'surname', 'institute', 'job_title', 'academic_title', 'email', 'password', 'password2']
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -69,13 +62,13 @@ class StaffRegisterSerializer(serializers.ModelSerializer):
         user = User(email=validated_data.get('email'))
         user.set_password(validated_data.get('password'))
         user.save()
-        staff_data = validated_data.pop('account')
+
         staff = StaffAccount(account=user,
-                             name=staff_data.get('name'),
-                             surname=staff_data.get('surname'),
-                             institute=staff_data.get('institute'),
-                             job_title=staff_data.get('job_title'),
-                             academic_title=staff_data.get('academic_title')
+                             name=validated_data.get('name'),
+                             surname=validated_data.get('surname'),
+                             institute=validated_data.get('institute'),
+                             job_title=validated_data.get('job_title'),
+                             academic_title=validated_data.get('academic_title')
                              )
         staff.save()
         return user

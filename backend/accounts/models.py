@@ -73,3 +73,6 @@ class StaffAccount(models.Model):
     institute = models.CharField(max_length=100, blank=False, default='')
     job_title = models.CharField(max_length=50, blank=False, default='')
     academic_title = models.CharField(max_length=50, blank=False, default='')
+
+    def __str__(self):
+        return f'Name:{self.name} Surname:{self.surname} Email:{self.account.email}'
