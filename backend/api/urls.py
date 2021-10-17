@@ -7,7 +7,7 @@ from .views import (StudentViewSet,
                     ECTSCardViewSet
                     )
 
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 
 router.register(r'students', StudentViewSet, basename='students')
 router.register(r'staff', StaffUserViewSet, basename='staff')
