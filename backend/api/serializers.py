@@ -27,7 +27,7 @@ class StaffAccountSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['name', 'hours', 'class_type', 'points_value', 'instructors']
+        fields = ['id', 'name', 'hours', 'class_type', 'points_value', 'instructors']
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -45,7 +45,7 @@ class StudentIndexSerializer(serializers.ModelSerializer):
 class FieldOfStudySerializer(serializers.ModelSerializer):
     class Meta:
         model = FieldOfStudy
-        fields = ['name', 'study_type', 'start_date', 'end_date', 'students']
+        fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'students']
 
     def create(self, validated_data):
         student_list = validated_data.get('students')
@@ -65,7 +65,7 @@ class FieldOfStudySerializer(serializers.ModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['name', 'capacity', 'room_type']
+        fields = ['id', 'name', 'capacity', 'room_type']
 
 
 class ECTSCardSerializer(serializers.ModelSerializer):
