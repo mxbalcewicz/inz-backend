@@ -31,7 +31,7 @@ class Course(models.Model):
 
 
 class Student(models.Model):
-    index = models.IntegerField(blank=False, unique=True, primary_key=True)
+    index = models.IntegerField(unique=True, blank=False, default=1)
     email = models.EmailField(max_length=50, unique=True, blank=False)
     name = models.CharField(max_length=20, blank=False)
     surname = models.CharField(max_length=30, blank=False)
@@ -41,11 +41,11 @@ class Student(models.Model):
 
 
 class FieldOfStudy(models.Model):
-    FULL_TIME = 'Full time'
-    PART_TIME = 'Part time'
+    FULL_TIME = 'FULL_TIME'
+    PART_TIME = 'PART_TIME'
     STUDY_TYPES = (
-        (FULL_TIME, 'Full time'),
-        (PART_TIME, 'Part time'),
+        (FULL_TIME, 'FULL_TIME'),
+        (PART_TIME, 'PART_TIME'),
     )
 
     name = models.CharField(max_length=60, blank=True, default='Untitled')
