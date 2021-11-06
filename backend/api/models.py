@@ -5,29 +5,31 @@ from accounts.models import StaffAccount
 from datetime import date
 
 
-class Course(models.Model):
-    LECTURE = 'Lecture'
-    LABORATORY = 'Laboratory'
-    PROJECT = 'Project'
-    PRACTICALS = 'Practicals'
+class CourseInstructorInfo(models.Model):
+    LECTURE = 'LECTURE'
+    LABORATORY = 'LABORATORY'
+    PROJECT = 'PROJECT'
+    COURSE_TYPES = (
+        (LECTURE, 'LECTURE'),
+        (LABORATORY, 'LABORATORY'),
+        (PROJECT, 'PROJECT')
+    )
 
-    CLASS_TYPE_CHOICES = [
-        (LECTURE, 'Lecture'),
-        (LABORATORY, 'Laboratory'),
-        (PROJECT, 'Project'),
-        (PRACTICALS, 'Practicals'),
-    ]
+    instructor = models.ForeignKey('accounts.StaffAccount', on_delete=models.CASCADE)
+    course_type = models.CharField(default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
+
+
+class Course(models.Model):
     name = models.CharField(blank=False, max_length=50)
     hours = models.IntegerField(blank=False, null=False, validators=[
         MinValueValidator(1),
         MaxValueValidator(60),
     ])
-    class_type = models.CharField(choices=CLASS_TYPE_CHOICES, default=LECTURE, max_length=45)
+    course_instructor_info = models.ForeignKey('CourseInstructorInfo', default=None, on_delete=models.CASCADE)
     points_value = models.IntegerField(blank=False, null=False, validators=[
         MinValueValidator(1),
         MaxValueValidator(10),
     ])
-    instructors = models.ManyToManyField(StaffAccount)
 
 
 class Student(models.Model):
@@ -38,6 +40,14 @@ class Student(models.Model):
 
     def __str__(self):
         return f'Mail:{self.email},  Name:{self.name}, Surname:{self.surname}, Index:{self.index}'
+
+
+class Semester(models.Model):
+    semester = models.IntegerField()
+    year = models.IntegerField()
+    students = models.ManyToManyField(Student, blank=True)
+    field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
+    courses = models.ManyToManyField(Course, blank=False)
 
 
 class FieldOfStudy(models.Model):
@@ -72,11 +82,11 @@ class Room(models.Model):
 
     name = models.CharField(max_length=20, blank=False, unique=True)
     capacity = models.CharField(max_length=4, blank=False)
+    # Sprawdzic opcje zmiany ArrayField na inne przy multiple choice
     room_type = ArrayField(models.CharField(choices=ROOM_TYPES, max_length=20, blank=True), default=['LECTURE'])
 
 
 class ECTSCard(models.Model):
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, blank=False)
     field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
-    semester = models.IntegerField()
-    year = models.IntegerField()
+    semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
