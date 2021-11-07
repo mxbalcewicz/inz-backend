@@ -14,17 +14,16 @@ class CourseInstructorInfo(models.Model):
         (LABORATORY, 'LABORATORY'),
         (PROJECT, 'PROJECT')
     )
-
+    hours = models.IntegerField(blank=False, null=False, default=15, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(60),
+    ])
     instructor = models.ForeignKey('accounts.StaffAccount', on_delete=models.CASCADE)
     course_type = models.CharField(default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
 
 
 class Course(models.Model):
     name = models.CharField(blank=False, max_length=50)
-    hours = models.IntegerField(blank=False, null=False, validators=[
-        MinValueValidator(1),
-        MaxValueValidator(60),
-    ])
     course_instructor_info = models.ForeignKey('CourseInstructorInfo', default=None, on_delete=models.CASCADE)
     points_value = models.IntegerField(blank=False, null=False, validators=[
         MinValueValidator(1),

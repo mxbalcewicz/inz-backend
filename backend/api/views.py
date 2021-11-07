@@ -4,14 +4,19 @@ from .models import (Student,
                      FieldOfStudy,
                      Course,
                      Room,
-                     ECTSCard
+                     ECTSCard,
+                     Student,
+                     CourseInstructorInfo,
+                     Semester
                      )
 from .serializers import (StudentSerializer,
                           StaffAccountSerializer,
                           FieldOfStudySerializer,
                           CourseSerializer,
                           RoomSerializer,
-                          ECTSCardSerializer
+                          ECTSCardSerializer,
+                          CourseInstructorInfoSerializer,
+                          SemesterSerializer
                           )
 
 
@@ -46,3 +51,13 @@ class RoomViewSet(viewsets.ModelViewSet):
 class ECTSCardViewSet(viewsets.ModelViewSet):
     queryset = ECTSCard.objects.all()
     serializer_class = ECTSCardSerializer
+
+
+class CourseInstructorInfoViewSet(viewsets.ModelViewSet):
+    queryset = CourseInstructorInfo.objects.all()
+    serializer_class = CourseInstructorInfoSerializer
+
+
+class SemesterViewSet(viewsets.ModelViewSet):
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer

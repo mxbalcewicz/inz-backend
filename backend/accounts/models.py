@@ -70,6 +70,7 @@ class StaffAccount(models.Model):
     account = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
     name = models.CharField(max_length=20, blank=False, default='')
     surname = models.CharField(max_length=30, blank=False, default='')
+    # temp, should be relation to class Institute :X
     institute = models.CharField(max_length=100, blank=False, default='')
     job_title = models.CharField(max_length=50, blank=False, default='')
     academic_title = models.CharField(max_length=50, blank=False, default='')
