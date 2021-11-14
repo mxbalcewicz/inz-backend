@@ -9,6 +9,10 @@ from .views import (StudentGetPostView,
                     RoomRetrieveUpdateDeleteView,
                     CourseInstructorInfoGetPostView,
                     CourseInstructorInfoRetrieveUpdateDeleteView,
+                    CourseGetPostView,
+                    CourseRetrieveUpdateDeleteView,
+                    FieldOfStudyGetPostView,
+                    FieldOfStudyRetrieveUpdateDeleteView
                     )
 
 urlpatterns = [
@@ -17,12 +21,14 @@ urlpatterns = [
     path('courseinstructorinfo/', CourseInstructorInfoGetPostView.as_view(), name='courseinstructorinfo'),
     path('courseinstructorinfo/<int:pk>', CourseInstructorInfoRetrieveUpdateDeleteView.as_view(),
          name='courseinstructorinfo_update_delete'),
+    path('course/', CourseGetPostView.as_view(), name='course'),
+    path('course/<int:pk>', CourseRetrieveUpdateDeleteView.as_view(),
+         name='course_update_delete'),
     path('staff/', StaffUserViewSet, name='staff'),
     path('fieldsofstudy/', FieldOfStudyViewSet, name='fieldofstudy'),
     path('courses/', CourseViewSet, name='courses'),
     path('rooms/', RoomGetPostView.as_view(), name='rooms_post_get'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='rooms_update_delete'),
-    # path('ectscards/', ECTSCardView.as_view(), name='ectscards'),
-    # path('coursesinstructorinfo/', CourseInstructorInfoViewSet, name='courseinstructorinfo'),
-    # path('semesters/', SemesterViewSet, name='rooms'),
+    path('fieldofstudy/', FieldOfStudyGetPostView.as_view(), name='fieldofstudy_post_get'),
+    path('fieldofstudy/<int:pk>', FieldOfStudyRetrieveUpdateDeleteView.as_view(), name='fieldofstudy_update_delete'),
 ]

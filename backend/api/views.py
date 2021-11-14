@@ -184,10 +184,156 @@ class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
 
     def put(self, request, pk):
         instance = CourseInstructorInfo.objects.get(pk=pk)
-        instance.hours = request.data.get('hours')
-        instance.instructor = request.data.get('instructor')
-        instance.course_type = request.data.get('course_type')
+        instructor_id = request.data.get('instructor')
+        if StaffAccount.objects.filter(pk=instructor_id).exists():
+            instructor_instance = StaffAccount.objects.get(pk=instructor_id)
+            instance.instructor = instructor_instance
+            instance.hours = request.data.get('hours')
+            instance.course_type = request.data.get('course_type')
+            instance.save()
+            updated_instance = CourseInstructorInfo.objects.get(pk=pk)
+            serializer = self.serializer_class(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class CourseGetPostView(APIView):
+    """
+    Course get, post view
+    """
+    serializer_class = CourseSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        courseinstrinfo_id = request.data.get('course_instructor_info')
+        if CourseInstructorInfo.objects.filter(pk=courseinstrinfo_id).exists():
+            courseinstrinfo_instance = CourseInstructorInfo.objects.get(pk=courseinstrinfo_id)
+            course = Course(
+                points_value=request.data.get('points_value'),
+                name=request.data.get('name')
+            )
+            course.course_instructor_info = courseinstrinfo_instance
+            course.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        deanery_accounts = Course.objects.all()
+        serializer = self.serializer_class(deanery_accounts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CourseRetrieveUpdateDeleteView(APIView):
+    """
+    Course retrieve, update, delete view
+    """
+    serializer_class = CourseSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(Course, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = Course.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    # NEEDS TO BE FIXED
+    def put(self, request, pk):
+        instance = Course.objects.get(pk=pk)
+        courseinstinfo_id = request.data.get('course_instructor_info')
+        if CourseInstructorInfo.objects.filter(pk=courseinstinfo_id).exists():
+            courseinstinfo_instance = CourseInstructorInfo.objects.get(pk=courseinstinfo_id)
+            instance.course_instructor_info = courseinstinfo_instance
+            instance.points_value = request.data.get('points_value')
+            instance.name = request.data.get('name')
+            instance.save()
+            updated_instance = CourseInstructorInfo.objects.get(pk=pk)
+            serializer = self.serializer_class(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class FieldOfStudyGetPostView(APIView):
+    """
+    FieldOfStudy get, post view
+    """
+    serializer_class = FieldOfStudySerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        field_of_study = FieldOfStudy(
+            name=request.data.get('name'),
+            study_type= request.data.get('study_type'),
+            start_date=request.data.get('start_date'),
+            end_date=request.data.get('end_date')
+        )
+        field_of_study.save()
+        students = request.data.get('students')
+        for i in students:
+            if Student.objects.filter(id=i).exists():
+                student = Student.objects.get(id=i)
+                field_of_study.students.add(student)
+                field_of_study.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+    def get(self, request):
+        fieldOfStudy = FieldOfStudy.objects.all()
+        serializer = self.serializer_class(fieldOfStudy, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class FieldOfStudyRetrieveUpdateDeleteView(APIView):
+    """
+    FieldOfStudy retrieve, update, delete view
+    """
+    serializer_class = FieldOfStudySerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(FieldOfStudy, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = FieldOfStudy.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        instance = FieldOfStudy.objects.get(pk=pk)
+
+        instance.name = request.data.get('name')
+        instance.start_date = request.data.get('start_date')
+        instance.end_date = request.data.get('end_date')
+        instance.study_type = request.data.get('study_type')
         instance.save()
-        updated_instance = CourseInstructorInfo.objects.get(pk=pk)
+
+        students = request.data.get('students')
+        for i in students:
+            if Student.objects.filter(id=i).exists():
+                student = Student.objects.get(id=i)
+                instance.students.add(student)
+                instance.save()
+
+        updated_instance = FieldOfStudy.objects.get(pk=pk)
         serializer = self.serializer_class(updated_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
