@@ -30,16 +30,6 @@ class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = StaffAccountSerializer
 
 
-class FieldOfStudyViewSet(viewsets.ModelViewSet):
-    queryset = FieldOfStudy.objects.all()
-    serializer_class = FieldOfStudySerializer
-
-
-class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
-
-
 class RoomGetPostView(APIView):
     """
     Room get, post view
@@ -196,7 +186,6 @@ class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
 class CourseGetPostView(APIView):
     """
     Course get, post view
@@ -259,8 +248,6 @@ class CourseRetrieveUpdateDeleteView(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 class FieldOfStudyGetPostView(APIView):
     """
     FieldOfStudy get, post view
@@ -273,7 +260,7 @@ class FieldOfStudyGetPostView(APIView):
         serializer.is_valid(raise_exception=True)
         field_of_study = FieldOfStudy(
             name=request.data.get('name'),
-            study_type= request.data.get('study_type'),
+            study_type=request.data.get('study_type'),
             start_date=request.data.get('start_date'),
             end_date=request.data.get('end_date')
         )
@@ -286,7 +273,6 @@ class FieldOfStudyGetPostView(APIView):
                 field_of_study.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
     def get(self, request):
         fieldOfStudy = FieldOfStudy.objects.all()
@@ -332,8 +318,92 @@ class FieldOfStudyRetrieveUpdateDeleteView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class SemesterGetPostView(APIView):
+    """
+    Semester get, post view
+    """
+    serializer_class = SemesterSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        fieldofstudy_id = request.data.get('field_of_study')
+        if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
+            fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+
+            semester = Semester(
+                year=request.data.get('year'),
+                semester=request.data.get('semester'),
+                field_of_study=fieldofstudy
+            )
+            semester.save()
+
+            students = request.data.get('students')
+            for i in students:
+                if Student.objects.filter(id=i).exists():
+                    student = Student.objects.get(id=i)
+                    semester.students.add(student)
+                    semester.save()
+
+            courses = request.data.get('courses')
+            for i in courses:
+                if Course.objects.filter(id=i).exists():
+                    course = Course.objects.get(id=i)
+                    semester.courses.add(course)
+                    semester.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+    def get(self, request):
+        semester = Semester.objects.all()
+        serializer = self.serializer_class(semester, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class SemesterRetrieveUpdateDeleteView(APIView):
+    """
+    Semester retrieve, update, delete view
+    """
+    serializer_class = SemesterSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(Semester, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = Semester.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        instance = Semester.objects.get(pk=pk)
+
+        instance.year = request.data.get('year')
+        instance.semester = request.data.get('semester')
+
+        instance.save()
+        students = request.data.get('students')
+        for i in students:
+            if Student.objects.filter(id=i).exists():
+                student = Student.objects.get(id=i)
+                instance.students.add(student)
+                instance.save()
+
+        courses = request.data.get('courses')
+        for i in courses:
+            if Course.objects.filter(id=i).exists():
+                course = Course.objects.get(id=i)
+                instance.courses.add(course)
+                instance.save()
+
+        if FieldOfStudy.objects.filter(id=request.data.get('field_of_study')).exists():
+            temp = FieldOfStudy.objects.get(id=request.data.get('field_of_study'))
+            instance.field_of_study = temp
+
+        updated_instance = Semester.objects.get(pk=pk)
+        serializer = self.serializer_class(updated_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 

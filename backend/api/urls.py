@@ -3,8 +3,6 @@ from django.urls import path
 from .views import (StudentGetPostView,
                     StudentRetrieveUpdateDeleteView,
                     StaffUserViewSet,
-                    FieldOfStudyViewSet,
-                    CourseViewSet,
                     RoomGetPostView,
                     RoomRetrieveUpdateDeleteView,
                     CourseInstructorInfoGetPostView,
@@ -12,7 +10,9 @@ from .views import (StudentGetPostView,
                     CourseGetPostView,
                     CourseRetrieveUpdateDeleteView,
                     FieldOfStudyGetPostView,
-                    FieldOfStudyRetrieveUpdateDeleteView
+                    FieldOfStudyRetrieveUpdateDeleteView,
+                    SemesterRetrieveUpdateDeleteView,
+                    SemesterGetPostView
                     )
 
 urlpatterns = [
@@ -25,10 +25,11 @@ urlpatterns = [
     path('course/<int:pk>', CourseRetrieveUpdateDeleteView.as_view(),
          name='course_update_delete'),
     path('staff/', StaffUserViewSet, name='staff'),
-    path('fieldsofstudy/', FieldOfStudyViewSet, name='fieldofstudy'),
-    path('courses/', CourseViewSet, name='courses'),
     path('rooms/', RoomGetPostView.as_view(), name='rooms_post_get'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='rooms_update_delete'),
     path('fieldofstudy/', FieldOfStudyGetPostView.as_view(), name='fieldofstudy_post_get'),
     path('fieldofstudy/<int:pk>', FieldOfStudyRetrieveUpdateDeleteView.as_view(), name='fieldofstudy_update_delete'),
+    path('semester/', SemesterGetPostView.as_view(), name='semester_post_get'),
+    path('semester/<int:pk>', SemesterRetrieveUpdateDeleteView.as_view(), name='semester_update_delete'),
+
 ]
