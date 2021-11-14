@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "aa669735-6cba-4d6e-ae69-dc4b0cc100db",
+		"name": "inzynierka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "room",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"MCH 110\",\n    \"capacity\":\"150\",\n    \"room_type\":[\"PROJECT\", \"LABORATORY\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/rooms/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"rooms",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "students",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Adam\",\n    \"surname\":\"Nowak\",\n    \"index\":9921,\n    \"email\":\"gmail.pp@c3o31p.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/students/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"students",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "staff",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"academic_title\": \"prof\",\n    \"name\": \"Jan\",\n    \"institute\": \"instytut\",\n    \"job_title\": \"prof\",\n    \"surname\": \"Bamboleo\",\n    \"email\": \"profe12sor1ek.mail@prof.com\",\n    \"password\": \"Qwerty1!\",\n    \"password2\": \"Qwerty1!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/auth/staff/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"staff",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "courseinstructorinfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"PP proj\",\n    \"instructor\":3,\n    \"hours\":45,\n    \"course_type\":\"LABORATORY\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/courseinstructorinfo/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"courseinstructorinfo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "course",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"PP1\",\n    \"course_instructor_info\":3,\n    \"points_value\":9\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/course/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"course",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fieldofstudy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"AIR 25\",\n    \"study_type\":\"PART_TIME\",\n    \"start_date\":\"2021-11-21\",\n    \"end_date\":\"2023-11-11\", \n    \"students\":[4,5,3]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/fieldofstudy/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"fieldofstudy",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "semester",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"semester\": \"10\",\n    \"year\": \"2021\",\n    \"students\": [4,5,6],\n    \"field_of_study\": 3,\n    \"courses\": [\n        4,\n        6\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/semester/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"semester",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ectscard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"semester\": \"5\",\n    \"field_of_study\": 3,\n    \"courses\": [\n        1,\n        2,\n        6\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/ectscard/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"ectscard",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
