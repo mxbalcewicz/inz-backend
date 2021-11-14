@@ -25,13 +25,6 @@ from .serializers import (StudentSerializer,
                           )
 
 
-class StudentViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for viewing and editing Student records.
-    """
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-
 
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
@@ -48,11 +41,6 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
 
 
-class RoomViewSet(viewsets.ModelViewSet):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
-
-
 class RoomGetPostView(APIView):
     """
     Room get, post view
@@ -67,8 +55,8 @@ class RoomGetPostView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
-        deanery_accounts = Room.objects.all()
-        serializer = self.serializer_class(deanery_accounts, many=True)
+        rooms = Room.objects.all()
+        serializer = self.serializer_class(rooms, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -96,6 +84,56 @@ class RoomRetrieveUpdateDeleteView(APIView):
         instance.room_type = request.data.get('room_type')
         instance.save()
         updated_instance = Room.objects.get(pk=pk)
+        serializer = self.serializer_class(updated_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+class StudentGetPostView(APIView):
+    """
+    Student get, post view
+    """
+    serializer_class = StudentSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        students = Student.objects.all()
+        serializer = self.serializer_class(students, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class StudentRetrieveUpdateDeleteView(APIView):
+    """
+    Student retrieve, update, delete view
+    """
+    serializer_class = StudentSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(Student, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = Student.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        instance = Student.objects.get(pk=pk)
+        instance.name = request.data.get('name')
+        instance.surname = request.data.get('surname')
+        instance.index = request.data.get('index')
+        instance.email = request.data.get('email')
+        instance.save()
+        updated_instance = Student.objects.get(pk=pk)
         serializer = self.serializer_class(updated_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

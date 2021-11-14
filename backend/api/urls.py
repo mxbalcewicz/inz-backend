@@ -1,14 +1,16 @@
 from django.urls import path
 
-from .views import (StudentViewSet,
+from .views import (StudentGetPostView,
+StudentRetrieveUpdateDeleteView,
                     StaffUserViewSet,
                     FieldOfStudyViewSet,
                     CourseViewSet,
-                    RoomViewSet, RoomGetPostView, RoomRetrieveUpdateDeleteView
+                    RoomGetPostView, RoomRetrieveUpdateDeleteView
                     )
 
 urlpatterns = [
-    path('students/', StudentViewSet, name='students'),
+    path('students/', StudentGetPostView.as_view(), name='students'),
+    path('students/<int:pk>', StudentRetrieveUpdateDeleteView.as_view(), name='students_update_delete'),
     path('staff/', StaffUserViewSet, name='staff'),
     path('fieldsofstudy/', FieldOfStudyViewSet, name='fieldofstudy'),
     path('courses/', CourseViewSet, name='courses'),
