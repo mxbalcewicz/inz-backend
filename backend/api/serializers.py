@@ -45,7 +45,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class CourseInstructorInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseInstructorInfo
-        fields = ['instructor', 'course_type', 'hours']
+        fields = ['id', 'instructor', 'course_type', 'hours']
 
     # def create(self, validated_data):
     #     instructor = validated_data.get('instructor')

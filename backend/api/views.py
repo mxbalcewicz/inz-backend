@@ -25,7 +25,6 @@ from .serializers import (StudentSerializer,
                           )
 
 
-
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
     serializer_class = StaffAccountSerializer
@@ -88,8 +87,6 @@ class RoomRetrieveUpdateDeleteView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
-
 class StudentGetPostView(APIView):
     """
     Student get, post view
@@ -137,3 +134,60 @@ class StudentRetrieveUpdateDeleteView(APIView):
         serializer = self.serializer_class(updated_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class CourseInstructorInfoGetPostView(APIView):
+    """
+    CourseInstructorInfo get, post view
+    """
+    serializer_class = CourseInstructorInfoSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instructor_id = request.data.get('instructor')
+        if StaffAccount.objects.filter(pk=instructor_id).exists():
+            instructor_instance = StaffAccount.objects.get(pk=instructor_id)
+            courseInstructorInfo = CourseInstructorInfo(
+                hours=request.data.get('hours'),
+                instructor=instructor_instance,
+                course_type=request.data.get('course_type')
+            )
+            courseInstructorInfo.save()
+
+            # serializer.accounts.StaffAccount = instructor_id
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        deanery_accounts = CourseInstructorInfo.objects.all()
+        serializer = self.serializer_class(deanery_accounts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
+    """
+    CourseInstructorInfo retrieve, update, delete view
+    """
+    serializer_class = CourseInstructorInfoSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(CourseInstructorInfo, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = CourseInstructorInfo.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        instance = CourseInstructorInfo.objects.get(pk=pk)
+        instance.hours = request.data.get('hours')
+        instance.instructor = request.data.get('instructor')
+        instance.course_type = request.data.get('course_type')
+        instance.save()
+        updated_instance = CourseInstructorInfo.objects.get(pk=pk)
+        serializer = self.serializer_class(updated_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
