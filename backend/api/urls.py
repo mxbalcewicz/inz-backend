@@ -12,7 +12,9 @@ from .views import (StudentGetPostView,
                     FieldOfStudyGetPostView,
                     FieldOfStudyRetrieveUpdateDeleteView,
                     SemesterRetrieveUpdateDeleteView,
-                    SemesterGetPostView
+                    SemesterGetPostView,
+                    ECTSCardGetPostView,
+                    ECTSCardRetrieveUpdateDeleteView,
                     )
 
 urlpatterns = [
@@ -31,5 +33,7 @@ urlpatterns = [
     path('fieldofstudy/<int:pk>', FieldOfStudyRetrieveUpdateDeleteView.as_view(), name='fieldofstudy_update_delete'),
     path('semester/', SemesterGetPostView.as_view(), name='semester_post_get'),
     path('semester/<int:pk>', SemesterRetrieveUpdateDeleteView.as_view(), name='semester_update_delete'),
+    path('ectscard/', ECTSCardGetPostView.as_view(), name='ectscard_post_get'),
+    path('ectscard/<int:pk>', ECTSCardRetrieveUpdateDeleteView.as_view(), name='ectscard_update_delete'),
 
 ]

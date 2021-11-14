@@ -354,7 +354,6 @@ class SemesterGetPostView(APIView):
                     semester.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
     def get(self, request):
         semester = Semester.objects.all()
         serializer = self.serializer_class(semester, many=True)
@@ -407,3 +406,88 @@ class SemesterRetrieveUpdateDeleteView(APIView):
         serializer = self.serializer_class(updated_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class ECTSCardGetPostView(APIView):
+    """
+    ECTSCard get, post view
+    """
+    serializer_class = ECTSCardSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        fieldofstudy_id = request.data.get('field_of_study')
+        semester_id = request.data.get('semester')
+        if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists() and Semester.objects.filter(
+                id=semester_id).exists():
+            fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+            semester = Semester.objects.get(id=semester_id)
+            ectscard = ECTSCard(
+                semester=semester,
+                field_of_study=fieldofstudy
+            )
+            ectscard.save()
+
+            courses = request.data.get('courses')
+            for i in courses:
+                if Course.objects.filter(id=i).exists():
+                    course = Course.objects.get(id=i)
+                    ectscard.courses.add(course)
+                    ectscard.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        ectscard = ECTSCard.objects.all()
+        serializer = self.serializer_class(ectscard, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ECTSCardRetrieveUpdateDeleteView(APIView):
+    """
+    ECTSCard retrieve, update, delete view
+    """
+    serializer_class = ECTSCardSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(ECTSCard, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = ECTSCard.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        instance = ECTSCard.objects.get(pk=pk)
+
+        fieldofstudy_id = request.data.get('field_of_study')
+        semester_id = request.data.get('semester')
+        if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists() and Semester.objects.filter(
+                id=semester_id).exists():
+            fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+            semester = Semester.objects.get(id=semester_id)
+            instance.field_of_study=fieldofstudy
+            instance.semester=semester
+            instance.save()
+
+            courses = request.data.get('courses')
+            for i in courses:
+                if Course.objects.filter(id=i).exists():
+                    course = Course.objects.get(id=i)
+                    instance.courses.add(course)
+                    instance.save()
+
+            courses = request.data.get('courses')
+            for i in courses:
+                if Course.objects.filter(id=i).exists():
+                    course = Course.objects.get(id=i)
+                    instance.courses.add(course)
+                    instance.save()
+
+            updated_instance = ECTSCard.objects.get(pk=pk)
+            serializer = self.serializer_class(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

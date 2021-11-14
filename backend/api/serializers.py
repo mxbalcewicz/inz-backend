@@ -59,7 +59,7 @@ class RoomSerializer(serializers.ModelSerializer):
 class ECTSCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = ECTSCard
-        fields = ['courses', 'field_of_study', 'semester', 'year']
+        fields = ['id', 'courses', 'field_of_study', 'semester']
 
 
 class SemesterSerializer(serializers.ModelSerializer):
