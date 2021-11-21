@@ -15,7 +15,14 @@ from .views import (StudentGetPostView,
                     SemesterGetPostView,
                     ECTSCardGetPostView,
                     ECTSCardRetrieveUpdateDeleteView,
-                    )
+FieldGroupGetPostView,
+FieldGroupRetrieveUpdateDeleteView,
+TimeTableUnitRetrieveUpdateDeleteView,
+TimeTableUnitGetPostView,
+TimeTableGetPostView,
+TimeTableRetrieveUpdateDeleteView
+
+)
 
 urlpatterns = [
     path('students/', StudentGetPostView.as_view(), name='students'),
@@ -35,5 +42,12 @@ urlpatterns = [
     path('semester/<int:pk>', SemesterRetrieveUpdateDeleteView.as_view(), name='semester_update_delete'),
     path('ectscard/', ECTSCardGetPostView.as_view(), name='ectscard_post_get'),
     path('ectscard/<int:pk>', ECTSCardRetrieveUpdateDeleteView.as_view(), name='ectscard_update_delete'),
+    path('fieldgroup/', FieldGroupGetPostView.as_view(), name='field_group_post_get'),
+    path('fieldgroup/<int:pk>', FieldGroupRetrieveUpdateDeleteView.as_view(), name='field_group_update_delete'),
+    path('timetable/', TimeTableGetPostView.as_view(), name='timetable_post_get'),
+    path('timetable/<int:pk>', TimeTableRetrieveUpdateDeleteView.as_view(), name='timetable_update_delete'),
+    path('timetableunit/', TimeTableUnitGetPostView.as_view(), name='timetableunit_post_get'),
+    path('timetableunit/<int:pk>', TimeTableUnitRetrieveUpdateDeleteView.as_view(), name='timetableunit_update_delete'),
+
 
 ]

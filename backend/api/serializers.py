@@ -6,7 +6,10 @@ from api.models import (
     Room,
     ECTSCard,
     CourseInstructorInfo,
-    Semester
+    Semester,
+    FieldGroup,
+    TimeTable,
+    TimeTableUnit
 )
 from accounts.models import User, StaffAccount, DeaneryAccount
 from accounts.serializers import UserSerializer
@@ -47,13 +50,19 @@ class StudentSerializer(serializers.ModelSerializer):
 class FieldOfStudySerializer(serializers.ModelSerializer):
     class Meta:
         model = FieldOfStudy
-        fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'students']
+        fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'students', 'field_groups']
 
 
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ['id', 'name', 'capacity', 'room_type']
+
+
+class FieldGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FieldGroup
+        fields = ['id', 'name']
 
 
 class ECTSCardSerializer(serializers.ModelSerializer):
@@ -66,3 +75,15 @@ class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
         fields = ['id', 'semester', 'year', 'students', 'field_of_study', 'courses']
+
+
+class TimeTableUnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeTableUnit
+        fields = ['id', 'day', 'hour', 'week', 'course_instructor_info', 'field_groups']
+
+
+class TimeTableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeTable
+        fields = ['id', 'semester', 'time_table_units']

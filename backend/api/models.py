@@ -24,7 +24,7 @@ class CourseInstructorInfo(models.Model):
 
 class Course(models.Model):
     name = models.CharField(blank=False, max_length=50)
-    course_instructor_info = models.ForeignKey('CourseInstructorInfo', default=None, on_delete=models.CASCADE)
+    course_instructor_info = models.ManyToManyField(CourseInstructorInfo, blank=False)
     points_value = models.IntegerField(blank=False, null=False, validators=[
         MinValueValidator(1),
         MaxValueValidator(10),
@@ -49,6 +49,13 @@ class Semester(models.Model):
     courses = models.ManyToManyField(Course, blank=False)
 
 
+class FieldGroup(models.Model):
+    """
+        Field Group eg. TI-1-1, TI-1-2, BSI-2-1
+    """
+    name = models.CharField(max_length=20, blank=False)
+
+
 class FieldOfStudy(models.Model):
     FULL_TIME = 'FULL_TIME'
     PART_TIME = 'PART_TIME'
@@ -62,6 +69,7 @@ class FieldOfStudy(models.Model):
     start_date = models.DateField(auto_now_add=False, default=date.today)
     end_date = models.DateField(auto_now_add=False, default=date.today)
     students = models.ManyToManyField(Student, blank=False)
+    field_groups = models.ManyToManyField(FieldGroup, blank=True)
 
     def __str__(self):
         return f'Name:{self.name} Type:{self.study_type} Start:{self.start_date} End:{self.end_date}'
@@ -89,3 +97,55 @@ class ECTSCard(models.Model):
     courses = models.ManyToManyField(Course, blank=False)
     field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
     semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
+
+
+class TimeTableUnit(models.Model):
+    MONDAY = 'MONDAY'
+    TUESDAY = 'TUESDAY'
+    WEDNESDAY = 'WEDNESDAY'
+    THURSDAY = 'THURSDAY'
+    FRIDAY = 'FRIDAY'
+    DAYS = (
+        (MONDAY, 'MONDAY'),
+        (TUESDAY, 'TUESDAY'),
+        (WEDNESDAY, 'WEDNESDAY'),
+        (THURSDAY, 'THURSDAY'),
+        (FRIDAY, 'FRIDAY')
+    )
+
+    FIRST = '8:00-9:30'
+    SECOND = '9:45-11:45'
+    THIRD = '11:45-13:15'
+    FOURTH = '13:30-15:00'
+    FIFTH = '15:10-16:40'
+    SIXTH = '16:50-18:20'
+    SEVENTH = '18:30-20:00'
+    HOURS = (
+        (FIRST, '8:00-9:30'),
+        (SECOND, '9:45-11:45'),
+        (THIRD, '11:45-13:15'),
+        (FOURTH, '13:30-15:00'),
+        (FIFTH, '15:10-16:40'),
+        (SIXTH, '16:50-18:20'),
+        (SEVENTH, '18:30-20:00')
+    )
+
+    EVEN = 'EVEN'
+    ODD = 'ODD'
+    ALL = 'ALL'
+    WEEKS = (
+        (EVEN, 'EVEN'),
+        (ODD, 'ODD'),
+        (ALL, 'ALL')
+    )
+
+    day = models.CharField(default=MONDAY, choices=DAYS, blank=False, max_length=30)
+    hour = models.CharField(default=FIRST, choices=HOURS, blank=False, max_length=30)
+    week = models.CharField(default=ALL, choices=WEEKS, blank=False, max_length=30)
+    course_instructor_info = models.ForeignKey('CourseInstructorInfo', blank=False, on_delete=models.CASCADE)
+    field_groups = models.ManyToManyField(FieldGroup, blank=False)
+
+
+class TimeTable(models.Model):
+    semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
+    time_table_units = models.ManyToManyField(TimeTableUnit, blank=True)

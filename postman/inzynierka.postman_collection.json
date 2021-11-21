@@ -37,15 +37,12 @@
 		},
 		{
 			"name": "students",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Adam\",\n    \"surname\":\"Nowak\",\n    \"index\":9921,\n    \"email\":\"gmail.pp@c3o31p.com\"\n}",
+					"raw": "{\n    \"name\":\"Jan\",\n    \"surname\":\"Nowak\",\n    \"index\":1991,\n    \"email\":\"12m2a2l.pp@c32o31p.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,15 +67,12 @@
 		},
 		{
 			"name": "staff",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"academic_title\": \"prof\",\n    \"name\": \"Jan\",\n    \"institute\": \"instytut\",\n    \"job_title\": \"prof\",\n    \"surname\": \"Bamboleo\",\n    \"email\": \"profe12sor1ek.mail@prof.com\",\n    \"password\": \"Qwerty1!\",\n    \"password2\": \"Qwerty1!\"\n}",
+					"raw": "{\n    \"academic_title\": \"prof\",\n    \"name\": \"Jan\",\n    \"institute\": \"instytut\",\n    \"job_title\": \"prof\",\n    \"surname\": \"Baster\",\n    \"password\": \"Qwerty1!\",\n    \"password2\": \"Qwerty1!\",\n    \"account\": {\n        \"email\": \"doktor.e1tker.ma13il@prof.com\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"PP proj\",\n    \"instructor\":3,\n    \"hours\":45,\n    \"course_type\":\"LABORATORY\"\n}",
+					"raw": "{\n    \"name\":\"ASK\",\n    \"instructor\":2,\n    \"hours\":45,\n    \"course_type\":\"LABORATORY\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,15 +130,12 @@
 		},
 		{
 			"name": "course",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"PP1\",\n    \"course_instructor_info\":3,\n    \"points_value\":9\n}",
+					"raw": "{\n    \"name\":\"ASK 3\",\n    \"course_instructor_info\":[5,6],\n    \"points_value\":9\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -177,7 +168,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"AIR 25\",\n    \"study_type\":\"PART_TIME\",\n    \"start_date\":\"2021-11-21\",\n    \"end_date\":\"2023-11-11\", \n    \"students\":[4,5,3]\n}",
+					"raw": "{\n    \"name\":\"Inf 21\",\n    \"study_type\":\"PART_TIME\",\n    \"start_date\":\"2021-11-21\",\n    \"end_date\":\"2023-11-11\", \n    \"students\":[1,2,3,4,5],\n    \"field_groups\":[1,2,3]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -202,15 +193,12 @@
 		},
 		{
 			"name": "semester",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"semester\": \"10\",\n    \"year\": \"2021\",\n    \"students\": [4,5,6],\n    \"field_of_study\": 3,\n    \"courses\": [\n        4,\n        6\n    ]\n}",
+					"raw": "{\n    \"semester\": \"1\",\n    \"year\": \"2021\",\n    \"students\": [3,1,4,2,5,6],\n    \"field_of_study\": 1,\n    \"courses\": [\n        1\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -243,7 +231,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"semester\": \"5\",\n    \"field_of_study\": 3,\n    \"courses\": [\n        1,\n        2,\n        6\n    ]\n}",
+					"raw": "{\n    \"semester\": 5,\n    \"field_of_study\": 1,\n    \"courses\": [\n        1,\n        2,\n        3,\n        4\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -251,7 +239,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/ectscard/2",
+					"raw": "http://localhost:8000/api/ectscard/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -260,7 +248,106 @@
 					"path": [
 						"api",
 						"ectscard",
-						"2"
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fieldgroup",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"G6\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/fieldgroup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"fieldgroup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "timetableunit",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"day\":\"THURSDAY\",\n   \"hour\":\"13:30-15:00\",\n   \"week\":\"ALL\",\n   \"course_instructor_info\":4,\n   \"field_groups\":[1,2]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/timetableunit/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"timetableunit",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "timetable",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"semester\": 4,\n    \"time_table_units\":[1,2,3]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/timetable/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"timetable",
+						""
 					]
 				}
 			},

@@ -12,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
     User serializer extended with created, updated readonly fields
     """
+
     class Meta:
         model = User
         fields = ['id', 'email', ]
@@ -21,6 +22,7 @@ class UserReadSerializer(serializers.ModelSerializer):
     """
     User read only serializer
     """
+
     class Meta:
         model = User
         fields = ['id', 'email', 'is_dean', 'is_staff', 'is_superuser']
@@ -83,12 +85,12 @@ class StaffAccountSerializer(serializers.ModelSerializer):
         user = User(email=account_data.get('email'))
         user.set_password(self.generate_password())
         user.save()
-        staff = StaffAccount.objects.update_or_create(account=user,
-                                                      name=validated_data.get('name'),
-                                                      surname=validated_data.get('surname'),
-                                                      institute=validated_data.get('institute'),
-                                                      job_title=validated_data.get('job_title'),
-                                                      academic_title=validated_data.get('academic_title')
-                                                      )
+        staff = StaffAccount.objects.create(account=user,
+                                            name=validated_data.get('name'),
+                                            surname=validated_data.get('surname'),
+                                            institute=validated_data.get('institute'),
+                                            job_title=validated_data.get('job_title'),
+                                            academic_title=validated_data.get('academic_title')
+                                            )
         staff.save()
         return staff

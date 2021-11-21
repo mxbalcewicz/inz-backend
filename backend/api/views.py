@@ -12,7 +12,10 @@ from .models import (Student,
                      ECTSCard,
                      Student,
                      CourseInstructorInfo,
-                     Semester
+                     Semester,
+                     FieldGroup,
+                     TimeTable,
+                     TimeTableUnit
                      )
 from .serializers import (StudentSerializer,
                           StaffAccountSerializer,
@@ -21,7 +24,9 @@ from .serializers import (StudentSerializer,
                           RoomSerializer,
                           ECTSCardSerializer,
                           CourseInstructorInfoSerializer,
-                          SemesterSerializer
+                          SemesterSerializer,
+                          FieldGroupSerializer,
+                          TimeTableSerializer, TimeTableUnitSerializer
                           )
 
 
@@ -196,18 +201,18 @@ class CourseGetPostView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        courseinstrinfo_id = request.data.get('course_instructor_info')
-        if CourseInstructorInfo.objects.filter(pk=courseinstrinfo_id).exists():
-            courseinstrinfo_instance = CourseInstructorInfo.objects.get(pk=courseinstrinfo_id)
-            course = Course(
-                points_value=request.data.get('points_value'),
-                name=request.data.get('name')
-            )
-            course.course_instructor_info = courseinstrinfo_instance
-            course.save()
+        course = Course(
+            points_value=request.data.get('points_value'),
+            name=request.data.get('name'))
+        course_instructor_info = request.data.get('course_instructor_info')
+        course.save()
+        for i in course_instructor_info:
+            if CourseInstructorInfo.objects.filter(id=i).exists():
+                temp = CourseInstructorInfo.objects.get(id=i)
+                course.course_instructor_info.add(temp)
+                course.save()
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
         deanery_accounts = Course.objects.all()
@@ -232,20 +237,21 @@ class CourseRetrieveUpdateDeleteView(APIView):
         instance.delete()
         return Response(status=status.HTTP_200_OK)
 
-    # NEEDS TO BE FIXED
     def put(self, request, pk):
         instance = Course.objects.get(pk=pk)
-        courseinstinfo_id = request.data.get('course_instructor_info')
-        if CourseInstructorInfo.objects.filter(pk=courseinstinfo_id).exists():
-            courseinstinfo_instance = CourseInstructorInfo.objects.get(pk=courseinstinfo_id)
-            instance.course_instructor_info = courseinstinfo_instance
-            instance.points_value = request.data.get('points_value')
-            instance.name = request.data.get('name')
-            instance.save()
-            updated_instance = CourseInstructorInfo.objects.get(pk=pk)
-            serializer = self.serializer_class(updated_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        courseinstinfo = request.data.get('course_instructor_info')
+        instance.course_instructor_info.clear()
+        instance.points_value = request.data.get('points_value')
+        instance.name = request.data.get('name')
+        instance.save()
+        for i in courseinstinfo:
+            if CourseInstructorInfo.objects.filter(id=i).exists():
+                temp = CourseInstructorInfo.objects.get(id=i)
+                instance.course_instructor_info.add(temp)
+                instance.save()
+        updated_instance = CourseInstructorInfo.objects.get(pk=pk)
+        serializer = self.serializer_class(updated_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class FieldOfStudyGetPostView(APIView):
@@ -272,7 +278,14 @@ class FieldOfStudyGetPostView(APIView):
                 field_of_study.students.add(student)
                 field_of_study.save()
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        field_groups = request.data.get('field_groups')
+        for i in field_groups:
+            if FieldGroup.objects.filter(id=i).exists():
+                temp = FieldGroup.objects.get(id=i)
+                field_of_study.field_groups.add(temp)
+                field_of_study.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
         fieldOfStudy = FieldOfStudy.objects.all()
@@ -304,6 +317,7 @@ class FieldOfStudyRetrieveUpdateDeleteView(APIView):
         instance.start_date = request.data.get('start_date')
         instance.end_date = request.data.get('end_date')
         instance.study_type = request.data.get('study_type')
+        instance.field_groups.clear()
         instance.save()
 
         students = request.data.get('students')
@@ -311,6 +325,13 @@ class FieldOfStudyRetrieveUpdateDeleteView(APIView):
             if Student.objects.filter(id=i).exists():
                 student = Student.objects.get(id=i)
                 instance.students.add(student)
+                instance.save()
+
+        field_groups = request.data.get('field_groups')
+        for i in field_groups:
+            if FieldGroup.objects.filter(id=i):
+                temp = FieldGroup.objects.get(id=i)
+                instance.field_groups.add(temp)
                 instance.save()
 
         updated_instance = FieldOfStudy.objects.get(pk=pk)
@@ -469,8 +490,8 @@ class ECTSCardRetrieveUpdateDeleteView(APIView):
                 id=semester_id).exists():
             fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
             semester = Semester.objects.get(id=semester_id)
-            instance.field_of_study=fieldofstudy
-            instance.semester=semester
+            instance.field_of_study = fieldofstudy
+            instance.semester = semester
             instance.save()
 
             courses = request.data.get('courses')
@@ -488,6 +509,201 @@ class ECTSCardRetrieveUpdateDeleteView(APIView):
                     instance.save()
 
             updated_instance = ECTSCard.objects.get(pk=pk)
+            serializer = self.serializer_class(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class FieldGroupGetPostView(APIView):
+    """
+    FieldGroup get, post view
+    """
+    serializer_class = FieldGroupSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        field_group = FieldGroup(name=request.data.get('name'))
+        field_group.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        field_group = FieldGroup.objects.all()
+        serializer = self.serializer_class(field_group, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class FieldGroupRetrieveUpdateDeleteView(APIView):
+    """
+    FieldGroup retrieve, update, delete view
+    """
+    serializer_class = FieldGroupSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(FieldGroup, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = FieldGroup.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        if FieldGroup.objects.filter(pk=pk).exists():
+            field_group_instance = FieldGroup.objects.get(pk=pk)
+            field_group_instance.name = request.data.get('name')
+            field_group_instance.save()
+            updated_instance = FieldGroup.objects.get(pk=pk)
+            serializer = self.serializer_class(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class TimeTableUnitGetPostView(APIView):
+    """
+    TimeTableUnit get, post view
+    """
+    serializer_class = TimeTableUnitSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        course_instructor_info_id = request.data.get('course_instructor_info')
+        if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
+            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
+                                            hour=request.data.get('hour'),
+                                            day=request.data.get('day'),
+                                            week=request.data.get('week'))
+            time_table_unit.save()
+            field_groups = request.data.get('field_groups')
+            for i in field_groups:
+                if FieldGroup.objects.filter(id=i).exists():
+                    temp = FieldGroup.objects.get(id=i)
+                    time_table_unit.field_groups.add(temp)
+                    time_table_unit.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        time_table_unit = TimeTableUnit.objects.all()
+        serializer = self.serializer_class(time_table_unit, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TimeTableUnitRetrieveUpdateDeleteView(APIView):
+    """
+    TimeTableUnit retrieve, update, delete view
+    """
+    serializer_class = TimeTableUnitSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(TimeTableUnit, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = TimeTableUnit.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        course_inst_info_id = request.data.get('course_instructor_info')
+        if TimeTableUnit.objects.filter(id=pk).exists() and CourseInstructorInfo.objects.filter(
+                id=course_inst_info_id).exists():
+            instance = TimeTableUnit.objects.get(pk=pk)
+            course_inst_info = CourseInstructorInfo.objects.get(id=course_inst_info_id)
+            instance.course_instructor_info = course_inst_info
+            instance.hours = request.data.get('hours')
+            instance.day = request.data.get('day')
+            instance.week = request.data.get('week')
+            instance.field_groups.clear()
+            instance.save()
+            field_groups = request.data.get('field_groups')
+
+            for i in field_groups:
+                if FieldGroup.object.filter(id=i).exists():
+                    temp = FieldGroup.objects.get(id=i)
+                    instance.field_groups.add(temp)
+                    instance.save()
+
+            updated_instance = TimeTableUnit.objects.get(pk=pk)
+            serializer = self.serializer_class(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class TimeTableGetPostView(APIView):
+    """
+    TimeTable get, post view
+    """
+    serializer_class = TimeTableSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        semester_id = request.data.get('semester')
+        if Semester.objects.filter(id=semester_id).exists():
+            semester = Semester.objects.get(id=semester_id)
+            time_table = TimeTable(
+                semester=semester
+            )
+            time_table.save()
+
+            time_table_units = request.data.get('time_table_units')
+            for i in time_table_units:
+                if TimeTableUnit.objects.filter(id=i).exists():
+                    temp = TimeTableUnit.objects.get(id=i)
+                    time_table.time_table_units.add(temp)
+                    time_table.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        time_table = TimeTable.objects.all()
+        serializer = self.serializer_class(time_table, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TimeTableRetrieveUpdateDeleteView(APIView):
+    """
+    TimeTable retrieve, update, delete view
+    """
+    serializer_class = TimeTableSerializer
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk):
+        instance = get_object_or_404(TimeTable, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        instance = TimeTable.objects.get(pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        instance = TimeTable.objects.get(pk=pk)
+        semester_id = request.data.get('semester')
+        if Semester.objects.filter(id=semester_id).exists():
+            semester = Semester.objects.get(id=semester_id)
+            instance.semester = semester
+            instance.time_table_units.clear()
+            instance.save()
+
+            time_table_units = request.data.get('time_table_units')
+            for i in time_table_units:
+                if TimeTableUnit.objects.filter(id=i).exists():
+                    temp = TimeTableUnit.objects.get(id=i)
+                    instance.time_table_units.add(temp)
+                    instance.save()
+
+            updated_instance = TimeTable.objects.get(pk=pk)
             serializer = self.serializer_class(updated_instance)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
