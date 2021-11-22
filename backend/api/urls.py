@@ -2,7 +2,6 @@ from django.urls import path
 
 from .views import (StudentGetPostView,
                     StudentRetrieveUpdateDeleteView,
-                    StaffUserViewSet,
                     RoomGetPostView,
                     RoomRetrieveUpdateDeleteView,
                     CourseInstructorInfoGetPostView,
@@ -15,14 +14,14 @@ from .views import (StudentGetPostView,
                     SemesterGetPostView,
                     ECTSCardGetPostView,
                     ECTSCardRetrieveUpdateDeleteView,
-FieldGroupGetPostView,
-FieldGroupRetrieveUpdateDeleteView,
-TimeTableUnitRetrieveUpdateDeleteView,
-TimeTableUnitGetPostView,
-TimeTableGetPostView,
-TimeTableRetrieveUpdateDeleteView
+                    FieldGroupGetPostView,
+                    FieldGroupRetrieveUpdateDeleteView,
+                    TimeTableUnitRetrieveUpdateDeleteView,
+                    TimeTableUnitGetPostView,
+                    TimeTableGetPostView,
+                    TimeTableRetrieveUpdateDeleteView
 
-)
+                    )
 
 urlpatterns = [
     path('students/', StudentGetPostView.as_view(), name='students'),
@@ -33,7 +32,6 @@ urlpatterns = [
     path('course/', CourseGetPostView.as_view(), name='course'),
     path('course/<int:pk>', CourseRetrieveUpdateDeleteView.as_view(),
          name='course_update_delete'),
-    path('staff/', StaffUserViewSet, name='staff'),
     path('rooms/', RoomGetPostView.as_view(), name='rooms_post_get'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='rooms_update_delete'),
     path('fieldofstudy/', FieldOfStudyGetPostView.as_view(), name='fieldofstudy_post_get'),
@@ -48,6 +46,5 @@ urlpatterns = [
     path('timetable/<int:pk>', TimeTableRetrieveUpdateDeleteView.as_view(), name='timetable_update_delete'),
     path('timetableunit/', TimeTableUnitGetPostView.as_view(), name='timetableunit_post_get'),
     path('timetableunit/<int:pk>', TimeTableUnitRetrieveUpdateDeleteView.as_view(), name='timetableunit_update_delete'),
-
 
 ]

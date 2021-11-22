@@ -18,17 +18,12 @@ class CourseInstructorInfo(models.Model):
         MinValueValidator(1),
         MaxValueValidator(60),
     ])
-    instructor = models.ForeignKey('accounts.StaffAccount', on_delete=models.CASCADE)
+    instructor = models.ForeignKey(StaffAccount, on_delete=models.CASCADE)
     course_type = models.CharField(default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
 
-
-class Course(models.Model):
-    name = models.CharField(blank=False, max_length=50)
-    course_instructor_info = models.ManyToManyField(CourseInstructorInfo, blank=False)
-    points_value = models.IntegerField(blank=False, null=False, validators=[
-        MinValueValidator(1),
-        MaxValueValidator(10),
-    ])
+    def __str__(self):
+        instructor = StaffAccount.objects.get(pk=self.instructor)
+        return f'Course type:{self.course_type}, Hours:{self.hours}, Instructor:{instructor.account.email}'
 
 
 class Student(models.Model):
@@ -41,12 +36,31 @@ class Student(models.Model):
         return f'Mail:{self.email},  Name:{self.name}, Surname:{self.surname}, Index:{self.index}'
 
 
+class Course(models.Model):
+    name = models.CharField(blank=False, max_length=50)
+    course_instructor_info = models.ManyToManyField(CourseInstructorInfo, blank=False)
+    points_value = models.IntegerField(blank=False, null=False, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(10),
+    ])
+
+    def __str__(self):
+        course_instructor_infos = [i.id for i in self.course_instructor_info.all()]
+        return f'Id:{self.pk}, Name:{self.name}, Instructor info ids:{course_instructor_infos}, Points value:{self.points_value}'
+
+
 class Semester(models.Model):
-    semester = models.IntegerField()
+    semester = models.IntegerField(validators=[
+        MinValueValidator(1),
+        MaxValueValidator(12),
+    ])
     year = models.IntegerField()
     students = models.ManyToManyField(Student, blank=True)
     field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
     courses = models.ManyToManyField(Course, blank=False)
+
+    def __str__(self):
+        return f'Semester:{self.semester}, Year:{self.year}, FieldOfStudy:{self.field_of_study.name}'
 
 
 class FieldGroup(models.Model):
@@ -54,6 +68,9 @@ class FieldGroup(models.Model):
         Field Group eg. TI-1-1, TI-1-2, BSI-2-1
     """
     name = models.CharField(max_length=20, blank=False)
+
+    def __str__(self):
+        return f'Name:{self.name}'
 
 
 class FieldOfStudy(models.Model):
