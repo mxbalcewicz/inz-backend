@@ -259,12 +259,6 @@ class FieldOfStudyGetPostView(APIView):
             end_date=request.data.get('end_date')
         )
         field_of_study.save()
-        students = request.data.get('students')
-        for i in students:
-            if Student.objects.filter(id=i).exists():
-                student = Student.objects.get(id=i)
-                field_of_study.students.add(student)
-                field_of_study.save()
 
         field_groups = request.data.get('field_groups')
         for i in field_groups:
@@ -305,16 +299,8 @@ class FieldOfStudyRetrieveUpdateDeleteView(APIView):
         instance.start_date = request.data.get('start_date')
         instance.end_date = request.data.get('end_date')
         instance.study_type = request.data.get('study_type')
-        students = request.data.get('students')
         field_groups = request.data.get('field_groups')
         instance.field_groups.clear()
-        instance.students.clear()
-
-        for i in students:
-            if Student.objects.filter(id=i).exists():
-                student = Student.objects.get(id=i)
-                instance.students.add(student)
-                instance.save()
 
         for i in field_groups:
             if FieldGroup.objects.filter(id=i):

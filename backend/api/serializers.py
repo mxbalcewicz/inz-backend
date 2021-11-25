@@ -50,7 +50,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class FieldOfStudySerializer(serializers.ModelSerializer):
     class Meta:
         model = FieldOfStudy
-        fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'students', 'field_groups']
+        fields = ['id', 'name', 'study_type', 'start_date', 'end_date',  'field_groups']
 
 
 class RoomSerializer(serializers.ModelSerializer):

@@ -85,7 +85,6 @@ class FieldOfStudy(models.Model):
     study_type = models.CharField(default=FULL_TIME, choices=STUDY_TYPES, blank=True, null=False, max_length=10)
     start_date = models.DateField(auto_now_add=False, default=date.today)
     end_date = models.DateField(auto_now_add=False, default=date.today)
-    students = models.ManyToManyField(Student, blank=False)
     field_groups = models.ManyToManyField(FieldGroup, blank=True)
 
     def __str__(self):
@@ -122,16 +121,20 @@ class TimeTableUnit(models.Model):
     WEDNESDAY = 'WEDNESDAY'
     THURSDAY = 'THURSDAY'
     FRIDAY = 'FRIDAY'
+    SATURDAY = 'SATURDAY'
+    SUNDAY = 'SUNDAY'
     DAYS = (
         (MONDAY, 'MONDAY'),
         (TUESDAY, 'TUESDAY'),
         (WEDNESDAY, 'WEDNESDAY'),
         (THURSDAY, 'THURSDAY'),
-        (FRIDAY, 'FRIDAY')
+        (FRIDAY, 'FRIDAY'),
+        (SATURDAY, 'SATURDAY'),
+        (SUNDAY, 'SUNDAY')
     )
 
     FIRST = '8:00-9:30'
-    SECOND = '9:45-11:45'
+    SECOND = '9:45-11:30'
     THIRD = '11:45-13:15'
     FOURTH = '13:30-15:00'
     FIFTH = '15:10-16:40'
