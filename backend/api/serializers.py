@@ -32,7 +32,17 @@ class StaffAccountSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'points_value', 'course_instructor_info', 'name']
+        fields = ['id', 'points_value', 'course_instructor_info', 'name', 'prerequisites', 'purposes',
+                  'subject_learning_outcomes', 'methods_of_verification_of_learning_outcomes_and_criteria',
+                  'content_of_the_subject', 'didactic_methods', 'literature', 'balance_of_work_of_an_avg_student']
+
+
+class CoursePostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ['points_value', 'course_instructor_info', 'name', 'prerequisites', 'purposes',
+                  'subject_learning_outcomes', 'methods_of_verification_of_learning_outcomes_and_criteria',
+                  'content_of_the_subject', 'didactic_methods', 'literature', 'balance_of_work_of_an_avg_student']
 
 
 class CourseInstructorInfoSerializer(serializers.ModelSerializer):
@@ -50,7 +60,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class FieldOfStudySerializer(serializers.ModelSerializer):
     class Meta:
         model = FieldOfStudy
-        fields = ['id', 'name', 'study_type', 'start_date', 'end_date',  'field_groups']
+        fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'field_groups']
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -74,13 +84,14 @@ class ECTSCardSerializer(serializers.ModelSerializer):
 class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
-        fields = ['id', 'semester', 'year', 'students', 'field_of_study', 'courses']
+        fields = ['id', 'semester', 'year', 'students', 'field_of_study', 'courses',
+                  'semester_start_date', 'semester_end_date']
 
 
 class TimeTableUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeTableUnit
-        fields = ['id', 'day', 'hour', 'week', 'course_instructor_info', 'field_groups']
+        fields = ['id', 'day', 'start_hour', 'end_hour', 'week', 'course_instructor_info', 'field_groups']
 
 
 class TimeTableSerializer(serializers.ModelSerializer):

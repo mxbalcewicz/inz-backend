@@ -2,7 +2,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from accounts.models import StaffAccount
-from datetime import date
+from datetime import date, datetime
 
 
 class CourseInstructorInfo(models.Model):
@@ -43,6 +43,22 @@ class Course(models.Model):
         MinValueValidator(1),
         MaxValueValidator(10),
     ])
+    # wymagania wstępne
+    prerequisites = models.CharField(max_length=500, blank=True, default="")
+    # cel przedmiotu
+    purposes = models.CharField(max_length=500, blank=True, default="")
+    # przedmiotowe efekty uczenia się
+    subject_learning_outcomes = models.CharField(max_length=1000, blank=True, default="")
+    # metody weryfikacji efektów uczenia się i kryteria oceny
+    methods_of_verification_of_learning_outcomes_and_criteria = models.CharField(max_length=500, blank=True, default="")
+    # treści programowe
+    content_of_the_subject = models.CharField(max_length=500, blank=True, default="")
+    # metody dydaktyczne
+    didactic_methods = models.CharField(max_length=500, blank=True, default="")
+    # literatura
+    literature = models.CharField(max_length=500, blank=True, default="")
+    # bilans nakładu pracy przeciętnego studenta
+    balance_of_work_of_an_avg_student = models.CharField(max_length=500, blank=True, default="")
 
     def __str__(self):
         course_instructor_infos = [i.id for i in self.course_instructor_info.all()]
@@ -58,6 +74,8 @@ class Semester(models.Model):
     students = models.ManyToManyField(Student, blank=True)
     field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
     courses = models.ManyToManyField(Course, blank=False)
+    semester_start_date = models.DateField(blank=False, default=datetime.now())
+    semester_end_date = models.DateField(blank=False, default=datetime.now())
 
     def __str__(self):
         return f'Semester:{self.semester}, Year:{self.year}, FieldOfStudy:{self.field_of_study.name}'
@@ -133,22 +151,6 @@ class TimeTableUnit(models.Model):
         (SUNDAY, 'SUNDAY')
     )
 
-    FIRST = '8:00-9:30'
-    SECOND = '9:45-11:30'
-    THIRD = '11:45-13:15'
-    FOURTH = '13:30-15:00'
-    FIFTH = '15:10-16:40'
-    SIXTH = '16:50-18:20'
-    SEVENTH = '18:30-20:00'
-    HOURS = (
-        (FIRST, '8:00-9:30'),
-        (SECOND, '9:45-11:45'),
-        (THIRD, '11:45-13:15'),
-        (FOURTH, '13:30-15:00'),
-        (FIFTH, '15:10-16:40'),
-        (SIXTH, '16:50-18:20'),
-        (SEVENTH, '18:30-20:00')
-    )
 
     EVEN = 'EVEN'
     ODD = 'ODD'
@@ -160,7 +162,8 @@ class TimeTableUnit(models.Model):
     )
 
     day = models.CharField(default=MONDAY, choices=DAYS, blank=False, max_length=30)
-    hour = models.CharField(default=FIRST, choices=HOURS, blank=False, max_length=30)
+    start_hour = models.TimeField(blank=False, default=datetime.now())
+    end_hour = models.TimeField(blank=False, default=datetime.now())
     week = models.CharField(default=ALL, choices=WEEKS, blank=False, max_length=30)
     course_instructor_info = models.ForeignKey('CourseInstructorInfo', blank=False, on_delete=models.CASCADE)
     field_groups = models.ManyToManyField(FieldGroup, blank=False)

@@ -26,7 +26,7 @@ from .serializers import (StudentSerializer,
                           CourseInstructorInfoSerializer,
                           SemesterSerializer,
                           FieldGroupSerializer,
-                          TimeTableSerializer, TimeTableUnitSerializer
+                          TimeTableSerializer, TimeTableUnitSerializer, CoursePostSerializer
                           )
 
 
@@ -190,9 +190,27 @@ class CourseGetPostView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        course = Course(
-            points_value=request.data.get('points_value'),
-            name=request.data.get('name'))
+
+        course = Course(name= request.data.get('name'), points_value=request.data.get('points_value'))
+        if request.data.get('prerequisites') is not None:
+            course.prerequisites = request.data.get('prerequisites')
+        if request.data.get('subject_learning_outcomes') is not None:
+            course.subject_learning_outcomes = request.data.get('subject_learning_outcomes')
+        if request.data.get('purposes') is not None:
+            course.purposes = request.data.get('purposes')
+        if request.data.get('methods_of_verification_of_learning_outcomes_and_criteria') is not None:
+            course.methods_of_verification_of_learning_outcomes_and_criteria = request.data.get('methods_of_verification_of_learning_outcomes_and_criteria')
+        if request.data.get('content_of_the_subject') is not None:
+            course.content_of_the_subject = request.data.get('content_of_the_subject')
+        if request.data.get('didactic_methods') is not None:
+            course.didactic_methods = request.data.get('didactic_methods')
+        if request.data.get('literature') is not None:
+            course.literature = request.data.get('literature')
+        if request.data.get('balance_of_work_of_an_avg_student') is not None:
+            course.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
+
+
+
         course_instructor_info = request.data.get('course_instructor_info')
         course.save()
         for i in course_instructor_info:
@@ -228,15 +246,37 @@ class CourseRetrieveUpdateDeleteView(APIView):
 
     def put(self, request, pk):
         instance = Course.objects.get(pk=pk)
-        instance.course_instructor_info.clear()
-        course_instructor_info_list = request.data.get('course_instructor_info')
-        instance.points_value = request.data.get('points_value')
-        instance.name = request.data.get('name')
 
-        for instructor_info_id in course_instructor_info_list:
-            info_object = CourseInstructorInfo.objects.get(id=instructor_info_id)
-            instance.course_instructor_info.add(info_object)
-            instance.save()
+
+        if request.data.get('points_value') is not None:
+            instance.points_value = request.data.get('points_value')
+        if request.data.get('name') is not None:
+            instance.name = request.data.get('name')
+        if request.data.get('prerequisites') is not None:
+            instance.prerequisites = request.data.get('prerequisites')
+        if request.data.get('purposes') is not None:
+            instance.purposes = request.data.get('purposes')
+        if request.data.get('subject_learning_outcomes') is not None:
+            instance.subject_learning_outcomes = request.data.get('subject_learning_outcomes')
+        if request.data.get('methods_of_verification_of_learning_outcomes_and_criteria') is not None:
+            instance.methods_of_verification_of_learning_outcomes_and_criteria = request.data.get(
+                'methods_of_verification_of_learning_outcomes_and_criteria')
+        if request.data.get('content_of_the_subject') is not None:
+            instance.content_of_the_subject = request.data.get('content_of_the_subject')
+        if request.data.get('didactic_methods') is not None:
+            instance.didactic_methods = request.data.get('didactic_methods')
+        if request.data.get('literature') is not None:
+            instance.literature = request.data.get('literature')
+        if request.data.get('balance_of_work_of_an_avg_student') is not None:
+            instance.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
+
+        if request.data.get('course_instructor_info') is not None:
+            course_instructor_info_list = request.data.get('course_instructor_info')
+            instance.course_instructor_info.clear()
+            for instructor_info_id in course_instructor_info_list:
+                info_object = CourseInstructorInfo.objects.get(id=instructor_info_id)
+                instance.course_instructor_info.add(info_object)
+                instance.save()
 
         serializer = self.serializer_class(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -330,7 +370,9 @@ class SemesterGetPostView(APIView):
             semester = Semester(
                 year=request.data.get('year'),
                 semester=request.data.get('semester'),
-                field_of_study=fieldofstudy
+                field_of_study=fieldofstudy,
+                semester_start_date=request.data.get('semester_start_date'),
+                semester_end_date=request.data.get('semester_end_date')
             )
             semester.save()
 
@@ -377,8 +419,11 @@ class SemesterRetrieveUpdateDeleteView(APIView):
 
         instance.year = request.data.get('year')
         instance.semester = request.data.get('semester')
+        instance.semester_start_date = request.data.get('semester_start_date')
+        instance.semester_end_date = request.data.get('semester_end_date')
         courses = request.data.get('courses')
         students = request.data.get('students')
+
 
         instance.courses.clear()
         instance.students.clear()
@@ -527,7 +572,8 @@ class TimeTableUnitGetPostView(APIView):
         if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
             course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
             time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
-                                            hour=request.data.get('hour'),
+                                            start_hour=request.data.get('start_hour'),
+                                            end_hour=request.data.get('end_hour'),
                                             day=request.data.get('day'),
                                             week=request.data.get('week'))
             time_table_unit.save()
@@ -570,15 +616,16 @@ class TimeTableUnitRetrieveUpdateDeleteView(APIView):
             instance = TimeTableUnit.objects.get(pk=pk)
             course_inst_info = CourseInstructorInfo.objects.get(id=course_inst_info_id)
             instance.course_instructor_info = course_inst_info
-            instance.hours = request.data.get('hours')
             instance.day = request.data.get('day')
             instance.week = request.data.get('week')
+            instance.start_hour = request.data.get('start_hour')
+            instance.end_hour = request.data.get('end_hour')
             instance.field_groups.clear()
             instance.save()
             field_groups = request.data.get('field_groups')
 
             for i in field_groups:
-                if FieldGroup.object.filter(id=i).exists():
+                if FieldGroup.objects.filter(id=i).exists():
                     temp = FieldGroup.objects.get(id=i)
                     instance.field_groups.add(temp)
                     instance.save()
