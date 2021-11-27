@@ -26,7 +26,9 @@ from .serializers import (StudentSerializer,
                           CourseInstructorInfoSerializer,
                           SemesterSerializer,
                           FieldGroupSerializer,
-                          TimeTableSerializer, TimeTableUnitSerializer, CoursePostSerializer
+                          TimeTableSerializer, TimeTableUnitSerializer, FieldOfStudyGetSerializer,
+                          ECTSCardGetSerializer, SemesterGetSerializer, TimeTableUnitGetSerializer,
+                          TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer
                           )
 
 
@@ -145,7 +147,7 @@ class CourseInstructorInfoGetPostView(APIView):
 
     def get(self, request):
         instructor_info_list = CourseInstructorInfo.objects.all()
-        serializer = self.serializer_class(instructor_info_list, many=True)
+        serializer = CourseInstructorInfoGetSerializer(instructor_info_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -158,7 +160,7 @@ class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(CourseInstructorInfo, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = CourseInstructorInfoGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -191,7 +193,7 @@ class CourseGetPostView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        course = Course(name= request.data.get('name'), points_value=request.data.get('points_value'))
+        course = Course(name=request.data.get('name'), points_value=request.data.get('points_value'))
         if request.data.get('prerequisites') is not None:
             course.prerequisites = request.data.get('prerequisites')
         if request.data.get('subject_learning_outcomes') is not None:
@@ -199,7 +201,8 @@ class CourseGetPostView(APIView):
         if request.data.get('purposes') is not None:
             course.purposes = request.data.get('purposes')
         if request.data.get('methods_of_verification_of_learning_outcomes_and_criteria') is not None:
-            course.methods_of_verification_of_learning_outcomes_and_criteria = request.data.get('methods_of_verification_of_learning_outcomes_and_criteria')
+            course.methods_of_verification_of_learning_outcomes_and_criteria = request.data.get(
+                'methods_of_verification_of_learning_outcomes_and_criteria')
         if request.data.get('content_of_the_subject') is not None:
             course.content_of_the_subject = request.data.get('content_of_the_subject')
         if request.data.get('didactic_methods') is not None:
@@ -208,8 +211,6 @@ class CourseGetPostView(APIView):
             course.literature = request.data.get('literature')
         if request.data.get('balance_of_work_of_an_avg_student') is not None:
             course.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
-
-
 
         course_instructor_info = request.data.get('course_instructor_info')
         course.save()
@@ -223,7 +224,7 @@ class CourseGetPostView(APIView):
 
     def get(self, request):
         course_list = Course.objects.all()
-        serializer = self.serializer_class(course_list, many=True)
+        serializer = CourseGetSerializer(course_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -236,7 +237,7 @@ class CourseRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(Course, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = CourseGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -246,7 +247,6 @@ class CourseRetrieveUpdateDeleteView(APIView):
 
     def put(self, request, pk):
         instance = Course.objects.get(pk=pk)
-
 
         if request.data.get('points_value') is not None:
             instance.points_value = request.data.get('points_value')
@@ -311,7 +311,7 @@ class FieldOfStudyGetPostView(APIView):
 
     def get(self, request):
         field_of_study_list = FieldOfStudy.objects.all()
-        serializer = self.serializer_class(field_of_study_list, many=True)
+        serializer = FieldOfStudyGetSerializer(field_of_study_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -324,7 +324,7 @@ class FieldOfStudyRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(FieldOfStudy, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = FieldOfStudyGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -393,7 +393,7 @@ class SemesterGetPostView(APIView):
 
     def get(self, request):
         semester = Semester.objects.all()
-        serializer = self.serializer_class(semester, many=True)
+        serializer = SemesterGetSerializer(semester, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -406,7 +406,7 @@ class SemesterRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(Semester, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = SemesterGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -423,7 +423,6 @@ class SemesterRetrieveUpdateDeleteView(APIView):
         instance.semester_end_date = request.data.get('semester_end_date')
         courses = request.data.get('courses')
         students = request.data.get('students')
-
 
         instance.courses.clear()
         instance.students.clear()
@@ -464,7 +463,7 @@ class ECTSCardGetPostView(APIView):
 
     def get(self, request):
         ectscard = ECTSCard.objects.all()
-        serializer = self.serializer_class(ectscard, many=True)
+        serializer = ECTSCardGetSerializer(ectscard, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -477,7 +476,7 @@ class ECTSCardRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(ECTSCard, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = ECTSCardGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -588,7 +587,7 @@ class TimeTableUnitGetPostView(APIView):
 
     def get(self, request):
         time_table_unit = TimeTableUnit.objects.all()
-        serializer = self.serializer_class(time_table_unit, many=True)
+        serializer = TimeTableUnitGetSerializer(time_table_unit, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -601,7 +600,7 @@ class TimeTableUnitRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(TimeTableUnit, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = TimeTableUnitGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -664,7 +663,7 @@ class TimeTableGetPostView(APIView):
 
     def get(self, request):
         time_table = TimeTable.objects.all()
-        serializer = self.serializer_class(time_table, many=True)
+        serializer = TimeTableGetSerializer(time_table, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -677,7 +676,7 @@ class TimeTableRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(TimeTable, pk=pk)
-        serializer = self.serializer_class(instance)
+        serializer = TimeTableGetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
