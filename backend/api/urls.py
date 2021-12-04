@@ -22,7 +22,13 @@ from .views import (StudentGetPostView,
                     TimeTableRetrieveUpdateDeleteView,
                     StudentsCSVExportView,
                     RoomsCSVExportView,
-                    CourseCSVExportView
+                    CourseCSVExportView,
+                    SemesterCSVExportView,
+                    FieldGroupCSVExportView,
+                    FieldOfStudyCSVExportView,
+                    ECTSCardCSVExportView,
+                    TimeTableCSVExportView,
+                    TimeTableUnitCSVExportView
                     )
 
 urlpatterns = [
@@ -41,14 +47,20 @@ urlpatterns = [
     path('rooms/export/csv', RoomsCSVExportView.as_view(), name='export-csv-rooms'),
     path('fieldofstudy/', FieldOfStudyGetPostView.as_view(), name='fieldofstudy_post_get'),
     path('fieldofstudy/<int:pk>', FieldOfStudyRetrieveUpdateDeleteView.as_view(), name='fieldofstudy_update_delete'),
+    path('fieldofstudy/export/csv', FieldOfStudyCSVExportView.as_view(), name='export-csv-fieldofstudy'),
     path('semester/', SemesterGetPostView.as_view(), name='semester_post_get'),
     path('semester/<int:pk>', SemesterRetrieveUpdateDeleteView.as_view(), name='semester_update_delete'),
+    path('semester/export/csv', SemesterCSVExportView.as_view(), name='export-csv-semesters'),
     path('ectscard/', ECTSCardGetPostView.as_view(), name='ectscard_post_get'),
     path('ectscard/<int:pk>', ECTSCardRetrieveUpdateDeleteView.as_view(), name='ectscard_update_delete'),
+    path('ectscard/export/csv', ECTSCardCSVExportView.as_view(), name='export-csv-ectscard'),
     path('fieldgroup/', FieldGroupGetPostView.as_view(), name='field_group_post_get'),
     path('fieldgroup/<int:pk>', FieldGroupRetrieveUpdateDeleteView.as_view(), name='field_group_update_delete'),
+    path('fieldgroup/export/csv', FieldGroupCSVExportView.as_view(), name='export-csv-fieldgroup'),
     path('timetable/', TimeTableGetPostView.as_view(), name='timetable_post_get'),
     path('timetable/<int:pk>', TimeTableRetrieveUpdateDeleteView.as_view(), name='timetable_update_delete'),
+    path('timetable/export/csv', TimeTableCSVExportView.as_view(), name='export-csv-timetable'),
     path('timetableunit/', TimeTableUnitGetPostView.as_view(), name='timetableunit_post_get'),
     path('timetableunit/<int:pk>', TimeTableUnitRetrieveUpdateDeleteView.as_view(), name='timetableunit_update_delete'),
+    path('timetableunit/export/csv', TimeTableUnitCSVExportView.as_view(), name='export-csv-timetableunit'),
 ]

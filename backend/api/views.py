@@ -813,3 +813,166 @@ class CourseCSVExportView(APIView):
             writer.writerow(row)
 
         return response
+
+
+class SemesterCSVExportView(APIView):
+    serializer_class = SemesterSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Semesters.csv"'
+
+        serializer = self.get_serializer(
+            Semester.objects.all(),
+            many=True
+        )
+        header = SemesterSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class FieldGroupCSVExportView(APIView):
+    serializer_class = FieldGroupSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="FieldGroup.csv"'
+
+        serializer = self.get_serializer(
+            FieldGroup.objects.all(),
+            many=True
+        )
+        header = FieldGroupSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class FieldOfStudyCSVExportView(APIView):
+    serializer_class = FieldOfStudySerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="FieldOfStudy.csv"'
+
+        serializer = self.get_serializer(
+            FieldOfStudy.objects.all(),
+            many=True
+        )
+        header = FieldOfStudySerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class ECTSCardCSVExportView(APIView):
+    serializer_class = ECTSCardSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="ECTSCard.csv"'
+
+        serializer = self.get_serializer(
+            ECTSCard.objects.all(),
+            many=True
+        )
+        header = ECTSCardSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class TimeTableUnitCSVExportView(APIView):
+    serializer_class = TimeTableUnitSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="TimeTableUnit.csv"'
+
+        serializer = self.get_serializer(
+            TimeTableUnit.objects.all(),
+            many=True
+        )
+        header = TimeTableUnitSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class TimeTableCSVExportView(APIView):
+    serializer_class = TimeTableSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="TimeTable.csv"'
+
+        serializer = self.get_serializer(
+            TimeTable.objects.all(),
+            many=True
+        )
+        header = TimeTableSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
