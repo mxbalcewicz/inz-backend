@@ -30,7 +30,8 @@ from .serializers import (StudentSerializer,
                           ECTSCardGetSerializer, SemesterGetSerializer, TimeTableUnitGetSerializer,
                           TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer
                           )
-
+from django.http import HttpResponse
+import csv
 
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
@@ -704,3 +705,111 @@ class TimeTableRetrieveUpdateDeleteView(APIView):
             serializer = self.serializer_class(updated_instance)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class StudentsCSVExportView(APIView):
+    serializer_class = StudentSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Students.csv"'
+
+        serializer = self.get_serializer(
+            Student.objects.all(),
+            many=True
+        )
+        header = StudentSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class CourseInstructorInfosCSVExportView(APIView):
+    serializer_class = CourseInstructorInfoSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Students.csv"'
+
+        serializer = self.get_serializer(
+            CourseInstructorInfo.objects.all(),
+            many=True
+        )
+        header = StudentSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class RoomsCSVExportView(APIView):
+    serializer_class = RoomSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Rooms.csv"'
+
+        serializer = self.get_serializer(
+            Room.objects.all(),
+            many=True
+        )
+        header = RoomSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class CourseCSVExportView(APIView):
+    serializer_class = CourseSerializer
+
+    def get_serializer(self, queryset, many=True):
+        return self.serializer_class(
+            queryset,
+            many=many,
+        )
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Courses.csv"'
+
+        serializer = self.get_serializer(
+            Course.objects.all(),
+            many=True
+        )
+        header = CourseSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response

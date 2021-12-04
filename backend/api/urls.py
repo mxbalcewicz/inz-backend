@@ -19,12 +19,15 @@ from .views import (StudentGetPostView,
                     TimeTableUnitRetrieveUpdateDeleteView,
                     TimeTableUnitGetPostView,
                     TimeTableGetPostView,
-                    TimeTableRetrieveUpdateDeleteView
-
+                    TimeTableRetrieveUpdateDeleteView,
+                    StudentsCSVExportView,
+                    RoomsCSVExportView,
+                    CourseCSVExportView
                     )
 
 urlpatterns = [
     path('students/', StudentGetPostView.as_view(), name='students'),
+    path('students/export/csv', StudentsCSVExportView.as_view(), name='export-csv-students'),
     path('students/<int:pk>', StudentRetrieveUpdateDeleteView.as_view(), name='students_update_delete'),
     path('courseinstructorinfo/', CourseInstructorInfoGetPostView.as_view(), name='courseinstructorinfo'),
     path('courseinstructorinfo/<int:pk>', CourseInstructorInfoRetrieveUpdateDeleteView.as_view(),
@@ -32,8 +35,10 @@ urlpatterns = [
     path('course/', CourseGetPostView.as_view(), name='course'),
     path('course/<int:pk>', CourseRetrieveUpdateDeleteView.as_view(),
          name='course_update_delete'),
+    path('course/export/csv', CourseCSVExportView.as_view(), name='export-csv-courses'),
     path('rooms/', RoomGetPostView.as_view(), name='rooms_post_get'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='rooms_update_delete'),
+    path('rooms/export/csv', RoomsCSVExportView.as_view(), name='export-csv-rooms'),
     path('fieldofstudy/', FieldOfStudyGetPostView.as_view(), name='fieldofstudy_post_get'),
     path('fieldofstudy/<int:pk>', FieldOfStudyRetrieveUpdateDeleteView.as_view(), name='fieldofstudy_update_delete'),
     path('semester/', SemesterGetPostView.as_view(), name='semester_post_get'),
@@ -46,5 +51,4 @@ urlpatterns = [
     path('timetable/<int:pk>', TimeTableRetrieveUpdateDeleteView.as_view(), name='timetable_update_delete'),
     path('timetableunit/', TimeTableUnitGetPostView.as_view(), name='timetableunit_post_get'),
     path('timetableunit/<int:pk>', TimeTableUnitRetrieveUpdateDeleteView.as_view(), name='timetableunit_update_delete'),
-
 ]
