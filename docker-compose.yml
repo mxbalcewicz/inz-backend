@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - es
 
   db:
     image: postgres:13
@@ -21,3 +22,10 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+      
+  es:
+    image: elasticsearch:7.14.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
