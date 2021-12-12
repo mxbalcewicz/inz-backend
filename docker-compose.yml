@@ -29,3 +29,8 @@ services:
       - discovery.type=single-node
     ports:
       - "9200:9200"
+    deploy:
+      resources: 
+        limits: 
+          cpus: "0.50"  # Use at most 50% of one CPU core
+          memory: 2048M  # Use at most 50 MB of RAM

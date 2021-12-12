@@ -82,6 +82,10 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'utils.exceptionhandler.custom_exception_handler'
 }
 
+ELASTICSEARCH_INDEX_NAMES = {
+    'search.documents.student': 'student',
+}
+
 ELASTICSEARCH_DSL = {
     'default': {
         'hosts': 'es:9200'

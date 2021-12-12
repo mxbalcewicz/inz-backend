@@ -1,8 +1,10 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import StudentDocumentView
 
-from search.views import SearchStudents
+router = DefaultRouter()
 
+students = router.register(r'students', StudentDocumentView, basename='studentdocument')
 urlpatterns = [
-    path('student/<str:query>/', SearchStudents.as_view()),
-
+    path('', include(router.urls)),
 ]

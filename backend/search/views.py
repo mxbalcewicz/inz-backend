@@ -1,62 +1,66 @@
-from django.shortcuts import render
+from django_elasticsearch_dsl_drf.constants import (
+    LOOKUP_FILTER_TERMS,
+    LOOKUP_FILTER_RANGE,
+    LOOKUP_FILTER_PREFIX,
+    LOOKUP_FILTER_WILDCARD,
+    LOOKUP_QUERY_IN,
+    LOOKUP_QUERY_GT,
+    LOOKUP_QUERY_GTE,
+    LOOKUP_QUERY_LT,
+    LOOKUP_QUERY_LTE,
+    LOOKUP_QUERY_EXCLUDE,
+)
+from django_elasticsearch_dsl_drf.filter_backends import (
+    FilteringFilterBackend,
+    IdsFilterBackend,
+    OrderingFilterBackend,
+    DefaultOrderingFilterBackend,
+    SearchFilterBackend,
+)
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
+from django_elasticsearch_dsl_drf.pagination import PageNumberPagination
+
+from .documents.student import StudentDocument
+from .serializers import StudentDocumentSerializer
 
 
-from django.http import HttpResponse
-from elasticsearch_dsl import Q
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.views import APIView
+class StudentDocumentView(BaseDocumentViewSet):
 
-from api.serializers import StudentSerializer, RoomSerializer
-from api.documents import StudentDocument, RoomDocument
-
-
-class PaginatedElasticSearchAPIView(APIView, LimitOffsetPagination):
-    serializer_class = None
-    document_class = None
-
-    def generate_q_expression(self, query):
-        """This method should be
-        overridden for every other search view,
-        returns a Q() expression."""
-
-    def get(self, request, query):
-        try:
-            q = self.generate_q_expression(query)
-            search = self.document_class.search().query(q)
-            response = search.execute()
-
-            print(f'Found {response.hits.total.value} hit(s) for query: "{query}"')
-
-            results = self.paginate_queryset(response, request, view=self)
-            serializer = self.serializer_class(results, many=True)
-            return self.get_paginated_response(serializer.data)
-        except Exception as e:
-            return HttpResponse(e, status=500)
-
-
-class SearchStudents(PaginatedElasticSearchAPIView):
-    serializer_class = StudentSerializer
-    document_class = StudentDocument
-
-    def generate_q_expression(self, query):
-        return Q(
-            'multi_match',
-            fields=[
-                'name',
-                'surname',
-            ], fuzziness='auto')
-
-
-class SearchRooms(PaginatedElasticSearchAPIView):
-    serializer_class = RoomSerializer
-    document_class = RoomDocument
-
-    def generate_q_expression(self, query):
-        return Q(
-                'multi_match', query=query,
-                fields=[
-                    'id',
-                    'name',
-                    'capacity',
-                    'room_type',
-                ], fuzziness='auto')
+    document = StudentDocument
+    serializer_class = StudentDocumentSerializer
+    pagination_class = PageNumberPagination
+    lookup_field = 'id'
+    # filter_backends = [
+    #     FilteringFilterBackend,
+    #     IdsFilterBackend,
+    #     OrderingFilterBackend,
+    #     DefaultOrderingFilterBackend,
+    #     SearchFilterBackend,
+    # ]
+    # Define search fields
+    search_fields = (
+        'email',
+        'name',
+        'surname',
+    )
+    # Define filter fields
+    filter_fields = {
+        'id': {
+            'field': 'id',
+            # Note, that we limit the lookups of id field in this example,
+            # to `range`, `in`, `gt`, `gte`, `lt` and `lte` filters.
+            'lookups': [
+                LOOKUP_FILTER_RANGE,
+                LOOKUP_QUERY_IN,
+                LOOKUP_QUERY_GT,
+                LOOKUP_QUERY_GTE,
+                LOOKUP_QUERY_LT,
+                LOOKUP_QUERY_LTE,
+            ],
+        },
+    }
+    # Define ordering fields
+    ordering_fields = {
+        'id': 'id',
+        'index': 'index',
+    }
