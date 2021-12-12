@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
     # 3rd party apps
     'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
@@ -84,6 +85,7 @@ REST_FRAMEWORK = {
 
 ELASTICSEARCH_INDEX_NAMES = {
     'search.documents.student': 'student',
+    'search.documents.room': 'room',
 }
 
 ELASTICSEARCH_DSL = {

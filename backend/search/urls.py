@@ -1,10 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import StudentDocumentView
+from .views import RoomDocumentView, StudentDocumentView
 
 router = DefaultRouter()
 
-students = router.register(r'students', StudentDocumentView, basename='studentdocument')
+router.register(r'students', StudentDocumentView, basename='studentdocumentview')
+router.register(r'rooms', RoomDocumentView, basename='roomdocumentview')
+
 urlpatterns = [
     path('', include(router.urls)),
 ]

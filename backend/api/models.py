@@ -122,7 +122,10 @@ class Room(models.Model):
     )
 
     name = models.CharField(max_length=20, blank=False, unique=True)
-    capacity = models.CharField(max_length=4, blank=False)
+    capacity = models.IntegerField(blank=False, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(250),
+    ])
     # Sprawdzic opcje zmiany ArrayField na inne przy multiple choice
     room_type = ArrayField(models.CharField(choices=ROOM_TYPES, max_length=20, blank=True), default=['LECTURE'])
 
