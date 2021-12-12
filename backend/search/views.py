@@ -42,8 +42,7 @@ class StudentDocumentView(DocumentViewSet):
     search_fields = (
         'email',
         'name',
-        'surname',
-        'index'
+        'surname'
     )
     # Define filter fields
     filter_fields = {
