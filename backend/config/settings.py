@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'search.apps.SearchConfig',
     # 3rd party apps
+    'drf_yasg',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
     'rest_framework',
