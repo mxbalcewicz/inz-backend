@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'search.apps.SearchConfig',
     # 3rd party apps
-    'drf_yasg',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +81,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'utils.exceptionhandler.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'utils.exceptionhandler.custom_exception_handler',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 ELASTICSEARCH_INDEX_NAMES = {
@@ -93,6 +94,12 @@ ELASTICSEARCH_DSL = {
     'default': {
         'hosts': 'es:9200'
     },
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
 }
 
 AUTH_USER_MODEL = 'accounts.User'
