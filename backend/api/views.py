@@ -33,6 +33,7 @@ from .serializers import (StudentSerializer,
 from django.http import HttpResponse
 import csv
 
+
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
     serializer_class = StaffAccountSerializer
@@ -569,13 +570,17 @@ class TimeTableUnitGetPostView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         course_instructor_info_id = request.data.get('course_instructor_info')
+        if Room.objects.filter(id=request.data.get('room')).exists() is False:
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
             course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            room = Room.objects.get(id=request.data.get("room"))
             time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
                                             start_hour=request.data.get('start_hour'),
                                             end_hour=request.data.get('end_hour'),
                                             day=request.data.get('day'),
-                                            week=request.data.get('week'))
+                                            week=request.data.get('week'),
+                                            room=room)
             time_table_unit.save()
             field_groups = request.data.get('field_groups')
             for i in field_groups:
@@ -611,11 +616,13 @@ class TimeTableUnitRetrieveUpdateDeleteView(APIView):
 
     def put(self, request, pk):
         course_inst_info_id = request.data.get('course_instructor_info')
+        room_id = request.data.get('room')
         if TimeTableUnit.objects.filter(id=pk).exists() and CourseInstructorInfo.objects.filter(
-                id=course_inst_info_id).exists():
+                id=course_inst_info_id).exists() and Room.objects.filter(id=room_id).exists():
             instance = TimeTableUnit.objects.get(pk=pk)
             course_inst_info = CourseInstructorInfo.objects.get(id=course_inst_info_id)
             instance.course_instructor_info = course_inst_info
+            instance.room = Room.objects.get(pk=room_id)
             instance.day = request.data.get('day')
             instance.week = request.data.get('week')
             instance.start_hour = request.data.get('start_hour')
@@ -909,4 +916,3 @@ class TimeTableCSVExportView(APIView):
             writer.writerow(row)
 
         return response
-

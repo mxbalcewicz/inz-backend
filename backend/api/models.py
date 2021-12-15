@@ -170,6 +170,7 @@ class TimeTableUnit(models.Model):
     week = models.CharField(default=ALL, choices=WEEKS, blank=False, max_length=30)
     course_instructor_info = models.ForeignKey('CourseInstructorInfo', blank=False, on_delete=models.CASCADE)
     field_groups = models.ManyToManyField(FieldGroup, blank=False)
+    room = models.ForeignKey('Room', on_delete=models.CASCADE)
 
 
 class TimeTable(models.Model):

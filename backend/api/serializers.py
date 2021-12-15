@@ -123,16 +123,17 @@ class ECTSCardGetSerializer(serializers.ModelSerializer):
 class TimeTableUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeTableUnit
-        fields = ['id', 'day', 'start_hour', 'end_hour', 'week', 'course_instructor_info', 'field_groups']
+        fields = ['id', 'day', 'start_hour', 'end_hour', 'week', 'course_instructor_info', 'field_groups', 'room']
 
 
 class TimeTableUnitGetSerializer(serializers.ModelSerializer):
     course_instructor_info = CourseInstructorInfoGetSerializer()
     field_groups = FieldGroupSerializer(many=True)
+    room = RoomSerializer()
 
     class Meta:
         model = TimeTableUnit
-        fields = ['id', 'day', 'start_hour', 'end_hour', 'week', 'course_instructor_info', 'field_groups']
+        fields = ['id', 'day', 'start_hour', 'end_hour', 'week', 'course_instructor_info', 'field_groups', 'room']
 
 
 class TimeTableSerializer(serializers.ModelSerializer):
