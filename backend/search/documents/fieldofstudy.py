@@ -14,7 +14,7 @@ INDEX.settings(
 html_strip = analyzer(
     'html_strip',
     tokenizer="standard",
-    filter=["standard", "lowercase", "stop", "snowball"],
+    filter=["lowercase", "stop", "snowball"],
     char_filter=["html_strip"]
 )
 
@@ -23,13 +23,14 @@ class FieldOfStudyDocument(Document):
     """Elasticsearch document."""
 
     id = fields.IntegerField(attr='id')
-    study_type = fields.IntegerField()
+    name = fields.TextField()
+    study_type = fields.TextField()
     start_date = fields.DateField()
-    field_groups = fields.StringField(
+    field_groups = fields.TextField(
         attr='fieldgroups_indexing',
         analyzer=html_strip,
         fields={
-            'raw': fields.StringField(analyzer='keyword', multi=True),
+            'raw': fields.TextField(analyzer='keyword', multi=True),
         },
         multi=True
     )
