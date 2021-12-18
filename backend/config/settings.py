@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -81,13 +82,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'utils.exceptionhandler.custom_exception_handler',
+    'EXCEPTION_HANDLER': 'utils.exception_handler.standardized_exception_handler',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 ELASTICSEARCH_INDEX_NAMES = {
     'search.documents.student': 'student',
     'search.documents.room': 'room',
+    'search.documents.courseinstructorinfo': 'courseinstructorinfo',
+    'search.documents.fieldofstudy': 'fieldofstudy',
+    'search.documents.fieldgroup': 'fieldgroup'
 }
 
 ELASTICSEARCH_DSL = {
@@ -141,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
 
 TIME_ZONE = 'UTC'
 
