@@ -28,7 +28,7 @@ from .serializers import (StudentSerializer,
                           FieldGroupSerializer,
                           TimeTableSerializer, TimeTableUnitSerializer, FieldOfStudyGetSerializer,
                           ECTSCardGetSerializer, SemesterGetSerializer, TimeTableUnitGetSerializer,
-                          TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer
+                          TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer,
                           )
 from django.http import HttpResponse
 import csv
@@ -173,9 +173,12 @@ class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
     def put(self, request, pk):
         instance = CourseInstructorInfo.objects.get(pk=pk)
         instructor_id = request.data.get('instructor')
-        if StaffAccount.objects.filter(pk=instructor_id).exists():
+        course_id = request.data.get('course')
+        if StaffAccount.objects.filter(pk=instructor_id).exists() and Course.objects.filter(pk=course_id):
             instructor_instance = StaffAccount.objects.get(pk=instructor_id)
             instance.instructor = instructor_instance
+            course_instance = Course.objects.get(pk=course_id)
+            instance.course = course_instance
             instance.hours = request.data.get('hours')
             instance.course_type = request.data.get('course_type')
             instance.save()
@@ -213,14 +216,7 @@ class CourseGetPostView(APIView):
             course.literature = request.data.get('literature')
         if request.data.get('balance_of_work_of_an_avg_student') is not None:
             course.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
-
-        course_instructor_info = request.data.get('course_instructor_info')
         course.save()
-        for i in course_instructor_info:
-            if CourseInstructorInfo.objects.filter(id=i).exists():
-                temp = CourseInstructorInfo.objects.get(id=i)
-                course.course_instructor_info.add(temp)
-                course.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -272,14 +268,7 @@ class CourseRetrieveUpdateDeleteView(APIView):
         if request.data.get('balance_of_work_of_an_avg_student') is not None:
             instance.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
 
-        if request.data.get('course_instructor_info') is not None:
-            course_instructor_info_list = request.data.get('course_instructor_info')
-            instance.course_instructor_info.clear()
-            for instructor_info_id in course_instructor_info_list:
-                info_object = CourseInstructorInfo.objects.get(id=instructor_info_id)
-                instance.course_instructor_info.add(info_object)
-                instance.save()
-
+        instance.save()
         serializer = self.serializer_class(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

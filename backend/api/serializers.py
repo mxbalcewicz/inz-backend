@@ -23,36 +23,36 @@ class StaffUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email']
 
 
-class CourseInstructorInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CourseInstructorInfo
-        fields = ['id', 'instructor', 'course_type', 'hours']
-
-
-class CourseInstructorInfoGetSerializer(serializers.ModelSerializer):
-    instructor = StaffAccountSerializer()
-
-    class Meta:
-        model = CourseInstructorInfo
-        fields = ['id', 'instructor', 'course_type', 'hours']
-
-
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['points_value', 'course_instructor_info', 'name', 'prerequisites', 'purposes',
+        fields = ['points_value', 'name', 'prerequisites', 'purposes',
                   'subject_learning_outcomes', 'methods_of_verification_of_learning_outcomes_and_criteria',
                   'content_of_the_subject', 'didactic_methods', 'literature', 'balance_of_work_of_an_avg_student']
 
 
 class CourseGetSerializer(serializers.ModelSerializer):
-    course_instructor_info = CourseInstructorInfoGetSerializer(many=True)
 
     class Meta:
         model = Course
-        fields = ['points_value', 'course_instructor_info', 'name', 'prerequisites', 'purposes',
+        fields = ['id', 'points_value', 'name', 'prerequisites', 'purposes',
                   'subject_learning_outcomes', 'methods_of_verification_of_learning_outcomes_and_criteria',
                   'content_of_the_subject', 'didactic_methods', 'literature', 'balance_of_work_of_an_avg_student']
+
+
+class CourseInstructorInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseInstructorInfo
+        fields = ['id', 'instructor', 'course_type', 'hours', 'course']
+
+
+class CourseInstructorInfoGetSerializer(serializers.ModelSerializer):
+    instructor = StaffAccountSerializer()
+    course = CourseGetSerializer()
+
+    class Meta:
+        model = CourseInstructorInfo
+        fields = ['id', 'instructor', 'course_type', 'hours', 'course']
 
 
 class StudentSerializer(serializers.ModelSerializer):

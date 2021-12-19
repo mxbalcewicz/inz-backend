@@ -20,6 +20,7 @@ class CourseInstructorInfo(models.Model):
     ])
     instructor = models.ForeignKey(StaffAccount, on_delete=models.CASCADE)
     course_type = models.CharField(default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE)
 
     def __str__(self):
         instructor = StaffAccount.objects.get(pk=self.instructor)
@@ -38,7 +39,6 @@ class Student(models.Model):
 
 class Course(models.Model):
     name = models.CharField(blank=False, max_length=50)
-    course_instructor_info = models.ManyToManyField(CourseInstructorInfo, blank=False)
     points_value = models.IntegerField(blank=False, null=False, validators=[
         MinValueValidator(1),
         MaxValueValidator(10),
