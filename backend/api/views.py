@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import serializers, viewsets, status
 from rest_framework.views import APIView
+import pandas as pd
 
 from .models import (Student,
                      FieldOfStudy,
@@ -710,7 +711,7 @@ class StudentsCSVExportView(APIView):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="Students.csv"'
 
-        serializer = self.serializer_class(queryset=Student.objects.all(), many=True)
+        serializer = self.serializer_class(Student.objects.all(), many=True)
         header = self.serializer_class.Meta.fields
 
         writer = csv.DictWriter(response, fieldnames=header)
@@ -728,7 +729,7 @@ class CourseInstructorInfosCSVExportView(APIView):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="Students.csv"'
 
-        serializer = self.serializer_class(queryset=CourseInstructorInfo.objects.all(), many=True)
+        serializer = self.serializer_class(CourseInstructorInfo.objects.all(), many=True)
         header = self.serializer_class.Meta.fields
 
         writer = csv.DictWriter(response, fieldnames=header)
@@ -747,7 +748,7 @@ class RoomsCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="Rooms.csv"'
 
         serializer = self.serializer_class(
-            queryset=Room.objects.all(),
+            Room.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -768,7 +769,28 @@ class CourseCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="Courses.csv"'
 
         serializer = self.serializer_class(
-            queryset=Course.objects.all(),
+            Course.objects.all(),
+            many=True
+        )
+        header = self.serializer_class.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+        return response
+
+
+class CourseInstructorInfoCSVExportView(APIView):
+    serializer_class = CourseInstructorInfoSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="CourseInstructorInfos.csv"'
+
+        serializer = self.serializer_class(
+            CourseInstructorInfo.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -789,7 +811,7 @@ class SemesterCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="Semesters.csv"'
 
         serializer = self.serializer_class(
-            queryset=Semester.objects.all(),
+            Semester.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -810,7 +832,7 @@ class FieldGroupCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="FieldGroup.csv"'
 
         serializer = self.serializer_class(
-            queryset=FieldGroup.objects.all(),
+            FieldGroup.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -852,7 +874,7 @@ class ECTSCardCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="ECTSCard.csv"'
 
         serializer = self.serializer_class(
-            queryset=ECTSCard.objects.all(),
+            ECTSCard.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -873,7 +895,7 @@ class TimeTableUnitCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="TimeTableUnit.csv"'
 
         serializer = self.serializer_class(
-            queryset=TimeTableUnit.objects.all(),
+            TimeTableUnit.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -894,7 +916,7 @@ class TimeTableCSVExportView(APIView):
         response['Content-Disposition'] = 'attachment; filename="TimeTable.csv"'
 
         serializer = self.serializer_class(
-            queryset=TimeTable.objects.all(),
+            TimeTable.objects.all(),
             many=True
         )
         header = self.serializer_class.Meta.fields
@@ -905,3 +927,18 @@ class TimeTableCSVExportView(APIView):
             writer.writerow(row)
 
         return response
+
+
+class RoomCSVImport(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            room = Room(name=row['name'],
+                        capacity=row['capacity'],
+                        room_type=row['room_type'])
+            room.save()
+
+        return Response(status=status.HTTP_200_OK)
+

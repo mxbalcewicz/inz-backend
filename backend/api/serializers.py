@@ -62,6 +62,8 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class RoomSerializer(serializers.ModelSerializer):
+    room_type = serializers.ListField()
+
     class Meta:
         model = Room
         fields = ['id', 'name', 'capacity', 'room_type']

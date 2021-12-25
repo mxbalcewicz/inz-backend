@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from accounts.models import StaffAccount
 from datetime import date, datetime
+from multiselectfield import MultiSelectField
 
 
 class CourseInstructorInfo(models.Model):
@@ -126,9 +127,7 @@ class Room(models.Model):
         MinValueValidator(1),
         MaxValueValidator(250),
     ])
-    # Sprawdzic opcje zmiany ArrayField na inne przy multiple choice
-    room_type = ArrayField(models.CharField(choices=ROOM_TYPES, max_length=20, blank=True), default=['LECTURE'])
-
+    room_type = MultiSelectField(choices=ROOM_TYPES)
 
 class ECTSCard(models.Model):
     courses = models.ManyToManyField(Course, blank=False)
