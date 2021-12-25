@@ -5,7 +5,7 @@ from .documents.room import RoomDocument
 from .documents.fieldgroup import FieldGroupDocument
 from .documents.fieldofstudy import FieldOfStudyDocument
 from .documents.staffaccount import StaffAccountDocument
-
+from .documents.deaneryaccount import DeaneryAccountDocument
 class StudentDocumentSerializer(DocumentSerializer):
     class Meta:
         """Meta options."""
@@ -88,5 +88,17 @@ class StaffAccountDocumentSerializer(DocumentSerializer):
             'institute',
             'job_title',
             'academic_title',
+            'account'
+        )
+
+class DeaneryAccountDocumentSerializer(DocumentSerializer):
+    class Meta:
+        """Meta options."""
+
+        # Specify the correspondent document class
+        document = DeaneryAccountDocument
+
+        # Serializer fields
+        fields = (
             'account'
         )
