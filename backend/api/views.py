@@ -929,16 +929,48 @@ class TimeTableCSVExportView(APIView):
         return response
 
 
-class RoomCSVImport(APIView):
+class RoomCSVImportView(APIView):
 
     def post(self, request):
         file = pd.read_csv(request.FILES['files'], sep=',', header=0)
 
         for index, row in file.iterrows():
-            room = Room(name=row['name'],
-                        capacity=row['capacity'],
-                        room_type=row['room_type'])
-            room.save()
+            if Room.objects.filter(name=row['name']).exists() is False:
+                room = Room(name=row['name'],
+                            capacity=row['capacity'],
+                            room_type=row['room_type'])
+                room.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class CourseCSVImportView(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            if row['name'] and row['points_value'] is not None:
+                course = Course(name=row['name'], points_value=row['points_value'])
+                if row['prerequisites'] is not None:
+                    course.prerequisites = row['prerequisites']
+                if row['subject_learning_outcomes'] is not None:
+                    course.subject_learning_outcomes = row['subject_learning_outcomes']
+                if row['purposes'] is not None:
+                    course.purposes = row['purposes']
+                if row['methods_of_verification_of_learning_outcomes_and_criteria'] is not None:
+                    course.methods_of_verification_of_learning_outcomes_and_criteria = row[
+                        'methods_of_verification_of_learning_outcomes_and_criteria']
+                if row['content_of_the_subject'] is not None:
+                    course.content_of_the_subject = row['content_of_the_subject']
+                if row['didactic_methods'] is not None:
+                    course.didactic_methods = row['didactic_methods']
+                if row['literature'] is not None:
+                    course.literature = row['literature']
+                if row['balance_of_work_of_an_avg_student'] is not None:
+                    course.balance_of_work_of_an_avg_student = row['balance_of_work_of_an_avg_student']
+
+                course.save()
 
         return Response(status=status.HTTP_200_OK)
 
