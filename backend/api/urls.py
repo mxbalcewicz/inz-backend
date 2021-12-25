@@ -29,22 +29,29 @@ from .views import (StudentGetPostView,
                     ECTSCardCSVExportView,
                     TimeTableCSVExportView,
                     TimeTableUnitCSVExportView,
-                    RoomCSVImport,
+                    RoomCSVImportView,
                     CourseInstructorInfosCSVExportView,
+                    CourseCSVImportView,
+                    CourseInstructorInfosCSVImportView,
+                    StudentsCSVImportView
                     )
 
 urlpatterns = [
     path('students', StudentGetPostView.as_view(), name='student_get_post'),
     path('students/export/csv', StudentsCSVExportView.as_view(), name='export-csv-students'),
+    path('students/import/csv', StudentsCSVImportView.as_view(), name='import-csv-students'),
     path('students/<int:pk>', StudentRetrieveUpdateDeleteView.as_view(), name='student_update_delete'),
     path('courseinstructorinfo', CourseInstructorInfoGetPostView.as_view(), name='courseinstructorinfo_get_post'),
     path('courseinstructorinfo/<int:pk>', CourseInstructorInfoRetrieveUpdateDeleteView.as_view(),
          name='courseinstructorinfo_update_delete'),
     path('courseinstructorinfo/export/csv', CourseInstructorInfosCSVExportView.as_view(), name='export-csv-courseinstructorinfo'),
+    path('courseinstructorinfo/import/csv', CourseInstructorInfosCSVImportView.as_view(),
+         name='import-csv-courseinstructorinfo'),
     path('course', CourseGetPostView.as_view(), name='course_get_post'),
     path('course/<int:pk>', CourseRetrieveUpdateDeleteView.as_view(),
          name='course_update_delete'),
     path('course/export/csv', CourseCSVExportView.as_view(), name='export-csv-courses'),
+    path('course/import/csv', CourseCSVImportView.as_view(), name='import-csv-courses'),
     path('rooms', RoomGetPostView.as_view(), name='room_get_post'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='room_update_delete'),
     path('rooms/export/csv', RoomsCSVExportView.as_view(), name='export-csv-rooms'),
@@ -66,5 +73,5 @@ urlpatterns = [
     path('timetableunit', TimeTableUnitGetPostView.as_view(), name='timetableunit_get_post'),
     path('timetableunit/<int:pk>', TimeTableUnitRetrieveUpdateDeleteView.as_view(), name='timetableunit_update_delete'),
     path('timetableunit/export/csv', TimeTableUnitCSVExportView.as_view(), name='export-csv-timetableunit'),
-    path('rooms/import/csv', RoomCSVImport.as_view(), name='import-csv-room')
+    path('rooms/import/csv', RoomCSVImportView.as_view(), name='import-csv-room')
 ]
