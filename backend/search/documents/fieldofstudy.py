@@ -26,14 +26,10 @@ class FieldOfStudyDocument(Document):
     name = fields.TextField()
     study_type = fields.TextField()
     start_date = fields.DateField()
-    field_groups = fields.TextField(
-        attr='fieldgroups_indexing',
-        analyzer=html_strip,
-        fields={
-            'raw': fields.TextField(analyzer='keyword', multi=True),
-        },
-        multi=True
-    )
+    field_groups = fields.NestedField(properties={
+        'id': fields.IntegerField(),
+        'name': fields.TextField()
+    })
 
     class Django(object):
         """Inner nested class Django."""

@@ -24,8 +24,8 @@ class CourseInstructorInfoDocument(Document):
 
     id = fields.IntegerField(attr='id')
     hours = fields.IntegerField()
-    instructor = fields.ObjectField(properties={
-        'account': fields.ObjectField(properties={
+    instructor = fields.NestedField(properties={
+        'account': fields.NestedField(properties={
             'id': fields.IntegerField(attr='id'),
             'email': fields.TextField(),
         }),
