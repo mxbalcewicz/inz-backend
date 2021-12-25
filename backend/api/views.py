@@ -975,7 +975,6 @@ class CourseCSVImportView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-
 class CourseInstructorInfosCSVImportView(APIView):
 
     def post(self, request):
@@ -994,3 +993,20 @@ class CourseInstructorInfosCSVImportView(APIView):
 
         return Response(status=status.HTTP_200_OK)
 
+
+class StudentsCSVImportView(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            if row['index'] and row['email'] and row['name'] and row['surname'] is not None:
+                if Student.objects.filter(index=row['index']).exists() is False:
+                    if Student.objects.filter(email=row['email']).exists() is False:
+                        student = Student(index=row['index'],
+                                          email=row['email'],
+                                          name=row['name'],
+                                          surname=row['surname'])
+                        student.save()
+
+        return Response(status=status.HTTP_200_OK)
