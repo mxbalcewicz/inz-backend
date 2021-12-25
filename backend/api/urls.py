@@ -50,7 +50,7 @@ from .views import (StudentGetPostView,
                     TimeTableUnitJSONExportView,
                     TimeTableJSONExportView,
                     ECTSCardJSONExportView,
-
+StudentsJSONImportView,
                     )
 
 urlpatterns = [
@@ -58,6 +58,7 @@ urlpatterns = [
     path('students/export/csv', StudentsCSVExportView.as_view(), name='export-csv-students'),
     path('students/export/json', StudentsJSONExportView.as_view(), name='export-json-students'),
     path('students/import/csv', StudentsCSVImportView.as_view(), name='import-csv-students'),
+    path('students/import/json', StudentsJSONImportView.as_view(), name='import-json-students'),
     path('students/<int:pk>', StudentRetrieveUpdateDeleteView.as_view(), name='student_update_delete'),
     path('courseinstructorinfo', CourseInstructorInfoGetPostView.as_view(), name='courseinstructorinfo_get_post'),
     path('courseinstructorinfo/<int:pk>', CourseInstructorInfoRetrieveUpdateDeleteView.as_view(),

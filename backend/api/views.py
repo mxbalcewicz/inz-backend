@@ -1297,3 +1297,16 @@ class ECTSCardJSONExportView(APIView):
         data = json.dumps(serializer.data)
         response.write(data)
         return response
+
+
+class StudentsJSONImportView(APIView):
+    serializer_class = StudentSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+        return Response(status=status.HTTP_200_OK)
