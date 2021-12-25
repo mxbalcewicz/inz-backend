@@ -1033,11 +1033,7 @@ class SemesterCSVImportView(APIView):
                         semester_end_date=row['semester_end_date']
                     )
                     semester.save()
-                    students = row['students']
-                    students = students.replace("[", "")
-                    students = students.replace("]", "")
-                    students = students.replace(",", "")
-                    students = students.split()
+                    students = convertStringCSVArrtoArr(row['students'])
 
                     for i in students:
                         if Student.objects.filter(id=i).exists():
@@ -1045,11 +1041,7 @@ class SemesterCSVImportView(APIView):
                             semester.students.add(student)
                             semester.save()
 
-                    courses = row['courses']
-                    courses = courses.replace("[", "")
-                    courses = courses.replace("]", "")
-                    courses = courses.replace(",", "")
-                    courses = courses.split()
+                    courses = convertStringCSVArrtoArr(row['courses'])
 
                     for i in courses:
                         if Course.objects.filter(id=i).exists():
@@ -1079,18 +1071,15 @@ class FieldOfStudyCSVImportView(APIView):
         file = pd.read_csv(request.FILES['files'], sep=',', header=0)
 
         for index, row in file.iterrows():
-            if row['name'] and row['study_type'] and row['start_date'] and row['end_date']\
+            if row['name'] and row['study_type'] and row['start_date'] and row['end_date'] \
                     and row['field_groups'] is not None:
                 field_of_study = FieldOfStudy(name=row['name'],
                                               study_type=row['study_type'],
                                               start_date=row['start_date'],
                                               end_date=row['end_date'])
                 field_of_study.save()
-                field_groups = row['field_groups']
-                field_groups = field_groups.replace("[","")
-                field_groups = field_groups.replace("]","")
-                field_groups = field_groups.replace(",", "")
-                field_groups = field_groups.split()
+                field_groups = convertStringCSVArrtoArr(row['field_groups'])
+
                 for i in field_groups:
                     if FieldGroup.objects.filter(pk=i).exists():
                         temp = FieldGroup.objects.get(pk=i)
@@ -1115,10 +1104,7 @@ class ECTSCardCSVImportView(APIView):
                 if semester or field_of_study is None:
                     ects_card = ECTSCard(semester=semester, field_of_study=field_of_study)
                     ects_card.save()
-                    courses = courses.replace("[", "")
-                    courses = courses.replace("]", "")
-                    courses = courses.replace(",", "")
-                    courses = courses.split()
+                    courses = convertStringCSVArrtoArr(courses)
 
                     for i in courses:
                         if Course.objects.filter(id=i).exists():
@@ -1129,7 +1115,64 @@ class ECTSCardCSVImportView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class TimeTableCSVImportView(APIView):
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            semester_id = row['semester']
+            time_table_units = row['time_table_units']
+            semester = Semester.objects.filter(pk=semester_id).first()
+            if semester or time_table_units is None:
+                time_table = TimeTable(semester=semester)
+                time_table.save()
+                time_table_units = convertStringCSVArrtoArr(time_table_units)
+
+                for i in time_table_units:
+                    if TimeTableUnit.objects.filter(id=i).exists():
+                        temp = TimeTableUnit.objects.get(id=i)
+                        time_table.time_table_units.add(temp)
+                        time_table.save()
+        return Response(status=status.HTTP_200_OK)
 
 
+class TimeTableUnitCSVImportView(APIView):
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            day = row['day']
+            start_hour = row['start_hour']
+            end_hour = row['end_hour']
+            week = row['week']
+            course_instructor_info_id = row['course_instructor_info']
+            field_groups = row['field_groups']
+            room_id = row['room']
+            if day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
+                room = Room.objects.filter(pk=room_id).first()
+                course_instructor_info = CourseInstructorInfo.objects.filter(pk=course_instructor_info_id).first()
+                if room or course_instructor_info is None:
+                    time_table_unit = TimeTableUnit(day=day,
+                                                    start_hour=start_hour,
+                                                    end_hour=end_hour,
+                                                    week=week,
+                                                    room=room,
+                                                    course_instructor_info=course_instructor_info)
+                    time_table_unit.save()
+                    field_groups = convertStringCSVArrtoArr(field_groups)
+                    for i in field_groups:
+                        if FieldGroup.objects.filter(id=i).exists():
+                            temp = FieldGroup.objects.get(id=i)
+                            time_table_unit.field_groups.add(temp)
+                            time_table_unit.save()
+
+        return Response(status=status.HTTP_200_OK)
 
 
+def convertStringCSVArrtoArr(csvStr):
+    res = csvStr
+    res = res.replace("[", "")
+    res = res.replace("]", "")
+    res = res.replace(",", "")
+    res = res.split()
+    return res

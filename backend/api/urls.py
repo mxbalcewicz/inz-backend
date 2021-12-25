@@ -38,6 +38,8 @@ from .views import (StudentGetPostView,
                     FieldGroupCSVImportView,
                     FieldOfStudyCSVImportView,
                     ECTSCardCSVImportView,
+                    TimeTableUnitCSVImportView,
+                    TimeTableCSVImportView
                     )
 
 urlpatterns = [
@@ -79,8 +81,10 @@ urlpatterns = [
     path('timetable', TimeTableGetPostView.as_view(), name='timetable_get_post'),
     path('timetable/<int:pk>', TimeTableRetrieveUpdateDeleteView.as_view(), name='timetable_update_delete'),
     path('timetable/export/csv', TimeTableCSVExportView.as_view(), name='export-csv-timetable'),
+    path('timetable/import/csv', TimeTableCSVImportView.as_view(), name='import-csv-timetable'),
     path('timetableunit', TimeTableUnitGetPostView.as_view(), name='timetableunit_get_post'),
     path('timetableunit/<int:pk>', TimeTableUnitRetrieveUpdateDeleteView.as_view(), name='timetableunit_update_delete'),
     path('timetableunit/export/csv', TimeTableUnitCSVExportView.as_view(), name='export-csv-timetableunit'),
+    path('timetableunit/import/csv', TimeTableUnitCSVImportView.as_view(), name='import-csv-timetableunit'),
     path('rooms/import/csv', RoomCSVImportView.as_view(), name='import-csv-room')
 ]
