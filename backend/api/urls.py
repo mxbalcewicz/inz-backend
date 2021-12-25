@@ -37,6 +37,7 @@ from .views import (StudentGetPostView,
                     SemesterCSVImportView,
                     FieldGroupCSVImportView,
                     FieldOfStudyCSVImportView,
+                    ECTSCardCSVImportView,
                     )
 
 urlpatterns = [
@@ -70,6 +71,7 @@ urlpatterns = [
     path('ectscard', ECTSCardGetPostView.as_view(), name='ectscard_get_post'),
     path('ectscard/<int:pk>', ECTSCardRetrieveUpdateDeleteView.as_view(), name='ectscard_update_delete'),
     path('ectscard/export/csv', ECTSCardCSVExportView.as_view(), name='export-csv-ectscard'),
+    path('ectscard/import/csv', ECTSCardCSVImportView.as_view(), name='import-csv-ectscard'),
     path('fieldgroup', FieldGroupGetPostView.as_view(), name='field_group_get_post'),
     path('fieldgroup/<int:pk>', FieldGroupRetrieveUpdateDeleteView.as_view(), name='field_group_update_delete'),
     path('fieldgroup/export/csv', FieldGroupCSVExportView.as_view(), name='export-csv-fieldgroup'),

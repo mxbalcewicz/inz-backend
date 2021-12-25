@@ -1100,5 +1100,36 @@ class FieldOfStudyCSVImportView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class ECTSCardCSVImportView(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            courses = row['courses']
+            field_of_study_id = row['field_of_study']
+            semester_id = row['semester']
+            if courses and field_of_study_id and semester_id is not None:
+                semester = Semester.objects.filter(pk=semester_id).first()
+                field_of_study = FieldOfStudy.objects.filter(pk=field_of_study_id).first()
+                if semester or field_of_study is None:
+                    ects_card = ECTSCard(semester=semester, field_of_study=field_of_study)
+                    ects_card.save()
+                    courses = courses.replace("[", "")
+                    courses = courses.replace("]", "")
+                    courses = courses.replace(",", "")
+                    courses = courses.split()
+
+                    for i in courses:
+                        if Course.objects.filter(id=i).exists():
+                            course = Course.objects.filter(id=i).first()
+                            semester.courses.add(course)
+                            ects_card.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+
+
 
 
