@@ -1310,3 +1310,204 @@ class StudentsJSONImportView(APIView):
             serializer.save()
 
         return Response(status=status.HTTP_200_OK)
+
+
+class RoomJSONImportView(APIView):
+    serializer_class = RoomSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class CourseJSONImportView(APIView):
+    serializer_class = CourseSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+
+            course = Course(name=row['name'], points_value=row['points_value'])
+            if row['prerequisites'] is not None:
+                course.prerequisites = row['prerequisites']
+            if row['subject_learning_outcomes'] is not None:
+                course.subject_learning_outcomes = row['subject_learning_outcomes']
+            if row['purposes'] is not None:
+                course.purposes = row['purposes']
+            if row['methods_of_verification_of_learning_outcomes_and_criteria'] is not None:
+                course.methods_of_verification_of_learning_outcomes_and_criteria = row[
+                    'methods_of_verification_of_learning_outcomes_and_criteria']
+            if row['content_of_the_subject'] is not None:
+                course.content_of_the_subject = row['content_of_the_subject']
+            if row['didactic_methods'] is not None:
+                course.didactic_methods = row['didactic_methods']
+            if row['literature'] is not None:
+                course.literature = row['literature']
+            if row['balance_of_work_of_an_avg_student'] is not None:
+                course.balance_of_work_of_an_avg_student = row['balance_of_work_of_an_avg_student']
+            course.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class CourseInstructorInfosJSONImportView(APIView):
+    serializer_class = CourseInstructorInfoSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        return Response(status=status.HTTP_200_OK)
+
+
+class SemesterJSONImportView(APIView):
+    serializer_class = SemesterSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            fieldofstudy_id = row['field_of_study']
+            if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
+                fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+
+                semester = Semester(
+                    year=row['year'],
+                    semester=row['semester'],
+                    field_of_study=fieldofstudy,
+                    semester_start_date=row['semester_start_date'],
+                    semester_end_date=row['semester_end_date']
+                )
+                semester.save()
+
+                students = row['students']
+                for i in students:
+                    if Student.objects.filter(id=i).exists():
+                        student = Student.objects.get(id=i)
+                        semester.students.add(student)
+                        semester.save()
+
+                courses = row['courses']
+                print(courses)
+                for i in courses:
+                    if Course.objects.filter(id=i).exists():
+                        course = Course.objects.get(id=i)
+                        semester.courses.add(course)
+                        semester.save()
+        return Response(status=status.HTTP_200_OK)
+
+
+class FieldGroupJSONImportView(APIView):
+    serializer_class = FieldGroupSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        return Response(status=status.HTTP_200_OK)
+
+
+class FieldOfStudyJSONImportView(APIView):
+    serializer_class = FieldOfStudySerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            field_of_study = FieldOfStudy(
+                name=row['name'],
+                study_type=row['study_type'],
+                start_date=row['start_date'],
+                end_date=row['end_date']
+            )
+            field_of_study.save()
+
+            field_groups = row['field_groups']
+            for i in field_groups:
+                if FieldGroup.objects.filter(id=i).exists():
+                    temp = FieldGroup.objects.get(id=i)
+                    field_of_study.field_groups.add(temp)
+                    field_of_study.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+class ECTSCardJSONImportView(APIView):
+    serializer_class = ECTSCardSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        return Response(status=status.HTTP_200_OK)
+
+
+class TimeTableJSONImportView(APIView):
+    serializer_class = TimeTableSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            semester_id = row['semester']
+            if Semester.objects.filter(id=semester_id).exists():
+                semester = Semester.objects.get(id=semester_id)
+                time_table = TimeTable(
+                    semester=semester
+                )
+                time_table.save()
+
+                time_table_units = row['time_table_units']
+                for i in time_table_units:
+                    if TimeTableUnit.objects.filter(id=i).exists():
+                        temp = TimeTableUnit.objects.get(id=i)
+                        time_table.time_table_units.add(temp)
+                        time_table.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class TimeTableUnitJSONImportView(APIView):
+    serializer_class = TimeTableUnitSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+            serializer = self.serializer_class(data=row)
+            serializer.is_valid(raise_exception=True)
+            course_instructor_info_id = row['course_instructor_info']
+            if Room.objects.filter(id=row['room']).exists() is False:
+                return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
+                course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+                room = Room.objects.get(id=row["room"])
+                time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
+                                                start_hour=row['start_hour'],
+                                                end_hour=row['end_hour'],
+                                                day=row['day'],
+                                                week=row['week'],
+                                                room=room)
+                time_table_unit.save()
+                field_groups = row['field_groups']
+                for i in field_groups:
+                    if FieldGroup.objects.filter(id=i).exists():
+                        temp = FieldGroup.objects.get(id=i)
+                        time_table_unit.field_groups.add(temp)
+                        time_table_unit.save()
+
+        return Response(status=status.HTTP_200_OK)
