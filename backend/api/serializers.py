@@ -75,8 +75,6 @@ class FieldGroupSerializer(serializers.ModelSerializer):
 
 
 class FieldOfStudySerializer(serializers.ModelSerializer):
-    field_groups = serializers.ListField()
-
     class Meta:
         model = FieldOfStudy
         fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'field_groups']

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, viewsets, status
 from rest_framework.views import APIView
 import pandas as pd
+import json
 
 from .models import (Student,
                      FieldOfStudy,
@@ -1176,3 +1177,123 @@ def convertStringCSVArrtoArr(csvStr):
     res = res.replace(",", "")
     res = res.split()
     return res
+
+
+class StudentsJSONExportView(APIView):
+    serializer_class = StudentSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="Students.json"'
+        serializer = self.serializer_class(Student.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class RoomsJSONExportView(APIView):
+    serializer_class = RoomSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="Rooms.json"'
+        serializer = self.serializer_class(Room.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class CourseJSONExportView(APIView):
+    serializer_class = CourseSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="Courses.json"'
+        serializer = self.serializer_class(Course.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class CourseInstructorInfosJSONExportView(APIView):
+    serializer_class = CourseInstructorInfoSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="CourseInstructorInfos.json"'
+        serializer = self.serializer_class(CourseInstructorInfo.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class SemesterJSONExportView(APIView):
+    serializer_class = SemesterSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="Semester.json"'
+        serializer = self.serializer_class(Semester.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class FieldGroupJSONExportView(APIView):
+    serializer_class = FieldGroupSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="FieldGroup.json"'
+        serializer = self.serializer_class(FieldGroup.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class FieldOfStudyJSONExportView(APIView):
+    serializer_class = FieldOfStudySerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="FieldOfStudy.json"'
+        serializer = self.serializer_class(FieldOfStudy.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class TimeTableJSONExportView(APIView):
+    serializer_class = TimeTableSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="TimeTable.json"'
+        serializer = self.serializer_class(TimeTable.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class TimeTableUnitJSONExportView(APIView):
+    serializer_class = TimeTableUnitSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="TimeTableUnit.json"'
+        serializer = self.serializer_class(TimeTableUnit.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class ECTSCardJSONExportView(APIView):
+    serializer_class = ECTSCardSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="ECTSCard.json"'
+        serializer = self.serializer_class(ECTSCard.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
