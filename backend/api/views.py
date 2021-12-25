@@ -930,8 +930,15 @@ class TimeTableCSVExportView(APIView):
 
 
 class RoomCSVImport(APIView):
+
     def post(self, request):
-        file = pd.read_csv(request.FILES['file'])
-        print(request.FILES)
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            room = Room(name=row['name'],
+                        capacity=row['capacity'],
+                        room_type=row['room_type'])
+            room.save()
+
         return Response(status=status.HTTP_200_OK)
 
