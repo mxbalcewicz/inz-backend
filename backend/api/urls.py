@@ -31,7 +31,8 @@ from .views import (StudentGetPostView,
                     TimeTableUnitCSVExportView,
                     RoomCSVImportView,
                     CourseInstructorInfosCSVExportView,
-                    CourseCSVImportView
+                    CourseCSVImportView,
+                    CourseInstructorInfosCSVImportView,
                     )
 
 urlpatterns = [
@@ -42,6 +43,8 @@ urlpatterns = [
     path('courseinstructorinfo/<int:pk>', CourseInstructorInfoRetrieveUpdateDeleteView.as_view(),
          name='courseinstructorinfo_update_delete'),
     path('courseinstructorinfo/export/csv', CourseInstructorInfosCSVExportView.as_view(), name='export-csv-courseinstructorinfo'),
+    path('courseinstructorinfo/import/csv', CourseInstructorInfosCSVImportView.as_view(),
+         name='import-csv-courseinstructorinfo'),
     path('course', CourseGetPostView.as_view(), name='course_get_post'),
     path('course/<int:pk>', CourseRetrieveUpdateDeleteView.as_view(),
          name='course_update_delete'),

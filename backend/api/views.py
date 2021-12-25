@@ -974,3 +974,23 @@ class CourseCSVImportView(APIView):
 
         return Response(status=status.HTTP_200_OK)
 
+
+
+class CourseInstructorInfosCSVImportView(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+
+            if Course.objects.filter(pk=row['course']).exists() and \
+                    StaffAccount.objects.filter(pk=row['instructor']).exists() is not False:
+                if row['course_type'] and row['hours'] is not None:
+                    courseinstinfo = CourseInstructorInfo(hours=row['hours'],
+                                                          course_type=row['course_type'],
+                                                          instructor=StaffAccount.objects.get(pk=row['instructor']),
+                                                          course=Course.objects.get(pk=row['course']))
+                    courseinstinfo.save()
+
+        return Response(status=status.HTTP_200_OK)
+
