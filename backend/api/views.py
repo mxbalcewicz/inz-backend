@@ -1010,3 +1010,95 @@ class StudentsCSVImportView(APIView):
                         student.save()
 
         return Response(status=status.HTTP_200_OK)
+
+
+class SemesterCSVImportView(APIView):
+
+    def post(self, request):
+
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            if row['semester'] and row['year'] and row['students'] and row['field_of_study'] and \
+                    row['courses'] and row['semester_start_date'] and row['semester_end_date'] is not None:
+                fieldofstudy_id = row['field_of_study']
+                if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
+                    fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+
+                    semester = Semester(
+                        year=row['year'],
+                        semester=row['semester'],
+                        field_of_study=fieldofstudy,
+                        semester_start_date=row['semester_start_date'],
+                        semester_end_date=row['semester_end_date']
+                    )
+                    semester.save()
+                    students = row['students']
+                    students = students.replace("[", "")
+                    students = students.replace("]", "")
+                    students = students.replace(",", "")
+                    students = students.split()
+
+                    for i in students:
+                        if Student.objects.filter(id=i).exists():
+                            student = Student.objects.get(id=i)
+                            semester.students.add(student)
+                            semester.save()
+
+                    courses = row['courses']
+                    courses = courses.replace("[", "")
+                    courses = courses.replace("]", "")
+                    courses = courses.replace(",", "")
+                    courses = courses.split()
+
+                    for i in courses:
+                        if Course.objects.filter(id=i).exists():
+                            course = Course.objects.get(id=i)
+                            semester.courses.add(course)
+                            semester.save()
+                    semester.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class FieldGroupCSVImportView(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            if row['name'] is not None:
+                field_group = FieldGroup(name=row['name'])
+                field_group.save()
+        return Response(status=status.HTTP_200_OK)
+
+
+class FieldOfStudyCSVImportView(APIView):
+
+    def post(self, request):
+        file = pd.read_csv(request.FILES['files'], sep=',', header=0)
+
+        for index, row in file.iterrows():
+            if row['name'] and row['study_type'] and row['start_date'] and row['end_date']\
+                    and row['field_groups'] is not None:
+                field_of_study = FieldOfStudy(name=row['name'],
+                                              study_type=row['study_type'],
+                                              start_date=row['start_date'],
+                                              end_date=row['end_date'])
+                field_of_study.save()
+                field_groups = row['field_groups']
+                field_groups = field_groups.replace("[","")
+                field_groups = field_groups.replace("]","")
+                field_groups = field_groups.replace(",", "")
+                field_groups = field_groups.split()
+                for i in field_groups:
+                    if FieldGroup.objects.filter(pk=i).exists():
+                        temp = FieldGroup.objects.get(pk=i)
+                        field_of_study.field_groups.add(temp)
+                        field_of_study.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+
+

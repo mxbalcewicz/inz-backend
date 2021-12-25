@@ -32,7 +32,6 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class CourseGetSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Course
         fields = ['id', 'points_value', 'name', 'prerequisites', 'purposes',
@@ -76,6 +75,8 @@ class FieldGroupSerializer(serializers.ModelSerializer):
 
 
 class FieldOfStudySerializer(serializers.ModelSerializer):
+    field_groups = serializers.ListField()
+
     class Meta:
         model = FieldOfStudy
         fields = ['id', 'name', 'study_type', 'start_date', 'end_date', 'field_groups']
@@ -90,6 +91,7 @@ class FieldOfStudyGetSerializer(serializers.ModelSerializer):
 
 
 class SemesterSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Semester
         fields = ['id', 'semester', 'year', 'students', 'field_of_study', 'courses',
