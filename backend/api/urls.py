@@ -55,6 +55,7 @@ from .views import (StudentGetPostView,
                     SemesterJSONImportView, FieldGroupJSONImportView,
                     FieldOfStudyJSONImportView, TimeTableJSONImportView,
                     TimeTableUnitJSONImportView, ECTSCardJSONImportView,
+                    TimeTableWithTimeTableUnitsPostView,
                     )
 
 urlpatterns = [
@@ -123,5 +124,6 @@ urlpatterns = [
     path('timetableunit/export/csv', TimeTableUnitCSVExportView.as_view(), name='export-csv-timetableunit'),
     path('timetableunit/export/json', TimeTableUnitJSONExportView.as_view(), name='export-json-timetableunit'),
     path('timetableunit/import/csv', TimeTableUnitCSVImportView.as_view(), name='import-csv-timetableunit'),
-    path('timetableunit/import/json', TimeTableUnitJSONImportView.as_view(), name='import-json-timetableunit')
+    path('timetableunit/import/json', TimeTableUnitJSONImportView.as_view(), name='import-json-timetableunit'),
+    path('timetablewithtimetableunits', TimeTableWithTimeTableUnitsPostView.as_view(), name='timetablewith-ttunits-post'),
 ]
