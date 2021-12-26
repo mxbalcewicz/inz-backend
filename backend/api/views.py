@@ -753,6 +753,57 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class TimeTableWithTimeTableUnitsUpdateView(APIView):
+
+    def put(self, request, pk):
+        semester_id = request.data.get('semester')
+        time_table_units = request.data.get('time_table_units')
+        if semester_id is None:
+            return Response("No semester in json data", status=status.HTTP_400_BAD_REQUEST)
+        if time_table_units is None:
+            return Response("No time table units in json data", status=status.HTTP_400_BAD_REQUEST)
+        semester = Semester.objects.filter(pk=semester_id).first()
+        if semester is None:
+            return Response("There is no semester with given id", status=status.HTTP_400_BAD_REQUEST)
+
+        time_table = TimeTable.objects.filter(pk=pk).first()
+        if time_table is None:
+            return Response("There is no time table with given id", status=status.HTTP_400_BAD_REQUEST)
+        time_table.semester = semester
+        time_table.save()
+        time_table.time_table_units.clear()
+
+        for i in time_table_units:
+            serializer = TimeTableUnitSerializer(data=i)
+            serializer.is_valid(raise_exception=True)
+
+            course_instructor_info_id = i['course_instructor_info']
+
+            if Room.objects.filter(id=i['room']).exists() is False:
+                return Response("there is no room with given id", status=status.HTTP_400_BAD_REQUEST)
+            if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
+                course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+                room = Room.objects.filter(id=i['room']).first()
+
+                time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
+                                                start_hour=i['start_hour'],
+                                                end_hour=i['end_hour'],
+                                                day=i['day'],
+                                                week=i['week'],
+                                                room=room)
+                time_table_unit.save()
+                field_groups = i['field_groups']
+                for j in field_groups:
+                    if FieldGroup.objects.filter(id=j).exists():
+                        temp = FieldGroup.objects.get(id=j)
+                        time_table_unit.field_groups.add(temp)
+                        time_table_unit.save()
+                        time_table.time_table_units.add(time_table_unit)
+                        time_table.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
 class StudentsCSVExportView(APIView):
     serializer_class = StudentSerializer
 
@@ -1491,6 +1542,7 @@ class FieldOfStudyJSONImportView(APIView):
                     field_of_study.save()
 
         return Response(status=status.HTTP_200_OK)
+
 
 class ECTSCardJSONImportView(APIView):
     serializer_class = ECTSCardSerializer
