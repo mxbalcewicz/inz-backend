@@ -1,7 +1,7 @@
 from django.conf import settings
 from django_elasticsearch_dsl import Document, Index, fields
 from elasticsearch_dsl import analyzer
-from api.models import FieldGroup
+from api.models import Course
 
 INDEX = Index(settings.ELASTICSEARCH_INDEX_NAMES[__name__])
 
@@ -20,13 +20,20 @@ html_strip = analyzer(
 
 
 @INDEX.doc_type
-class FieldGroupDocument(Document):
+class CourseDocument(Document):
     """Elasticsearch document."""
-
-    id = fields.IntegerField(attr='id')
     name = fields.TextField()
+    points_value = fields.IntegerField()
+    prerequisites = fields.TextField()
+    purposes = fields.TextField()
+    subject_learning_outcomes = fields.TextField()
+    methods_of_verification_of_learning_outcomes_and_criteria = fields.TextField()
+    content_of_the_subject = fields.TextField()
+    didactic_methods = fields.TextField()
+    literature = fields.TextField()
+    balance_of_work_of_an_avg_student = fields.TextField()
 
     class Django(object):
         """Inner nested class Django."""
 
-        model = FieldGroup  # The model associate with this Document
+        model = Course  # The model associate with this Document

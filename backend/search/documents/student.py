@@ -18,6 +18,7 @@ html_strip = analyzer(
     char_filter=["html_strip"]
 )
 
+
 @INDEX.doc_type
 class StudentDocument(Document):
     """Book Elasticsearch document."""

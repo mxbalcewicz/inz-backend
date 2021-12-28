@@ -8,6 +8,7 @@ from .documents.staffaccount import StaffAccountDocument
 from .documents.deaneryaccount import DeaneryAccountDocument
 from .documents.courseinstructorinfo import CourseInstructorInfoDocument
 from .documents.semester import SemesterDocument
+from .documents.course import CourseDocument
 
 
 class StudentDocumentSerializer(DocumentSerializer):
@@ -144,4 +145,26 @@ class SemesterDocumentSerializer(DocumentSerializer):
             'courses',
             'semester_start_date',
             'semester_end_date'
+        )
+
+
+class CourseDocumentSerializer(DocumentSerializer):
+    class Meta:
+        """Meta options."""
+
+        # Specify the correspondent document class
+        document = CourseDocument
+
+        # Serializer fields
+        fields = (
+            'name',
+            'points_value',
+            'prerequisites',
+            'purposes',
+            'subject_learning_outcomes',
+            'methods_of_verification_of_learning_outcomes_and_criteria',
+            'content_of_the_subject',
+            'didactic_methods',
+            'literature',
+            'balance_of_work_of_an_avg_student'
         )

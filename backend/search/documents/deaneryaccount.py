@@ -18,6 +18,7 @@ html_strip = analyzer(
     char_filter=["html_strip"]
 )
 
+
 @INDEX.doc_type
 class DeaneryAccountDocument(Document):
     """Book Elasticsearch document."""
@@ -26,7 +27,7 @@ class DeaneryAccountDocument(Document):
         'id': fields.IntegerField(attr='id'),
         'email': fields.TextField()
     })
-    
+
     class Django(object):
         """Inner nested class Django."""
 

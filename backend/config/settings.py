@@ -95,7 +95,8 @@ ELASTICSEARCH_INDEX_NAMES = {
     'search.documents.fieldgroup': 'fieldgroup',
     'search.documents.staffaccount': 'staffaccount',
     'search.documents.deaneryaccount': 'deaneryaccount',
-    'search.documents.semester': 'semester'
+    'search.documents.semester': 'semester',
+    'search.documents.course': 'course'
 }
 
 ELASTICSEARCH_DSL = {

@@ -20,7 +20,8 @@ class CourseInstructorInfo(models.Model):
         MaxValueValidator(60),
     ])
     instructor = models.ForeignKey(StaffAccount, on_delete=models.CASCADE)
-    course_type = models.CharField(default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
+    course_type = models.CharField(
+        default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -49,17 +50,21 @@ class Course(models.Model):
     # cel przedmiotu
     purposes = models.CharField(max_length=500, blank=True, default="")
     # przedmiotowe efekty uczenia się
-    subject_learning_outcomes = models.CharField(max_length=1000, blank=True, default="")
+    subject_learning_outcomes = models.CharField(
+        max_length=1000, blank=True, default="")
     # metody weryfikacji efektów uczenia się i kryteria oceny
-    methods_of_verification_of_learning_outcomes_and_criteria = models.CharField(max_length=500, blank=True, default="")
+    methods_of_verification_of_learning_outcomes_and_criteria = models.CharField(
+        max_length=500, blank=True, default="")
     # treści programowe
-    content_of_the_subject = models.CharField(max_length=500, blank=True, default="")
+    content_of_the_subject = models.CharField(
+        max_length=500, blank=True, default="")
     # metody dydaktyczne
     didactic_methods = models.CharField(max_length=500, blank=True, default="")
     # literatura
     literature = models.CharField(max_length=500, blank=True, default="")
     # bilans nakładu pracy przeciętnego studenta
-    balance_of_work_of_an_avg_student = models.CharField(max_length=500, blank=True, default="")
+    balance_of_work_of_an_avg_student = models.CharField(
+        max_length=500, blank=True, default="")
 
     # def __str__(self):
     #     course_instructor_infos = [i.id for i in self.course_instructor_info.all()]
@@ -73,7 +78,8 @@ class Semester(models.Model):
     ])
     year = models.IntegerField()
     students = models.ManyToManyField(Student, blank=True)
-    field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
+    field_of_study = models.ForeignKey(
+        'FieldOfStudy', on_delete=models.CASCADE)
     courses = models.ManyToManyField(Course, blank=False)
     semester_start_date = models.DateField(blank=False, default=datetime.now())
     semester_end_date = models.DateField(blank=False, default=datetime.now())
@@ -101,7 +107,8 @@ class FieldOfStudy(models.Model):
     )
 
     name = models.CharField(max_length=60, blank=True, default='Untitled')
-    study_type = models.CharField(default=FULL_TIME, choices=STUDY_TYPES, blank=True, null=False, max_length=10)
+    study_type = models.CharField(
+        default=FULL_TIME, choices=STUDY_TYPES, blank=True, null=False, max_length=10)
     start_date = models.DateField(auto_now_add=False, default=date.today)
     end_date = models.DateField(auto_now_add=False, default=date.today)
     field_groups = models.ManyToManyField(FieldGroup, blank=True)
@@ -130,9 +137,11 @@ class Room(models.Model):
     ])
     room_type = MultiSelectField(choices=ROOM_TYPES)
 
+
 class ECTSCard(models.Model):
     courses = models.ManyToManyField(Course, blank=False)
-    field_of_study = models.ForeignKey('FieldOfStudy', on_delete=models.CASCADE)
+    field_of_study = models.ForeignKey(
+        'FieldOfStudy', on_delete=models.CASCADE)
     semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
 
 
@@ -154,7 +163,6 @@ class TimeTableUnit(models.Model):
         (SUNDAY, 'SUNDAY')
     )
 
-
     EVEN = 'EVEN'
     ODD = 'ODD'
     ALL = 'ALL'
@@ -164,11 +172,14 @@ class TimeTableUnit(models.Model):
         (ALL, 'ALL')
     )
 
-    day = models.CharField(default=MONDAY, choices=DAYS, blank=False, max_length=30)
+    day = models.CharField(default=MONDAY, choices=DAYS,
+                           blank=False, max_length=30)
     start_hour = models.TimeField(blank=False, default=datetime.now())
     end_hour = models.TimeField(blank=False, default=datetime.now())
-    week = models.CharField(default=ALL, choices=WEEKS, blank=False, max_length=30)
-    course_instructor_info = models.ForeignKey('CourseInstructorInfo', blank=False, on_delete=models.CASCADE)
+    week = models.CharField(default=ALL, choices=WEEKS,
+                            blank=False, max_length=30)
+    course_instructor_info = models.ForeignKey(
+        'CourseInstructorInfo', blank=False, on_delete=models.CASCADE)
     field_groups = models.ManyToManyField(FieldGroup, blank=False)
     room = models.ForeignKey('Room', on_delete=models.CASCADE)
 
