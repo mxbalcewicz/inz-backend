@@ -107,7 +107,8 @@ class FieldOfStudy(models.Model):
     field_groups = models.ManyToManyField(FieldGroup, blank=True)
 
     def __str__(self):
-        return f'Name:{self.name} Type:{self.study_type} Start:{self.start_date} End:{self.end_date}'
+        field_groups = [i.id for i in self.field_groups.all()]
+        return f'Name:{self.name} Type:{self.study_type} Start:{self.start_date} End:{self.end_date}, Field groups:{field_groups}'
 
 
 class Room(models.Model):

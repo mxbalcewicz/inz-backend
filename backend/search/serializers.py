@@ -7,6 +7,7 @@ from .documents.fieldofstudy import FieldOfStudyDocument
 from .documents.staffaccount import StaffAccountDocument
 from .documents.deaneryaccount import DeaneryAccountDocument
 from .documents.courseinstructorinfo import CourseInstructorInfoDocument
+from .documents.semester import SemesterDocument
 
 
 class StudentDocumentSerializer(DocumentSerializer):
@@ -123,4 +124,24 @@ class CourseInstructorInfoDocumentSerializer(DocumentSerializer):
             'instructor',
             'course_type',
             'course'
+        )
+
+
+class SemesterDocumentSerializer(DocumentSerializer):
+    class Meta:
+        """Meta options."""
+
+        # Specify the correspondent document class
+        document = SemesterDocument
+
+        # Serializer fields
+        fields = (
+            'id',
+            'semester',
+            'year',
+            'students',
+            'field_of_study',
+            'courses',
+            'semester_start_date',
+            'semester_end_date'
         )
