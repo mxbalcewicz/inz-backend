@@ -61,9 +61,9 @@ class Course(models.Model):
     # bilans nakładu pracy przeciętnego studenta
     balance_of_work_of_an_avg_student = models.CharField(max_length=500, blank=True, default="")
 
-    def __str__(self):
-        course_instructor_infos = [i.id for i in self.course_instructor_info.all()]
-        return f'Id:{self.pk}, Name:{self.name}, Instructor info ids:{course_instructor_infos}, Points value:{self.points_value}'
+    # def __str__(self):
+    #     course_instructor_infos = [i.id for i in self.course_instructor_info.all()]
+    #     return f'Id:{self.pk}, Name:{self.name}, Instructor info ids:{course_instructor_infos}, Points value:{self.points_value}'
 
 
 class Semester(models.Model):

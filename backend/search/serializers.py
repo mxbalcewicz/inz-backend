@@ -6,6 +6,9 @@ from .documents.fieldgroup import FieldGroupDocument
 from .documents.fieldofstudy import FieldOfStudyDocument
 from .documents.staffaccount import StaffAccountDocument
 from .documents.deaneryaccount import DeaneryAccountDocument
+from .documents.courseinstructorinfo import CourseInstructorInfoDocument
+
+
 class StudentDocumentSerializer(DocumentSerializer):
     class Meta:
         """Meta options."""
@@ -74,6 +77,7 @@ class FieldOfStudyDocumentSerializer(DocumentSerializer):
             'field_groups'
         )
 
+
 class StaffAccountDocumentSerializer(DocumentSerializer):
     class Meta:
         """Meta options."""
@@ -91,6 +95,7 @@ class StaffAccountDocumentSerializer(DocumentSerializer):
             'account'
         )
 
+
 class DeaneryAccountDocumentSerializer(DocumentSerializer):
     class Meta:
         """Meta options."""
@@ -101,4 +106,21 @@ class DeaneryAccountDocumentSerializer(DocumentSerializer):
         # Serializer fields
         fields = (
             'account'
+        )
+
+
+class CourseInstructorInfoDocumentSerializer(DocumentSerializer):
+    class Meta:
+        """Meta options."""
+
+        # Specify the correspondent document class
+        document = CourseInstructorInfoDocument
+
+        # Serializer fields
+        fields = (
+            'id',
+            'hours',
+            'instructor',
+            'course_type',
+            'course'
         )

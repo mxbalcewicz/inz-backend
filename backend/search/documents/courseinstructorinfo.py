@@ -18,6 +18,7 @@ html_strip = analyzer(
     char_filter=["html_strip"]
 )
 
+
 @INDEX.doc_type
 class CourseInstructorInfoDocument(Document):
     """Elasticsearch document."""
@@ -36,6 +37,19 @@ class CourseInstructorInfoDocument(Document):
         'academic_title': fields.TextField(),
     })
     course_type = fields.TextField()
+    course = fields.NestedField(properties={
+        'id': fields.IntegerField(attr='id'),
+        'name': fields.TextField(),
+        'points_value': fields.IntegerField(),
+        'prerequisites': fields.TextField(),
+        'purposes': fields.TextField(),
+        'subject_learning_outcomes': fields.TextField(),
+        'methods_of_verification_of_learning_outcomes_and_criteria': fields.TextField(),
+        'content_of_the_subject': fields.TextField(),
+        'didactic_methods': fields.TextField(),
+        'literature': fields.TextField(),
+        'balance_of_work_of_an_avg_student': fields.TextField()
+    })
 
     class Django(object):
         """Inner nested class Django."""
