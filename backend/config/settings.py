@@ -96,7 +96,8 @@ ELASTICSEARCH_INDEX_NAMES = {
     'search.documents.staffaccount': 'staffaccount',
     'search.documents.deaneryaccount': 'deaneryaccount',
     'search.documents.semester': 'semester',
-    'search.documents.course': 'course'
+    'search.documents.course': 'course',
+    'search.documents.ectscard': 'ectscard'
 }
 
 ELASTICSEARCH_DSL = {

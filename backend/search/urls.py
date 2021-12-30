@@ -3,6 +3,7 @@ from django.views.generic import base
 from rest_framework.routers import DefaultRouter
 from .views import (
     CourseDocumentView,
+    ECTSCardDocumentView,
     RoomDocumentView,
     SemesterDocumentView,
     StudentDocumentView,
@@ -30,6 +31,8 @@ router.register(r'courseinstructorinfo', CourseInstructorInfoDocumentView,
 router.register(r'semester', SemesterDocumentView,
                 basename='semester_document_view')
 router.register(r'course', CourseDocumentView, basename='course_document_view')
+router.register(r'ectscard', ECTSCardDocumentView,
+                basename='ectscard_document_view')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -9,6 +9,7 @@ from .documents.deaneryaccount import DeaneryAccountDocument
 from .documents.courseinstructorinfo import CourseInstructorInfoDocument
 from .documents.semester import SemesterDocument
 from .documents.course import CourseDocument
+from .documents.ectscard import ECTSCardDocument
 
 
 class StudentDocumentSerializer(DocumentSerializer):
@@ -167,4 +168,20 @@ class CourseDocumentSerializer(DocumentSerializer):
             'didactic_methods',
             'literature',
             'balance_of_work_of_an_avg_student'
+        )
+
+
+class ECTSCardDocumentSerializer(DocumentSerializer):
+    class Meta:
+        """Meta options."""
+
+        # Specify the correspondent document class
+        document = ECTSCardDocument
+
+        # Serializer fields
+        fields = (
+            'id',
+            'courses',
+            'field_of_study',
+            'semester'
         )
