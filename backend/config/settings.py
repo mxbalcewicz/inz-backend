@@ -97,7 +97,8 @@ ELASTICSEARCH_INDEX_NAMES = {
     'search.documents.deaneryaccount': 'deaneryaccount',
     'search.documents.semester': 'semester',
     'search.documents.course': 'course',
-    'search.documents.ectscard': 'ectscard'
+    'search.documents.ectscard': 'ectscard',
+    'search.documents.timetableunit': 'timetableunit'
 }
 
 ELASTICSEARCH_DSL = {
@@ -106,7 +107,7 @@ ELASTICSEARCH_DSL = {
     },
 }
 
-SPECTACULAR_SETTINGS = {
+SPECTACULAR_SETTINGS = {    
     'TITLE': 'Your Project API',
     'DESCRIPTION': 'Your project description',
     'VERSION': '1.0.0',

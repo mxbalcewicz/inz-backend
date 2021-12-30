@@ -10,7 +10,7 @@ from .documents.courseinstructorinfo import CourseInstructorInfoDocument
 from .documents.semester import SemesterDocument
 from .documents.course import CourseDocument
 from .documents.ectscard import ECTSCardDocument
-
+from .documents.timetableunit import TimeTableUnitDocument
 
 class StudentDocumentSerializer(DocumentSerializer):
     class Meta:
@@ -184,4 +184,24 @@ class ECTSCardDocumentSerializer(DocumentSerializer):
             'courses',
             'field_of_study',
             'semester'
+        )
+
+
+class TimeTableUnitDocumentSerializer(DocumentSerializer):
+    class Meta:
+        """Meta options."""
+
+        # Specify the correspondent document class
+        document = TimeTableUnitDocument
+
+        # Serializer fields
+        fields = (
+            'id',
+            'day',
+            'week',
+            'start_hour',
+            'end_hour',
+            'course_instructor_info',
+            'field_groups',
+            'room'
         )

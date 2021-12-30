@@ -12,6 +12,7 @@ from .views import (
     StaffAccountDocumentView,
     DeaneryAccountDocumentView,
     CourseInstructorInfoDocumentView,
+    TimeTableUnitDocumentView,
 )
 router = DefaultRouter()
 
@@ -33,6 +34,7 @@ router.register(r'semester', SemesterDocumentView,
 router.register(r'course', CourseDocumentView, basename='course_document_view')
 router.register(r'ectscard', ECTSCardDocumentView,
                 basename='ectscard_document_view')
+router.register(r'timetableunit', TimeTableUnitDocumentView, basename='timetableunit_document_view')
 
 urlpatterns = [
     path('', include(router.urls)),

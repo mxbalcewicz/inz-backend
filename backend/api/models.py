@@ -174,10 +174,10 @@ class TimeTableUnit(models.Model):
 
     day = models.CharField(default=MONDAY, choices=DAYS,
                            blank=False, max_length=30)
-    start_hour = models.TimeField(blank=False, default=datetime.now())
-    end_hour = models.TimeField(blank=False, default=datetime.now())
     week = models.CharField(default=ALL, choices=WEEKS,
                             blank=False, max_length=30)
+    start_hour = models.TimeField(blank=False, default=datetime.now())
+    end_hour = models.TimeField(blank=False, default=datetime.now())
     course_instructor_info = models.ForeignKey(
         'CourseInstructorInfo', blank=False, on_delete=models.CASCADE)
     field_groups = models.ManyToManyField(FieldGroup, blank=False)
