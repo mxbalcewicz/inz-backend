@@ -139,7 +139,6 @@ class Room(models.Model):
 
 
 class ECTSCard(models.Model):
-    courses = models.ManyToManyField(Course, blank=False)
     field_of_study = models.ForeignKey(
         'FieldOfStudy', on_delete=models.CASCADE)
     semester = models.ForeignKey('Semester', on_delete=models.CASCADE)

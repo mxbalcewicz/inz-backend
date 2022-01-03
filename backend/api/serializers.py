@@ -109,17 +109,16 @@ class SemesterGetSerializer(serializers.ModelSerializer):
 class ECTSCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = ECTSCard
-        fields = ['id', 'courses', 'field_of_study', 'semester']
+        fields = ['id', 'field_of_study', 'semester']
 
 
 class ECTSCardGetSerializer(serializers.ModelSerializer):
-    courses = CourseGetSerializer(many=True)
     field_of_study = FieldOfStudyGetSerializer()
     semester = SemesterSerializer()
 
     class Meta:
         model = ECTSCard
-        fields = ['id', 'courses', 'field_of_study', 'semester']
+        fields = ['id', 'field_of_study', 'semester']
 
 
 class TimeTableUnitSerializer(serializers.ModelSerializer):

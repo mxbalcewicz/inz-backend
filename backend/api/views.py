@@ -490,14 +490,6 @@ class ECTSCardRetrieveUpdateDeleteView(APIView):
             instance.semester = semester
             instance.save()
 
-        courses = request.data.get('courses')
-        instance.courses.clear()
-        for i in courses:
-            if Course.objects.filter(id=i).exists():
-                course = Course.objects.get(id=i)
-                instance.courses.add(course)
-                instance.save()
-
         updated_instance = ECTSCard.objects.get(pk=pk)
         serializer = self.serializer_class(updated_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
