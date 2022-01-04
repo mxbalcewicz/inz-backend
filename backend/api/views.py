@@ -1152,9 +1152,7 @@ class SemesterCSVImportView(APIView):
                 semester = Semester.objects.filter(id=row['id']).first()
                 if row['semester'] and row['year'] and row['students'] and row['field_of_study'] and \
                         row['courses'] and row['semester_start_date'] and row['semester_end_date'] is not None:
-                    print("111111")
                     if semester is not None:
-                        print("2222")
                         semester.year = row['year']
                         semester.semester = row['semester']
                         fieldofstudy = FieldOfStudy.objects.filter(id=row['field_of_study']).first()
@@ -1180,7 +1178,6 @@ class SemesterCSVImportView(APIView):
                                 semester.save()
                         semester.save()
                     else:
-                        print("3333333333333")
                         fieldofstudy_id = row['field_of_study']
                         if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
                             fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
@@ -1269,28 +1266,19 @@ class ECTSCardCSVImportView(APIView):
         file = pd.read_csv(request.FILES['files'], sep=',', header=0)
 
         for index, row in file.iterrows():
-            courses = row['courses']
             field_of_study_id = row['field_of_study']
             semester_id = row['semester']
-            id = row['id']
-            if id and courses and field_of_study_id and semester_id is not None:
+            if row['id'] and field_of_study_id and semester_id is not None:
                 semester = Semester.objects.filter(pk=semester_id).first()
                 field_of_study = FieldOfStudy.objects.filter(pk=field_of_study_id).first()
                 if semester or field_of_study is None:
-                    ects_card = ECTSCard.objects.filter(id=id).first()
+                    ects_card = ECTSCard.objects.filter(id=row['id']).first()
                     if ects_card is not None:
                         ects_card.semester = semester
                         ects_card.field_of_study = field_of_study
                     else:
-                        ects_card = ECTSCard(semester=semester, field_of_study=field_of_study)
+                        ects_card = ECTSCard(id=row['id'], semester=semester, field_of_study=field_of_study)
                     ects_card.save()
-                    courses = convertStringCSVArrtoArr(courses)
-
-                    for i in courses:
-                        if Course.objects.filter(id=i).exists():
-                            course = Course.objects.filter(id=i).first()
-                            semester.courses.add(course)
-                            ects_card.save()
 
         return Response(status=status.HTTP_200_OK)
 
@@ -1300,14 +1288,13 @@ class TimeTableCSVImportView(APIView):
         file = pd.read_csv(request.FILES['files'], sep=',', header=0)
 
         for index, row in file.iterrows():
-            id = row['id']
             semester_id = row['semester']
             time_table_units = row['time_table_units']
             semester = Semester.objects.filter(pk=semester_id).first()
-            if semester or time_table_units or id is None:
-                time_table = TimeTable.objects.filter(id=id).first()
+            if semester or time_table_units or row['id'] is None:
+                time_table = TimeTable.objects.filter(id=row['id']).first()
                 if time_table is None:
-                    time_table = TimeTable(semester=semester)
+                    time_table = TimeTable(id=row['id'], semester=semester)
                 else:
                     time_table.semester = semester
                 time_table.save()
@@ -1326,7 +1313,6 @@ class TimeTableUnitCSVImportView(APIView):
         file = pd.read_csv(request.FILES['files'], sep=',', header=0)
 
         for index, row in file.iterrows():
-            id = row['id']
             day = row['day']
             start_hour = row['start_hour']
             end_hour = row['end_hour']
@@ -1334,11 +1320,12 @@ class TimeTableUnitCSVImportView(APIView):
             course_instructor_info_id = row['course_instructor_info']
             field_groups = row['field_groups']
             room_id = row['room']
-            if id or day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
+            if row[
+                'id'] or day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
                 room = Room.objects.filter(pk=room_id).first()
                 course_instructor_info = CourseInstructorInfo.objects.filter(pk=course_instructor_info_id).first()
                 if room or course_instructor_info is None:
-                    time_table_unit = TimeTableUnit.objects.filter(id=id).first()
+                    time_table_unit = TimeTableUnit.objects.filter(id=row['id']).first()
                     if time_table_unit is not None:
                         time_table_unit.day = day
                         time_table_unit.start_hour = start_hour
@@ -1347,7 +1334,7 @@ class TimeTableUnitCSVImportView(APIView):
                         time_table_unit.room = room
                         time_table_unit.course_instructor_info = course_instructor_info
                     else:
-                        time_table_unit = TimeTableUnit(id=id,
+                        time_table_unit = TimeTableUnit(id=row['id'],
                                                         day=day,
                                                         start_hour=start_hour,
                                                         end_hour=end_hour,
@@ -1381,6 +1368,18 @@ class StudentsJSONExportView(APIView):
         response = HttpResponse(content_type='text/json')
         response['Content-Disposition'] = 'attachment; filename="Students.json"'
         serializer = self.serializer_class(Student.objects.all(), many=True)
+        data = json.dumps(serializer.data)
+        response.write(data)
+        return response
+
+
+class StaffJSONExportView(APIView):
+    serializer_class = StaffAccountSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/json')
+        response['Content-Disposition'] = 'attachment; filename="Staff.json"'
+        serializer = self.serializer_class(StaffAccount.objects.all(), many=True)
         data = json.dumps(serializer.data)
         response.write(data)
         return response
@@ -1500,9 +1499,25 @@ class StudentsJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+            if row['id'] is not None:
+                student = Student.objects.filter(id=row['id']).first()
+            if student is not None:
+                if row['index'] and row['email'] and row['name'] and row['surname'] is not None:
+                    student.index = row['index']
+                    student.email = row['email']
+                    student.name = row['name']
+                    student.surname = row['surname']
+                    student.save()
+            else:
+                if row['index'] and row['email'] and row['name'] and row['surname'] is not None:
+                    if Student.objects.filter(index=row['index']).exists() is False:
+                        if Student.objects.filter(email=row['email']).exists() is False:
+                            student = Student(id=row['id'],
+                                              index=row['index'],
+                                              email=row['email'],
+                                              name=row['name'],
+                                              surname=row['surname'])
+                            student.save()
 
         return Response(status=status.HTTP_200_OK)
 
@@ -1513,9 +1528,18 @@ class RoomJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+            if row['name'] and row['id'] and row['capacity'] and row['room_type'] is not None:
+                if Room.objects.filter(id=row['id']).exists() is False:
+                    room = Room(id=row['id'],
+                                name=row['name'],
+                                capacity=row['capacity'],
+                                room_type=row['room_type'])
+                else:
+                    room = Room.objects.filter(id=row['id']).first()
+                    room.name = row['name']
+                    room.capacity = row['capacity']
+                    room.room_type = row['room_type']
+                room.save()
 
         return Response(status=status.HTTP_200_OK)
 
@@ -1526,28 +1550,32 @@ class CourseJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
+            if row['name'] and row['points_value'] and row['id'] is not None:
+                course = Course.objects.filter(id=row['id']).first()
+                if course is not None:
+                    course.name = row['name']
+                    course.points_value = row['points_value']
+                else:
+                    course = Course(id=row['id'], name=row['name'], points_value=row['points_value'])
 
-            course = Course(name=row['name'], points_value=row['points_value'])
-            if row['prerequisites'] is not None:
-                course.prerequisites = row['prerequisites']
-            if row['subject_learning_outcomes'] is not None:
-                course.subject_learning_outcomes = row['subject_learning_outcomes']
-            if row['purposes'] is not None:
-                course.purposes = row['purposes']
-            if row['methods_of_verification_of_learning_outcomes_and_criteria'] is not None:
-                course.methods_of_verification_of_learning_outcomes_and_criteria = row[
-                    'methods_of_verification_of_learning_outcomes_and_criteria']
-            if row['content_of_the_subject'] is not None:
-                course.content_of_the_subject = row['content_of_the_subject']
-            if row['didactic_methods'] is not None:
-                course.didactic_methods = row['didactic_methods']
-            if row['literature'] is not None:
-                course.literature = row['literature']
-            if row['balance_of_work_of_an_avg_student'] is not None:
-                course.balance_of_work_of_an_avg_student = row['balance_of_work_of_an_avg_student']
-            course.save()
+                if row['prerequisites'] is not None:
+                    course.prerequisites = row['prerequisites']
+                if row['subject_learning_outcomes'] is not None:
+                    course.subject_learning_outcomes = row['subject_learning_outcomes']
+                if row['purposes'] is not None:
+                    course.purposes = row['purposes']
+                if row['methods_of_verification_of_learning_outcomes_and_criteria'] is not None:
+                    course.methods_of_verification_of_learning_outcomes_and_criteria = row[
+                        'methods_of_verification_of_learning_outcomes_and_criteria']
+                if row['content_of_the_subject'] is not None:
+                    course.content_of_the_subject = row['content_of_the_subject']
+                if row['didactic_methods'] is not None:
+                    course.didactic_methods = row['didactic_methods']
+                if row['literature'] is not None:
+                    course.literature = row['literature']
+                if row['balance_of_work_of_an_avg_student'] is not None:
+                    course.balance_of_work_of_an_avg_student = row['balance_of_work_of_an_avg_student']
+                course.save()
 
         return Response(status=status.HTTP_200_OK)
 
@@ -1558,9 +1586,30 @@ class CourseInstructorInfosJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+            if row['id'] is not None:
+                courseinstinfo = CourseInstructorInfo.objects.filter(id=row['id']).first()
+                if courseinstinfo is not None:
+                    courseinstinfo.hours = row['hours']
+                    courseinstinfo.course_type = row['course_type']
+                    instructor = StaffAccount.objects.filter(pk=row['instructor']).first()
+                    if instructor is not None:
+                        courseinstinfo.instructor = instructor
+                    course = Course.objects.get(pk=row['course'])
+                    if course is not None:
+                        courseinstinfo.course = course
+                    courseinstinfo.save()
+                else:
+                    if Course.objects.filter(pk=row['course']).exists() and \
+                            StaffAccount.objects.filter(pk=row['instructor']).exists() is not False:
+                        if row['course_type'] and row['hours'] is not None:
+                            courseinstinfo = CourseInstructorInfo(id=row['id'],
+                                                                  hours=row['hours'],
+                                                                  course_type=row['course_type'],
+                                                                  instructor=StaffAccount.objects.get(
+                                                                      pk=row['instructor']),
+                                                                  course=Course.objects.get(pk=row['course']))
+                            courseinstinfo.save()
+
         return Response(status=status.HTTP_200_OK)
 
 
@@ -1570,35 +1619,48 @@ class SemesterJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
+            year = row['year']
+            semester_num = row['semester']
+            semester_start_date = row['semester_start_date']
+            semester_end_date = row['semester_end_date']
             fieldofstudy_id = row['field_of_study']
-            if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
-                fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+            id = row['id']
+            if id or fieldofstudy_id or year or semester_num or semester_end_date or semester_start_date is not None:
+                if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
+                    fieldofstudy = FieldOfStudy.objects.filter(id=fieldofstudy_id).first()
+                    semester = Semester.objects.filter(id=id).first()
+                    if semester is None:
+                        semester = Semester(
+                            id=id,
+                            year=year,
+                            semester=semester_num,
+                            field_of_study=fieldofstudy,
+                            semester_start_date=semester_start_date,
+                            semester_end_date=semester_end_date
+                        )
+                    else:
+                        semester.year = year
+                        semester.semester = semester_num
+                        semester.field_of_study = fieldofstudy
+                        semester.semester_start_date = semester_start_date
+                        semester.semester_end_date = semester_end_date
 
-                semester = Semester(
-                    year=row['year'],
-                    semester=row['semester'],
-                    field_of_study=fieldofstudy,
-                    semester_start_date=row['semester_start_date'],
-                    semester_end_date=row['semester_end_date']
-                )
-                semester.save()
+                    semester.save()
 
-                students = row['students']
-                for i in students:
-                    if Student.objects.filter(id=i).exists():
-                        student = Student.objects.get(id=i)
-                        semester.students.add(student)
-                        semester.save()
+                    students = row['students']
+                    for i in students:
+                        if Student.objects.filter(id=i).exists():
+                            student = Student.objects.get(id=i)
+                            semester.students.add(student)
+                            semester.save()
 
-                courses = row['courses']
-                print(courses)
-                for i in courses:
-                    if Course.objects.filter(id=i).exists():
-                        course = Course.objects.get(id=i)
-                        semester.courses.add(course)
-                        semester.save()
+                    courses = row['courses']
+
+                    for i in courses:
+                        if Course.objects.filter(id=i).exists():
+                            course = Course.objects.get(id=i)
+                            semester.courses.add(course)
+                            semester.save()
         return Response(status=status.HTTP_200_OK)
 
 
@@ -1608,9 +1670,13 @@ class FieldGroupJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+            if row['name'] and row['id'] is not None:
+                field_group = FieldGroup.objects.filter(id=row['id']).first()
+                if field_group is not None:
+                    field_group.name = row['name']
+                else:
+                    field_group = FieldGroup(id=row['id'], name=row['name'])
+                field_group.save()
         return Response(status=status.HTTP_200_OK)
 
 
@@ -1620,22 +1686,34 @@ class FieldOfStudyJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            field_of_study = FieldOfStudy(
-                name=row['name'],
-                study_type=row['study_type'],
-                start_date=row['start_date'],
-                end_date=row['end_date']
-            )
-            field_of_study.save()
+            name = row['name']
+            study_type = row['study_type']
+            start_date = row['start_date']
+            end_date = row['end_date']
+            if row['id'] or name or study_type or start_date or end_date is not None:
+                field_of_study = FieldOfStudy.objects.filter(id=row['id']).first()
+                if field_of_study is not None:
+                    field_of_study.id = row['id']
+                    field_of_study.name = name
+                    field_of_study.study_type = study_type
+                    field_of_study.start_date = start_date
+                    field_of_study.end_date = end_date
+                else:
+                    field_of_study = FieldOfStudy(
+                        id=row['id'],
+                        name=name,
+                        study_type=study_type,
+                        start_date=start_date,
+                        end_date=end_date
+                    )
+                field_of_study.save()
 
-            field_groups = row['field_groups']
-            for i in field_groups:
-                if FieldGroup.objects.filter(id=i).exists():
-                    temp = FieldGroup.objects.get(id=i)
-                    field_of_study.field_groups.add(temp)
-                    field_of_study.save()
+                field_groups = row['field_groups']
+                for i in field_groups:
+                    if FieldGroup.objects.filter(id=i).exists():
+                        temp = FieldGroup.objects.get(id=i)
+                        field_of_study.field_groups.add(temp)
+                        field_of_study.save()
 
         return Response(status=status.HTTP_200_OK)
 
@@ -1646,9 +1724,20 @@ class ECTSCardJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+            field_of_study_id = row['field_of_study']
+            semester_id = row['semester']
+            if row['id'] and field_of_study_id and semester_id is not None:
+                semester = Semester.objects.filter(pk=semester_id).first()
+                field_of_study = FieldOfStudy.objects.filter(pk=field_of_study_id).first()
+                if semester or field_of_study is None:
+                    ects_card = ECTSCard.objects.filter(id=row['id']).first()
+                    if ects_card is not None:
+                        ects_card.semester = semester
+                        ects_card.field_of_study = field_of_study
+                    else:
+                        ects_card = ECTSCard(id=row['id'], semester=semester, field_of_study=field_of_study)
+                    ects_card.save()
+
         return Response(status=status.HTTP_200_OK)
 
 
@@ -1658,22 +1747,27 @@ class TimeTableJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            semester_id = row['semester']
-            if Semester.objects.filter(id=semester_id).exists():
-                semester = Semester.objects.get(id=semester_id)
-                time_table = TimeTable(
-                    semester=semester
-                )
-                time_table.save()
 
-                time_table_units = row['time_table_units']
-                for i in time_table_units:
-                    if TimeTableUnit.objects.filter(id=i).exists():
-                        temp = TimeTableUnit.objects.get(id=i)
-                        time_table.time_table_units.add(temp)
-                        time_table.save()
+            time_table_units = row['time_table_units']
+            semester_id = row['semester']
+            if semester_id and row['id'] and time_table_units is not None:
+                if Semester.objects.filter(id=semester_id).exists():
+                    semester = Semester.objects.get(id=semester_id)
+                    time_table = TimeTable.objects.filter(id=row['id']).first()
+                    if time_table is None:
+                        time_table = TimeTable(
+                            id=row['id'],
+                            semester=semester
+                        )
+                    else:
+                        time_table.semester = semester
+                    time_table.save()
+
+                    for i in time_table_units:
+                        if TimeTableUnit.objects.filter(id=i).exists():
+                            temp = TimeTableUnit.objects.get(id=i)
+                            time_table.time_table_units.add(temp)
+                            time_table.save()
 
         return Response(status=status.HTTP_200_OK)
 
@@ -1684,26 +1778,37 @@ class TimeTableUnitJSONImportView(APIView):
     def post(self, request):
         file = json.load(request.FILES['files'])
         for row in file:
-            serializer = self.serializer_class(data=row)
-            serializer.is_valid(raise_exception=True)
-            course_instructor_info_id = row['course_instructor_info']
-            if Room.objects.filter(id=row['room']).exists() is False:
-                return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-            if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-                course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
-                room = Room.objects.get(id=row["room"])
-                time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
-                                                start_hour=row['start_hour'],
-                                                end_hour=row['end_hour'],
-                                                day=row['day'],
-                                                week=row['week'],
-                                                room=room)
-                time_table_unit.save()
-                field_groups = row['field_groups']
-                for i in field_groups:
-                    if FieldGroup.objects.filter(id=i).exists():
-                        temp = FieldGroup.objects.get(id=i)
-                        time_table_unit.field_groups.add(temp)
-                        time_table_unit.save()
+            if row['course_instructor_info'] and row['start_hour'] and \
+                    row['end_hour'] and row['day'] and row['week'] and row['id'] is not None:
+                course_instructor_info_id = row['course_instructor_info']
+                if Room.objects.filter(id=row['room']).exists() is False:
+                    return Response("Room doesnt exists", status=status.HTTP_400_BAD_REQUEST)
+                if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
+                    course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+                    room = Room.objects.get(id=row["room"])
+                    time_table_unit = TimeTableUnit.objects.filter(id=row['id']).first()
+                    if time_table_unit is None:
+                        time_table_unit = TimeTableUnit(id=row['id'],
+                                                        course_instructor_info=course_inst_info,
+                                                        start_hour=row['start_hour'],
+                                                        end_hour=row['end_hour'],
+                                                        day=row['day'],
+                                                        week=row['week'],
+                                                        room=room)
+                    else:
+                        time_table_unit.course_instructor_info = course_inst_info
+                        time_table_unit.start_hour = row['start_hour']
+                        time_table_unit.end_hour = row['end_hour']
+                        time_table_unit.day = row['day']
+                        time_table_unit.week = row['week']
+                        time_table_unit.room = room
+
+                    time_table_unit.save()
+                    field_groups = row['field_groups']
+                    for i in field_groups:
+                        if FieldGroup.objects.filter(id=i).exists():
+                            temp = FieldGroup.objects.get(id=i)
+                            time_table_unit.field_groups.add(temp)
+                            time_table_unit.save()
 
         return Response(status=status.HTTP_200_OK)
