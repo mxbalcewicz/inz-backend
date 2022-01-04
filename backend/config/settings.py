@@ -85,6 +85,7 @@ REST_FRAMEWORK = {
     ),
     'EXCEPTION_HANDLER': 'utils.exception_handler.standardized_exception_handler',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'PAGE_SIZE': 20,
 }
 
 ELASTICSEARCH_INDEX_NAMES = {
