@@ -56,6 +56,7 @@ from .views import (StudentGetPostView,
                     FieldOfStudyJSONImportView, TimeTableJSONImportView,
                     TimeTableUnitJSONImportView, ECTSCardJSONImportView,
                     TimeTableWithTimeTableUnitsPostView, TimeTableWithTimeTableUnitsUpdateView,
+                     StaffJSONExportView
                     )
 
 urlpatterns = [
@@ -127,4 +128,5 @@ urlpatterns = [
     path('timetableunit/import/json', TimeTableUnitJSONImportView.as_view(), name='import-json-timetableunit'),
     path('timetablewithtimetableunits', TimeTableWithTimeTableUnitsPostView.as_view(), name='timetablewith-ttunits-post'),
     path('timetablewithtimetableunits/<int:pk>', TimeTableWithTimeTableUnitsUpdateView.as_view(), name='timetablewith-ttunits-post'),
+    path('staff/export/json', StaffJSONExportView.as_view(), name='import-json-staff'),
 ]
