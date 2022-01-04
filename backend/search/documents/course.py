@@ -1,6 +1,6 @@
 from django.conf import settings
 from django_elasticsearch_dsl import Document, Index, fields
-from elasticsearch_dsl import analyzer
+from elasticsearch_dsl import analyzer, normalizer, token_filter
 from api.models import Course
 
 INDEX = Index(settings.ELASTICSEARCH_INDEX_NAMES[__name__])
@@ -18,20 +18,66 @@ html_strip = analyzer(
     char_filter=["html_strip"]
 )
 
+edge_ngram_completion_filter = token_filter(
+    'edge_ngram_completion_filter',
+    type="edge_ngram",
+    min_gram=3,
+    max_gram=6
+)
+
+edge_ngram_completion = analyzer(
+    "edge_ngram_completion",
+    tokenizer="standard",
+    filter=["lowercase", edge_ngram_completion_filter],
+    char_filter=["html_strip"],
+)
+
+lowercase_normalizer = normalizer(
+    'lowercase_normalizer',
+    filter=['lowercase']
+)
+
 
 @INDEX.doc_type
 class CourseDocument(Document):
     """Elasticsearch document."""
-    name = fields.TextField()
+    name = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
     points_value = fields.IntegerField()
-    prerequisites = fields.TextField()
-    purposes = fields.TextField()
-    subject_learning_outcomes = fields.TextField()
-    methods_of_verification_of_learning_outcomes_and_criteria = fields.TextField()
-    content_of_the_subject = fields.TextField()
-    didactic_methods = fields.TextField()
-    literature = fields.TextField()
-    balance_of_work_of_an_avg_student = fields.TextField()
+    prerequisites = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    purposes = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    subject_learning_outcomes = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    methods_of_verification_of_learning_outcomes_and_criteria = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    content_of_the_subject = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    didactic_methods = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    literature = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
+    balance_of_work_of_an_avg_student = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
 
     class Django(object):
         """Inner nested class Django."""

@@ -90,12 +90,13 @@ class StaffAccountDocumentSerializer(DocumentSerializer):
 
         # Serializer fields
         fields = (
+            'id',
             'name',
             'surname',
+            'email',
             'institute',
             'job_title',
             'academic_title',
-            'account'
         )
 
 
@@ -108,7 +109,8 @@ class DeaneryAccountDocumentSerializer(DocumentSerializer):
 
         # Serializer fields
         fields = (
-            'account'
+            'id',
+            'email'
         )
 
 
