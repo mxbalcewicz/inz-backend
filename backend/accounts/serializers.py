@@ -52,7 +52,7 @@ class StaffAccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StaffAccount
-        fields = ['name', 'surname', 'institute', 'job_title', 'academic_title', 'account']
+        fields = ['name', 'surname', 'institute', 'job_title', 'academic_title', 'pensum_hours', 'account']
 
     @staticmethod
     def generate_password():
@@ -90,7 +90,8 @@ class StaffAccountSerializer(serializers.ModelSerializer):
                                             surname=validated_data.get('surname'),
                                             institute=validated_data.get('institute'),
                                             job_title=validated_data.get('job_title'),
-                                            academic_title=validated_data.get('academic_title')
+                                            academic_title=validated_data.get('academic_title'),
+                                            pensum_hours=validated_data.get('pensum_hours')
                                             )
         staff.save()
         return staff

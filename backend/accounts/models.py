@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.conf import settings
@@ -77,6 +78,10 @@ class StaffAccount(models.Model):
     institute = models.CharField(max_length=100, blank=False, default='')
     job_title = models.CharField(max_length=50, blank=False, default='')
     academic_title = models.CharField(max_length=50, blank=False, default='')
+    pensum_hours = models.IntegerField(blank=False, default=168, validators=[
+        MinValueValidator(0),
+        MaxValueValidator(250),
+    ])
 
     def __str__(self):
         return f'Account id:{self.account.id}, Name:{self.name} Surname:{self.surname} Email:{self.account.email}'
