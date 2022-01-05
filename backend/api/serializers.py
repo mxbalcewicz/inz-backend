@@ -1,3 +1,5 @@
+from abc import ABC
+
 from rest_framework import serializers
 from api.models import (
     Student,
@@ -150,3 +152,8 @@ class TimeTableGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeTable
         fields = ['id', 'semester', 'time_table_units']
+
+
+class TimeTableWithTimeTableUnitsSerializer(serializers.Serializer):
+    semester = serializers.IntegerField()
+    time_table_units = TimeTableUnitSerializer(many=True)

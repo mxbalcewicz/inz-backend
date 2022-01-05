@@ -31,6 +31,7 @@ from .serializers import (StudentSerializer,
                           TimeTableSerializer, TimeTableUnitSerializer, FieldOfStudyGetSerializer,
                           ECTSCardGetSerializer, SemesterGetSerializer, TimeTableUnitGetSerializer,
                           TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer,
+                          TimeTableWithTimeTableUnitsSerializer,
                           )
 from django.http import HttpResponse
 import csv
@@ -698,14 +699,13 @@ class TimeTableRetrieveUpdateDeleteView(APIView):
 
 
 class TimeTableWithTimeTableUnitsPostView(APIView):
+    serializer_class = TimeTableWithTimeTableUnitsSerializer
 
     def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
         semester_id = request.data.get('semester')
         time_table_units = request.data.get('time_table_units')
-        if semester_id is None:
-            return Response("No semester in json data", status=status.HTTP_400_BAD_REQUEST)
-        if time_table_units is None:
-            return Response("No time table units in json data", status=status.HTTP_400_BAD_REQUEST)
         semester = Semester.objects.filter(pk=semester_id).first()
         if semester is None:
             return Response("There is no semester with given id", status=status.HTTP_400_BAD_REQUEST)
@@ -746,14 +746,12 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
 
 
 class TimeTableWithTimeTableUnitsUpdateView(APIView):
-
+    serializer_class = TimeTableWithTimeTableUnitsSerializer
     def put(self, request, pk):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
         semester_id = request.data.get('semester')
         time_table_units = request.data.get('time_table_units')
-        if semester_id is None:
-            return Response("No semester in json data", status=status.HTTP_400_BAD_REQUEST)
-        if time_table_units is None:
-            return Response("No time table units in json data", status=status.HTTP_400_BAD_REQUEST)
         semester = Semester.objects.filter(pk=semester_id).first()
         if semester is None:
             return Response("There is no semester with given id", status=status.HTTP_400_BAD_REQUEST)
