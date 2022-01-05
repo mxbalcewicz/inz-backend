@@ -41,6 +41,7 @@ lowercase_normalizer = normalizer(
 @INDEX.doc_type
 class CourseDocument(Document):
     """Elasticsearch document."""
+    id = fields.IntegerField(attr='id')
     name = fields.TextField(
         analyzer=edge_ngram_completion,
         fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}

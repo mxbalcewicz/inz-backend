@@ -1,3 +1,4 @@
+from elasticsearch.serializer import Serializer
 from rest_framework import serializers
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from .documents.student import StudentDocument
@@ -160,6 +161,7 @@ class CourseDocumentSerializer(DocumentSerializer):
 
         # Serializer fields
         fields = (
+            'id',
             'name',
             'points_value',
             'prerequisites',

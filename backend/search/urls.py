@@ -5,6 +5,7 @@ from .views import (
     CourseDocumentView,
     ECTSCardDocumentView,
     RoomDocumentView,
+    SearchAllDocumentsView,
     SemesterDocumentView,
     StudentDocumentView,
     FieldGroupDocumentView,
@@ -37,5 +38,6 @@ router.register(r'ectscard', ECTSCardDocumentView,
 router.register(r'timetableunit', TimeTableUnitDocumentView, basename='timetableunit_document_view')    
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('all/<str:query>/', SearchAllDocumentsView.as_view())
 ]

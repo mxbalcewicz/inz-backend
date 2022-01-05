@@ -1,3 +1,4 @@
+from django_elasticsearch_dsl import indices
 from django_elasticsearch_dsl_drf.constants import (
     LOOKUP_FILTER_TERMS,
     LOOKUP_FILTER_RANGE,
@@ -20,11 +21,12 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend
 )
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
-from django_elasticsearch_dsl_drf.pagination import PageNumberPagination
+from django_elasticsearch_dsl_drf.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.views import APIView
-
-from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
+from rest_framework.response import Response
+from rest_framework import status
+from elasticsearch import Elasticsearch as es, serializer
+from elasticsearch_dsl import Search, Q
 
 from .documents.student import StudentDocument
 from .documents.room import RoomDocument
@@ -37,7 +39,8 @@ from .documents.semester import SemesterDocument
 from .documents.ectscard import ECTSCardDocument
 from .documents.course import CourseDocument
 from .documents.timetableunit import TimeTableUnitDocument
-
+from elasticsearch_dsl import connections
+from elasticsearch_dsl.query import MultiMatch, Match
 from .serializers import (
     ECTSCardDocumentSerializer,
     FieldGroupDocumentSerializer,
@@ -49,9 +52,28 @@ from .serializers import (
     CourseInstructorInfoDocumentSerializer,
     SemesterDocumentSerializer,
     CourseDocumentSerializer,
-    TimeTableUnitDocumentSerializer
+    TimeTableUnitDocumentSerializer,
+    DocumentObjectSerializer
 )
 
+class SearchAllDocumentsView(APIView, LimitOffsetPagination):
+    serializer_class = DocumentObjectSerializer
+
+    def get(self, request, query):
+        q = Q("multi_match", query=query, fields="*")                                                                                                                                    
+        con = connections.get_connection()
+        s = Search().using(con).query(q)
+        response = s.execute().to_dict()
+        for hit in response["hits"]["hits"]:
+            print(hit)
+
+        res_data = response["hits"]["hits"]
+        # values = set()
+        # for item in res_data:
+        #     values.add(item['type'])
+        # print(values)
+
+        return Response(data=res_data, status=status.HTTP_200_OK)
 
 class StudentDocumentView(DocumentViewSet):
     document = StudentDocument
