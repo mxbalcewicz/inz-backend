@@ -52,12 +52,11 @@ from .serializers import (
     CourseInstructorInfoDocumentSerializer,
     SemesterDocumentSerializer,
     CourseDocumentSerializer,
-    TimeTableUnitDocumentSerializer,
-    DocumentObjectSerializer
+    TimeTableUnitDocumentSerializer
 )
 
 class SearchAllDocumentsView(APIView, LimitOffsetPagination):
-    serializer_class = DocumentObjectSerializer
+    #serializer_class = DocumentObjectSerializer
 
     def get(self, request, query):
         q = Q("multi_match", query=query, fields="*")                                                                                                                                    
