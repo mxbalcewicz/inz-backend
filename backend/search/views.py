@@ -21,6 +21,10 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 )
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 from django_elasticsearch_dsl_drf.pagination import PageNumberPagination
+from rest_framework.views import APIView
+
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search
 
 from .documents.student import StudentDocument
 from .documents.room import RoomDocument
@@ -130,19 +134,8 @@ class FieldGroupDocumentView(DocumentViewSet):
     )
     # Define filter fields
     filter_fields = {
-        'id': {
-            'field': 'id',
-            # Note, that we limit the lookups of id field in this example,
-            # to `range`, `in`, `gt`, `gte`, `lt` and `lte` filters.
-            'lookups': [
-                LOOKUP_FILTER_RANGE,
-                LOOKUP_QUERY_IN,
-                LOOKUP_QUERY_GT,
-                LOOKUP_QUERY_GTE,
-                LOOKUP_QUERY_LT,
-                LOOKUP_QUERY_LTE,
-            ],
-        },
+        'id': 'id',
+        'name': 'name'
     }
     # Define ordering fields
     ordering_fields = {
@@ -167,22 +160,19 @@ class FieldOfStudyDocumentView(DocumentViewSet):
     # Define search fields
     search_fields = (
         'name',
+        'study_type',
     )
+
+    search_nested_fields = {
+        'field_groups': {
+        'path': 'field_groups',
+        'fields': ['name']
+        }
+    }
     # Define filter fields
     filter_fields = {
-        'id': {
-            'field': 'id',
-            # Note, that we limit the lookups of id field in this example,
-            # to `range`, `in`, `gt`, `gte`, `lt` and `lte` filters.
-            'lookups': [
-                LOOKUP_FILTER_RANGE,
-                LOOKUP_QUERY_IN,
-                LOOKUP_QUERY_GT,
-                LOOKUP_QUERY_GTE,
-                LOOKUP_QUERY_LT,
-                LOOKUP_QUERY_LTE,
-            ],
-        },
+        'id': 'id',
+        'study_type': 'study_type',
     }
     # Define ordering fields
     ordering_fields = {
@@ -268,23 +258,23 @@ class CourseInstructorInfoDocumentView(DocumentViewSet):
     ]
     # Define search fields
     search_fields = (
+        'hours',
         'course_type',
     )
+
+    search_nested_fields = {
+        'instructor': {
+        'path': 'instructor',
+        'fields': ['name', 'surname']
+        },
+        'course': {
+            'path': 'course',
+            'fields': ['name']
+        }
+    }
     # Define filter fields
     filter_fields = {
-        'id': {
-            'field': 'id',
-            # Note, that we limit the lookups of id field in this example,
-            # to `range`, `in`, `gt`, `gte`, `lt` and `lte` filters.
-            'lookups': [
-                LOOKUP_FILTER_RANGE,
-                LOOKUP_QUERY_IN,
-                LOOKUP_QUERY_GT,
-                LOOKUP_QUERY_GTE,
-                LOOKUP_QUERY_LT,
-                LOOKUP_QUERY_LTE,
-            ],
-        },
+        'id': 'id'
     }
 
     ordering_fields = {
@@ -307,22 +297,29 @@ class SemesterDocumentView(DocumentViewSet):
     # Define search fields
     search_fields = (
         'semester',
+        'year',
     )
+
+    search_nested_fields = {
+        'students': {
+        'path': 'students',
+        'fields': ['name', 'surname']
+        },
+        'field_of_study': {
+            'path': 'field_of_study',
+            'fields': ['name']
+        },
+        'courses': {
+            'path': 'courses',
+            'fields': ['name']
+        },
+    }
+
     # Define filter fields
     filter_fields = {
-        'id': {
-            'field': 'id',
-            # Note, that we limit the lookups of id field in this example,
-            # to `range`, `in`, `gt`, `gte`, `lt` and `lte` filters.
-            'lookups': [
-                LOOKUP_FILTER_RANGE,
-                LOOKUP_QUERY_IN,
-                LOOKUP_QUERY_GT,
-                LOOKUP_QUERY_GTE,
-                LOOKUP_QUERY_LT,
-                LOOKUP_QUERY_LTE,
-            ],
-        },
+        'id': 'id',
+        'semester': 'semester',
+        'year': 'year'
     }
 
     ordering_fields = {

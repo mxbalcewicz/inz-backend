@@ -45,7 +45,10 @@ class CourseDocument(Document):
         analyzer=edge_ngram_completion,
         fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
     )
-    points_value = fields.IntegerField()
+    points_value = fields.TextField(
+        analyzer=edge_ngram_completion,
+        fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
+    )
     prerequisites = fields.TextField(
         analyzer=edge_ngram_completion,
         fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
@@ -78,6 +81,9 @@ class CourseDocument(Document):
         analyzer=edge_ngram_completion,
         fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
     )
+
+    def prepare_points_value(self, instance):
+        return str(instance.points_value)
 
     class Django(object):
         """Inner nested class Django."""
