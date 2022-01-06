@@ -1,4 +1,4 @@
-from django_elasticsearch_dsl import indices
+from django_elasticsearch_dsl import indices as indx
 from django_elasticsearch_dsl_drf.constants import (
     LOOKUP_FILTER_TERMS,
     LOOKUP_FILTER_RANGE,
@@ -71,12 +71,14 @@ class SearchAllDocumentsView(APIView):
 
         for index in index_values:
             results = [item['_source'] for item in res_data if item['_index'] == index]
+            for item in results:
+                item['type'] = index
+
             data = {
                 "type": index,
                 "results": results
             }
             results_list.append(data)
-            
         print(results_list)
 
         return Response(data=results_list, status=status.HTTP_200_OK)
