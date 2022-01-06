@@ -37,6 +37,7 @@ from django.http import HttpResponse
 import csv
 
 
+
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
     serializer_class = StaffAccountSerializer
@@ -200,26 +201,7 @@ class CourseGetPostView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        course = Course(name=request.data.get('name'), points_value=request.data.get('points_value'))
-        if request.data.get('prerequisites') is not None:
-            course.prerequisites = request.data.get('prerequisites')
-        if request.data.get('subject_learning_outcomes') is not None:
-            course.subject_learning_outcomes = request.data.get('subject_learning_outcomes')
-        if request.data.get('purposes') is not None:
-            course.purposes = request.data.get('purposes')
-        if request.data.get('methods_of_verification_of_learning_outcomes_and_criteria') is not None:
-            course.methods_of_verification_of_learning_outcomes_and_criteria = request.data.get(
-                'methods_of_verification_of_learning_outcomes_and_criteria')
-        if request.data.get('content_of_the_subject') is not None:
-            course.content_of_the_subject = request.data.get('content_of_the_subject')
-        if request.data.get('didactic_methods') is not None:
-            course.didactic_methods = request.data.get('didactic_methods')
-        if request.data.get('literature') is not None:
-            course.literature = request.data.get('literature')
-        if request.data.get('balance_of_work_of_an_avg_student') is not None:
-            course.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
-        course.save()
+        serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -248,31 +230,10 @@ class CourseRetrieveUpdateDeleteView(APIView):
 
     def put(self, request, pk):
         instance = Course.objects.get(pk=pk)
+        serializer = self.serializer_class(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-        if request.data.get('points_value') is not None:
-            instance.points_value = request.data.get('points_value')
-        if request.data.get('name') is not None:
-            instance.name = request.data.get('name')
-        if request.data.get('prerequisites') is not None:
-            instance.prerequisites = request.data.get('prerequisites')
-        if request.data.get('purposes') is not None:
-            instance.purposes = request.data.get('purposes')
-        if request.data.get('subject_learning_outcomes') is not None:
-            instance.subject_learning_outcomes = request.data.get('subject_learning_outcomes')
-        if request.data.get('methods_of_verification_of_learning_outcomes_and_criteria') is not None:
-            instance.methods_of_verification_of_learning_outcomes_and_criteria = request.data.get(
-                'methods_of_verification_of_learning_outcomes_and_criteria')
-        if request.data.get('content_of_the_subject') is not None:
-            instance.content_of_the_subject = request.data.get('content_of_the_subject')
-        if request.data.get('didactic_methods') is not None:
-            instance.didactic_methods = request.data.get('didactic_methods')
-        if request.data.get('literature') is not None:
-            instance.literature = request.data.get('literature')
-        if request.data.get('balance_of_work_of_an_avg_student') is not None:
-            instance.balance_of_work_of_an_avg_student = request.data.get('balance_of_work_of_an_avg_student')
-
-        instance.save()
-        serializer = self.serializer_class(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
