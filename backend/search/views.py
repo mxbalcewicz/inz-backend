@@ -27,7 +27,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from elasticsearch import Elasticsearch as es, serializer
 from elasticsearch_dsl import Search, Q
-
+import json
 from .documents.student import StudentDocument
 from .documents.room import RoomDocument
 from .documents.fieldgroup import FieldGroupDocument
@@ -55,24 +55,33 @@ from .serializers import (
     TimeTableUnitDocumentSerializer
 )
 
-class SearchAllDocumentsView(APIView, LimitOffsetPagination):
-    #serializer_class = DocumentObjectSerializer
+class SearchAllDocumentsView(APIView):
 
     def get(self, request, query):
         q = Q("multi_match", query=query, fields="*")                                                                                                                                    
         con = connections.get_connection()
         s = Search().using(con).query(q)
         response = s.execute().to_dict()
-        for hit in response["hits"]["hits"]:
-            print(hit)
 
         res_data = response["hits"]["hits"]
-        # values = set()
-        # for item in res_data:
-        #     values.add(item['type'])
-        # print(values)
+        index_values = set()
+        for item in res_data:
+            index_values.add(item['_index'])
+        print(index_values)
+        
+        results_list = []
 
-        return Response(data=res_data, status=status.HTTP_200_OK)
+        for index in index_values:
+            results = [item['_source'] for item in res_data if item['_index'] == index]
+            data = {
+                "type": index,
+                "results": results
+            }
+            results_list.append(data)
+            
+        print(results_list)
+
+        return Response(data=results_list, status=status.HTTP_200_OK)
 
 class StudentDocumentView(DocumentViewSet):
     document = StudentDocument

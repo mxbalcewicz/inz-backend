@@ -15,7 +15,7 @@ from .views import (
     CourseInstructorInfoDocumentView,
     TimeTableUnitDocumentView,
 )
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 
 router.register(r'students', StudentDocumentView,
                 basename='student_document_view')
@@ -39,5 +39,5 @@ router.register(r'timetableunit', TimeTableUnitDocumentView, basename='timetable
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('all/<str:query>/', SearchAllDocumentsView.as_view())
+    path('all/<query>', SearchAllDocumentsView.as_view(), name='all_documents_view')
 ]
