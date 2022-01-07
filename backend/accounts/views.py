@@ -152,7 +152,6 @@ class StaffAccountRetrieveUpdateDeleteView(APIView):
 
     def get(self, request, pk):
         instance = get_object_or_404(StaffAccount, pk=pk)
-
         return Response(deleteNestedAccountInStaff(instance), status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
@@ -162,14 +161,15 @@ class StaffAccountRetrieveUpdateDeleteView(APIView):
         return Response(status=status.HTTP_200_OK)
 
     def put(self, request, pk):
-        """Email update only method"""
         instance = StaffAccount.objects.get(pk=pk)
         instance.account.email = request.data.get('email')
+        instance.account.save()
         instance.name = request.data.get('name')
         instance.surname = request.data.get('surname')
         instance.institute = request.data.get('institute')
         instance.job_title = request.data.get('job_title')
         instance.academic_title = request.data.get('academic_title')
-        instance.account.save()
+        instance.save()
+
         # serializer = self.serializer_class(instance)
         return Response(deleteNestedAccountInStaff(instance), status=status.HTTP_200_OK)
