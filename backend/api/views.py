@@ -344,7 +344,7 @@ class SemesterGetPostView(APIView):
                     course = Course.objects.get(id=i)
                     semester.courses.add(course)
                     semester.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(SemesterGetSerializer(semester).data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
         semester = Semester.objects.all()
