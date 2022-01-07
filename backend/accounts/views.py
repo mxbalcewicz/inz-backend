@@ -164,12 +164,12 @@ class StaffAccountRetrieveUpdateDeleteView(APIView):
     def put(self, request, pk):
         """Email update only method"""
         instance = StaffAccount.objects.get(pk=pk)
-        instance.account.email = request.data.get('account.email')
+        instance.account.email = request.data.get('email')
         instance.name = request.data.get('name')
         instance.surname = request.data.get('surname')
         instance.institute = request.data.get('institute')
         instance.job_title = request.data.get('job_title')
         instance.academic_title = request.data.get('academic_title')
         instance.account.save()
-        serializer = self.serializer_class(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # serializer = self.serializer_class(instance)
+        return Response(deleteNestedAccountInStaff(instance), status=status.HTTP_200_OK)
