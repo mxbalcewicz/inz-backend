@@ -55,8 +55,8 @@ from .views import (StudentGetPostView,
                     SemesterJSONImportView, FieldGroupJSONImportView,
                     FieldOfStudyJSONImportView, TimeTableJSONImportView,
                     TimeTableUnitJSONImportView, ECTSCardJSONImportView,
-                    TimeTableWithTimeTableUnitsPostView, TimeTableWithTimeTableUnitsUpdateView,
-                     StaffJSONExportView
+                    TimeTableWithTimeTableUnitsPostView, AddTimeTableUnitToTimeTable,
+                     StaffJSONExportView, UpdateTimeTableUnit
                     )
 
 urlpatterns = [
@@ -127,6 +127,7 @@ urlpatterns = [
     path('timetableunit/import/csv', TimeTableUnitCSVImportView.as_view(), name='import-csv-timetableunit'),
     path('timetableunit/import/json', TimeTableUnitJSONImportView.as_view(), name='import-json-timetableunit'),
     path('timetablewithtimetableunits', TimeTableWithTimeTableUnitsPostView.as_view(), name='timetablewith-ttunits-post'),
-    path('timetablewithtimetableunits/<int:pk>', TimeTableWithTimeTableUnitsUpdateView.as_view(), name='timetablewith-ttunits-post'),
+    path('timetable/<int:pk>/timetableunit', AddTimeTableUnitToTimeTable.as_view(), name='add-ttunit-to-timetable'),
+    path('timetable/<int:timetable_pk>/timetableunit/<int:timetableunit_pk>', UpdateTimeTableUnit.as_view(), name='ipdate-ttunit'),
     path('staff/export/json', StaffJSONExportView.as_view(), name='import-json-staff'),
 ]

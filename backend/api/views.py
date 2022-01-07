@@ -37,7 +37,6 @@ from django.http import HttpResponse
 import csv
 
 
-
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
     serializer_class = StaffAccountSerializer
@@ -703,56 +702,100 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
                         time_table.time_table_units.add(time_table_unit)
                         time_table.save()
 
-        return Response(status=status.HTTP_200_OK)
+        return Response(TimeTableGetSerializer(time_table).data, status=status.HTTP_200_OK)
 
 
-class TimeTableWithTimeTableUnitsUpdateView(APIView):
-    serializer_class = TimeTableWithTimeTableUnitsSerializer
-    def put(self, request, pk):
+class AddTimeTableUnitToTimeTable(APIView):
+    serializer_class = TimeTableUnitSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request, pk):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        semester_id = request.data.get('semester')
-        time_table_units = request.data.get('time_table_units')
-        semester = Semester.objects.filter(pk=semester_id).first()
-        if semester is None:
-            return Response("There is no semester with given id", status=status.HTTP_400_BAD_REQUEST)
+        timetable = TimeTable.objects.filter(id=pk).first()
+        if timetable is None:
+            return Response("There is no timtable with given id", status=status.HTTP_400_BAD_REQUEST)
+        course_instructor_info_id = request.data.get('course_instructor_info')
+        if Room.objects.filter(id=request.data.get('room')).exists() is False:
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
+            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            room = Room.objects.filter(id=request.data.get("room")).first()
+            time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
+                                            start_hour=request.data.get('start_hour'),
+                                            end_hour=request.data.get('end_hour'),
+                                            day=request.data.get('day'),
+                                            week=request.data.get('week'),
+                                            room=room)
+            time_table_unit.save()
+            field_groups = request.data.get('field_groups')
+            for i in field_groups:
+                if FieldGroup.objects.filter(id=i).exists():
+                    temp = FieldGroup.objects.get(id=i)
+                    time_table_unit.field_groups.add(temp)
+                    time_table_unit.save()
 
-        time_table = TimeTable.objects.filter(pk=pk).first()
-        if time_table is None:
-            return Response("There is no time table with given id", status=status.HTTP_400_BAD_REQUEST)
-        time_table.semester = semester
-        time_table.save()
-        time_table.time_table_units.clear()
+            timetable.time_table_units.add(time_table_unit);
+            timetable.save()
 
-        for i in time_table_units:
-            serializer = TimeTableUnitSerializer(data=i)
-            serializer.is_valid(raise_exception=True)
+        return Response(TimeTableUnitGetSerializer(time_table_unit).data,status=status.HTTP_201_CREATED)
 
-            course_instructor_info_id = i['course_instructor_info']
 
-            if Room.objects.filter(id=i['room']).exists() is False:
-                return Response("there is no room with given id", status=status.HTTP_400_BAD_REQUEST)
-            if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-                course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
-                room = Room.objects.filter(id=i['room']).first()
+class UpdateTimeTableUnit(APIView):
+    serializer_class = TimeTableUnitSerializer
+    permission_classes = (AllowAny,)
 
-                time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
-                                                start_hour=i['start_hour'],
-                                                end_hour=i['end_hour'],
-                                                day=i['day'],
-                                                week=i['week'],
-                                                room=room)
-                time_table_unit.save()
-                field_groups = i['field_groups']
-                for j in field_groups:
-                    if FieldGroup.objects.filter(id=j).exists():
-                        temp = FieldGroup.objects.get(id=j)
-                        time_table_unit.field_groups.add(temp)
-                        time_table_unit.save()
-                        time_table.time_table_units.add(time_table_unit)
-                        time_table.save()
+    def put(self, request, timetable_pk, timetableunit_pk):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        time_table_unit = TimeTableUnit.objects.filter(id=timetableunit_pk).first()
+        if time_table_unit is None:
+            return Response("There is no timtableunit with given id", status=status.HTTP_400_BAD_REQUEST)
+        timetable = TimeTable.objects.filter(id=timetable_pk).first()
+        if timetable is None:
+            return Response("There is no timtable with given id", status=status.HTTP_400_BAD_REQUEST)
+        course_instructor_info_id = request.data.get('course_instructor_info')
+        if Room.objects.filter(id=request.data.get('room')).exists() is False:
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
+            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            room = Room.objects.get(id=request.data.get("room"))
+            time_table_unit.course_instructor_info=course_inst_info
+            time_table_unit.start_hour=request.data.get('start_hour')
+            time_table_unit.end_hour=request.data.get('end_hour')
+            time_table_unit.day=request.data.get('day')
+            time_table_unit.week=request.data.get('week')
+            time_table_unit.room=room
+            time_table_unit.field_groups.clear()
+            time_table_unit.save()
 
-        return Response(status=status.HTTP_200_OK)
+            field_groups = request.data.get('field_groups')
+            for i in field_groups:
+                if FieldGroup.objects.filter(id=i).exists():
+                    temp = FieldGroup.objects.get(id=i)
+                    time_table_unit.field_groups.add(temp)
+                    time_table_unit.save()
+
+            timetable.time_table_units.add(time_table_unit);
+            timetable.save()
+            updated_instance = TimeTableUnit.objects.get(pk=timetableunit_pk)
+            serializer = TimeTableUnitGetSerializer(updated_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+#
+# def validate(request, timetable_id):
+#     timetable = TimeTable.objects.get(id=timetable_id).first()
+#     if timetable is None:
+#         return Response({"error": "TIMETABLE WITH GIVEN ID DOEN NOT EXIST"}, status=status.HTTP_400_BAD_REQUEST)
+#
+#     room = Room.objects.get(id=request.data.get("room")).first()
+#     if room is None:
+#         return Response({"error": "ROOM WITH GIVEN ID DOEN NOT EXIST"}, status=status.HTTP_400_BAD_REQUEST)
+#
+#     # look if room capacity is sufficient
+#     number_of_groups = len(request.data.get('field_group'))
+#     all_groups = FieldOfStudy.objects.filter()
 
 
 class StudentsCSVExportView(APIView):
