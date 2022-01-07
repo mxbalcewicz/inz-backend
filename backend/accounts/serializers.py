@@ -95,3 +95,13 @@ class StaffAccountSerializer(serializers.ModelSerializer):
                                             )
         staff.save()
         return staff
+
+
+class StaffAccountNormalSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    surname = serializers.CharField()
+    institute = serializers.CharField()
+    job_title = serializers.CharField()
+    academic_title = serializers.CharField()
+    pensum_hours = serializers.IntegerField()
+    email = serializers.CharField()
