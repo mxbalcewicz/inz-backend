@@ -55,9 +55,8 @@ from .views import (StudentGetPostView,
                     SemesterJSONImportView, FieldGroupJSONImportView,
                     FieldOfStudyJSONImportView, TimeTableJSONImportView,
                     TimeTableUnitJSONImportView, ECTSCardJSONImportView,
-                    TimeTableWithTimeTableUnitsPostView, TimeTableWithTimeTableUnitsUpdateView,
-                    StaffJSONExportView,
-                    AvailableRoomsView
+                    TimeTableWithTimeTableUnitsPostView, AddTimeTableUnitToTimeTable,
+                    StaffJSONExportView, AvailableRoomsView, UpdateTimeTableUnit
                     )
 
 urlpatterns = [
