@@ -157,3 +157,8 @@ class TimeTableGetSerializer(serializers.ModelSerializer):
 class TimeTableWithTimeTableUnitsSerializer(serializers.Serializer):
     semester = serializers.IntegerField()
     time_table_units = TimeTableUnitSerializer(many=True)
+
+
+class TimeTableWithTimeTableUnitsGetSerializer(serializers.Serializer):
+    semester = serializers.IntegerField()
+    time_table_units = TimeTableUnitGetSerializer(many=True)

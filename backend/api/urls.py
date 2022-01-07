@@ -85,7 +85,6 @@ urlpatterns = [
     path('course/export/json', CourseJSONExportView.as_view(), name='export-json-courses'),
     path('course/import/csv', CourseCSVImportView.as_view(), name='import-csv-courses'),
     path('course/import/json', CourseJSONImportView.as_view(), name='import-json-courses'),
-    path('available-rooms', AvailableRoomsView.as_view(), name='available_rooms_view'), ##################
     path('rooms', RoomGetPostView.as_view(), name='room_get_post'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='room_update_delete'),
     path('rooms/export/csv', RoomsCSVExportView.as_view(), name='export-csv-rooms'),
@@ -129,6 +128,7 @@ urlpatterns = [
     path('timetableunit/import/csv', TimeTableUnitCSVImportView.as_view(), name='import-csv-timetableunit'),
     path('timetableunit/import/json', TimeTableUnitJSONImportView.as_view(), name='import-json-timetableunit'),
     path('timetablewithtimetableunits', TimeTableWithTimeTableUnitsPostView.as_view(), name='timetablewith-ttunits-post'),
-    path('timetablewithtimetableunits/<int:pk>', TimeTableWithTimeTableUnitsUpdateView.as_view(), name='timetablewith-ttunits-post'),
+    path('timetable/<int:pk>/timetableunit', AddTimeTableUnitToTimeTable.as_view(), name='add-ttunit-to-timetable'),
+    path('timetable/<int:timetable_pk>/timetableunit/<int:timetableunit_pk>', UpdateTimeTableUnit.as_view(), name='ipdate-ttunit'),
     path('staff/export/json', StaffJSONExportView.as_view(), name='import-json-staff'),
 ]

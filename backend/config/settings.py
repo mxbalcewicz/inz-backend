@@ -108,8 +108,8 @@ ELASTICSEARCH_DSL = {
 }
 
 SPECTACULAR_SETTINGS = {    
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
+    'TITLE': 'EDUPLANNER',
+    'DESCRIPTION': 'EDUPLANER API VISUALIZATION',
     'VERSION': '1.0.0',
 }
 
