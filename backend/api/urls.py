@@ -56,7 +56,8 @@ from .views import (StudentGetPostView,
                     FieldOfStudyJSONImportView, TimeTableJSONImportView,
                     TimeTableUnitJSONImportView, ECTSCardJSONImportView,
                     TimeTableWithTimeTableUnitsPostView, TimeTableWithTimeTableUnitsUpdateView,
-                     StaffJSONExportView
+                    StaffJSONExportView,
+                    AvailableRoomsView
                     )
 
 urlpatterns = [
@@ -84,6 +85,7 @@ urlpatterns = [
     path('course/export/json', CourseJSONExportView.as_view(), name='export-json-courses'),
     path('course/import/csv', CourseCSVImportView.as_view(), name='import-csv-courses'),
     path('course/import/json', CourseJSONImportView.as_view(), name='import-json-courses'),
+    path('available-rooms', AvailableRoomsView.as_view(), name='available_rooms_view'), ##################
     path('rooms', RoomGetPostView.as_view(), name='room_get_post'),
     path('rooms/<int:pk>', RoomRetrieveUpdateDeleteView.as_view(), name='room_update_delete'),
     path('rooms/export/csv', RoomsCSVExportView.as_view(), name='export-csv-rooms'),
@@ -96,7 +98,7 @@ urlpatterns = [
     path('fieldofstudy/export/json', FieldOfStudyJSONExportView.as_view(), name='export-json-fieldofstudy'),
     path('fieldofstudy/import/csv', FieldOfStudyCSVImportView.as_view(), name='import-csv-fieldofstudy'),
     path('fieldofstudy/import/json', FieldOfStudyJSONImportView.as_view(), name='import-json-fieldofstudy'),
-    path('semester/', SemesterGetPostView.as_view(), name='semester_get_post'),
+    path('semester', SemesterGetPostView.as_view(), name='semester_get_post'),
     path('semester/<int:pk>', SemesterRetrieveUpdateDeleteView.as_view(), name='semester_update_delete'),
     path('semester/export/csv', SemesterCSVExportView.as_view(), name='export-csv-semesters'),
     path('semester/export/json', SemesterJSONExportView.as_view(), name='export-json-semesters'),

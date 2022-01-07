@@ -1,8 +1,12 @@
+from django.db.models import F
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import serializers, viewsets, status
 from rest_framework.views import APIView
+from datetime import datetime
+import calendar
+import time
 import pandas as pd
 import json
 
@@ -1310,6 +1314,41 @@ class TimeTableUnitCSVImportView(APIView):
 
         return Response(status=status.HTTP_200_OK)
 
+
+class AvailableRoomsView(APIView):
+    serializer_class = RoomSerializer
+
+    def get(self, request):
+        days_list = [x.upper() for x in calendar.day_name]
+
+        semester_id = request.GET.get('semester', None)
+        #day = request.GET.get('day', None).upper()                # str option
+        #day = time.strftime(request.GET.get('day'), "%A").tm_wday          # convert int to weekday
+        day = days_list[int(request.GET.get('day', None))-1]                           # Integer option
+        time_from = datetime.strptime(request.GET.get('from', None), "%H:%M").time()
+        time_to = datetime.strptime(request.GET.get('to', None), "%H:%M").time() 
+
+        semester = Semester.objects.get(pk=semester_id)
+        semester_year = semester.year
+        semester_type = semester.semester % 2 # Check if semester is summer/winter, 0=>winter
+
+        # TimeTable objects where semester is the same type, same year
+        time_tables = TimeTable.objects.annotate(s_type=F('semester__semester') % 2).filter(semester__year=semester_year, s_type=semester_type)
+        #print(time_tables)
+        taken_rooms = []
+        for time_table in time_tables:
+            # Filter only 
+            time_table_units = time_table.time_table_units.filter(day=day, start_hour=time_from, end_hour=time_to) # err
+            #print(time_table.time_table_units.filter(day=day, end_hour=time_to))
+
+            for unit in time_table_units:
+                taken_rooms.append(unit.room.id)
+        #print(taken_rooms)
+
+        #Room.objects.all().exclude(id__in=taken_rooms)
+        serializer = self.serializer_class(Room.objects.all().exclude(id__in=taken_rooms), many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 def convertStringCSVArrtoArr(csvStr):
     res = csvStr
