@@ -42,6 +42,9 @@ from .serializers import (StudentSerializer,
 from django.http import HttpResponse
 import csv
 
+from accounts.models import User
+from accounts.views import StaffAccountGetPostView
+
 
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StaffAccount.objects.all()
@@ -1452,7 +1455,7 @@ class AvailableRoomsView(APIView):
         # print(time_tables)
         taken_rooms = []
         for time_table in time_tables:
-            # Filter only 
+            # Filter only
             time_table_units = time_table.time_table_units.filter(day=day, start_hour=time_from,
                                                                   end_hour=time_to)  # err
             # print(time_table.time_table_units.filter(day=day, end_hour=time_to))
@@ -1633,6 +1636,46 @@ class StudentsJSONImportView(APIView):
                                               name=row['name'],
                                               surname=row['surname'])
                             student.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class StaffJSONImportView(APIView):
+    serializer_class = StaffAccountSerializer
+
+    def post(self, request):
+        file = json.load(request.FILES['files'])
+        for row in file:
+
+            if row['account']['id'] is not None:
+                staff = StaffAccount.objects.filter(account_id=row['account']['id']).first()
+            if staff is not None:
+                if row['account']['email'] and row['name'] and row['surname'] is not None:
+                    staff.name = row['name']
+                    staff.name = row['name']
+                    staff.account.email = row['account']['email']
+                    staff.account.save()
+                    staff.surname = row['surname']
+                    staff.institute = row['institute']
+                    staff.academic_title = row['academic_title']
+                    staff.pensum_hours = row['pensum_hours']
+                    staff.save()
+            else:
+                if row['account']['email'] and row['name'] and row['surname'] and row['pensum_hours'] and row['academic_title'] \
+                        and row['institute'] is not None:
+                    if StaffAccount.objects.filter(account_id=row['account']['id']).exists() is False:
+                        user = User(email=row['account']['email'], id=row['account']['id'])
+                        user.set_password(StaffAccountGetPostView.generate_password())
+                        user.save()
+                        staff = StaffAccount.objects.create(account=user,
+                                                            name=row['name'],
+                                                            surname=row['surname'],
+                                                            institute=row['institute'],
+                                                            job_title=row['job_title'],
+                                                            academic_title=row['academic_title'],
+                                                            pensum_hours=row['pensum_hours']
+                                                            )
+                        staff.save()
 
         return Response(status=status.HTTP_200_OK)
 
