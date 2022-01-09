@@ -88,6 +88,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
+SEMESTER_COURSES_POINTS_LIMIT = 30
+
 ELASTICSEARCH_INDEX_NAMES = {
     'search.documents.student': 'student',
     'search.documents.room': 'room',

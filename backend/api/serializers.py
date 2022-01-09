@@ -1,5 +1,5 @@
-from abc import ABC
-
+from config.settings import SEMESTER_COURSES_POINTS_LIMIT
+from django.db.models import Sum
 from rest_framework import serializers
 from api.models import (
     Student,
@@ -91,12 +91,18 @@ class FieldOfStudyGetSerializer(serializers.ModelSerializer):
 
 
 class SemesterSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = Semester
         fields = ['id', 'semester', 'year', 'students', 'field_of_study', 'courses',
                   'semester_start_date', 'semester_end_date']
 
+    def validate_courses(self, data):
+        sum = 0
+        [sum := sum + x.points_value for x in data]
+        if sum > SEMESTER_COURSES_POINTS_LIMIT:
+            raise serializers.ValidationError("Semestr przekracza dozwoloną ilość punktów w przedmiotach (30)")
+        return data
 
 class SemesterGetSerializer(serializers.ModelSerializer):
     courses = CourseGetSerializer(many=True)
