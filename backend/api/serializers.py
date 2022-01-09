@@ -46,6 +46,12 @@ class CourseInstructorInfoSerializer(serializers.ModelSerializer):
         model = CourseInstructorInfo
         fields = ['id', 'instructor', 'course_type', 'hours', 'course']
 
+    def validate_instructor(self, instance):
+        print(instance)
+        instructor_current_courses_hours = CourseInstructorInfo.objects.filter(instructor__account=instance).aggregate(Sum('hours'))['hours__sum']
+        if instructor_current_courses_hours > instance.pensum_hours:
+            raise serializers.ValidationError("Pracownik przekracza sumaryczną ilość godzin pracy.")
+        return instance
 
 class CourseInstructorInfoGetSerializer(serializers.ModelSerializer):
     instructor = StaffAccountSerializer()
@@ -101,7 +107,7 @@ class SemesterSerializer(serializers.ModelSerializer):
         sum = 0
         [sum := sum + x.points_value for x in data]
         if sum > SEMESTER_COURSES_POINTS_LIMIT:
-            raise serializers.ValidationError("Semestr przekracza dozwoloną ilość punktów w przedmiotach (30)")
+            raise serializers.ValidationError("Semestr przekracza dozwoloną ilość punktów w przedmiotach (30).")
         return data
 
 class SemesterGetSerializer(serializers.ModelSerializer):
