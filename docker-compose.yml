@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
       - es
-
+  
   db:
     image: postgres:13
     container_name: db
