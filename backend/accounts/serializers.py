@@ -105,7 +105,7 @@ class StaffAccountNormalSerializer(serializers.Serializer):
     academic_title = serializers.CharField()
     pensum_hours = serializers.IntegerField()
     email = serializers.CharField()
-    password = serializers.CharField()
+    password = serializers.CharField(write_only=True, required=True,validators=[validate_password])
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -115,6 +115,5 @@ class UserLoginSerializer(serializers.Serializer):
 
 class DeanAccountPostSerializer(serializers.Serializer):
     email = serializers.CharField()
-    password = serializers.CharField()
-    password2 = serializers.CharField()
-
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True, validators=[validate_password])
