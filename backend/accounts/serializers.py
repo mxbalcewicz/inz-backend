@@ -39,7 +39,7 @@ class DeanAccountSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         account_data = validated_data.pop('account')
-        user = User(email=account_data.get('email'))
+        user = User(email=account_data.get('email'), is_dean=True)
         user.set_password(validated_data.get('password'))
         user.save()
         dean = DeaneryAccount(account=user)
@@ -105,3 +105,16 @@ class StaffAccountNormalSerializer(serializers.Serializer):
     academic_title = serializers.CharField()
     pensum_hours = serializers.IntegerField()
     email = serializers.CharField()
+    password = serializers.CharField()
+
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+
+
+class DeanAccountPostSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+    password2 = serializers.CharField()
+

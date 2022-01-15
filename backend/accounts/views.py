@@ -1,7 +1,12 @@
 import random
 import string
 
-from .serializers import UserSerializer, DeanAccountSerializer, StaffAccountSerializer, StaffAccountNormalSerializer
+import jwt
+from django.contrib.auth.hashers import check_password
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .serializers import UserSerializer, DeanAccountSerializer, StaffAccountSerializer, StaffAccountNormalSerializer, \
+    UserLoginSerializer, DeanAccountPostSerializer
 from .models import DeaneryAccount, StaffAccount, User
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
 from rest_framework.views import APIView
@@ -10,6 +15,8 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+
+from config.settings import SIMPLE_JWT, SECRET_KEY
 
 
 class ListUsers(RetrieveAPIView):
@@ -29,10 +36,17 @@ class DeanAccountGetPostView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        ser = DeanAccountPostSerializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+        if request.data.get('password') != request.data.get('password2'):
+            return Response({'error':'passwords are not the same'}, status=status.HTTP_400_BAD_REQUEST)
+        user = User(email=request.data.get('email'),  is_dean=True)
+        user.set_password(request.data.get('password'))
+        user.save()
+        dean = DeaneryAccount(account=user)
+        dean.save()
+
+        return Response(DeanAccountSerializer(dean).data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
         deanery_accounts = DeaneryAccount.objects.all()
@@ -78,8 +92,8 @@ class StaffAccountGetPostView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = User(email=request.data.get('email'))
-        user.set_password(self.generate_password())
+        user = User(email=request.data.get('email'), is_staff=True)
+        user.set_password(request.data.get('password'))
         user.save()
         staff = StaffAccount.objects.create(account=user,
                                             name=request.data.get('name'),
@@ -173,3 +187,67 @@ class StaffAccountRetrieveUpdateDeleteView(APIView):
 
         # serializer = self.serializer_class(instance)
         return Response(deleteNestedAccountInStaff(instance), status=status.HTTP_200_OK)
+
+
+class Login(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserLoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = request.data.get('email')
+        password = request.data.get('password')
+        if User.objects.filter(email=email).exists():
+            user = User.objects.filter(email=email).first()
+            if check_password(password, user.password):
+                user_details = {'email': user.email}
+                refresh = RefreshToken.for_user(user)
+                user_details['access'] = str(refresh.access_token)
+                role_name = "NONE"
+                if user.is_dean:
+                    role_name = "DEAN"
+                if user.is_staff:
+                    role_name = "STAFF"
+                user_details['role'] = role_name
+                user_details['expire'] = int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds())
+                response = Response(user_details, status=status.HTTP_200_OK)
+                response.set_cookie('refresh_token', str(refresh), httponly=True, secure=False, samesite=None,
+                                    max_age=300, path="/",
+                                    expires=int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds()))
+                return response
+            else:
+                return Response({'Error': 'Wrong password'}, status.HTTP_403_FORBIDDEN)
+        else:
+            return Response({'Error': 'Account not active or bad request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Refresh(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        if request.COOKIES.get('refresh_token'):
+            old_refresh = jwt.decode(request.COOKIES.get('refresh_token'), SECRET_KEY, algorithms=["HS256"])
+            user = User.objects.filter(id=old_refresh['user_id']).first()
+            refresh = RefreshToken.for_user(user)
+            user_details = {'access': str(refresh.access_token),
+                            'expire': int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds())}
+            response = Response(user_details, status=status.HTTP_200_OK)
+            response.set_cookie('refresh_token', str(refresh), httponly=True, secure=False,
+                                expires=int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds()), samesite=None,
+                                max_age=300, path="/")
+            return response
+        else:
+            return Response({'Error': 'no refresh_token cookie'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Logout(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        if request.COOKIES.get('refresh_token'):
+            response = Response({}, status=status.HTTP_200_OK)
+            response.delete_cookie('refresh_token')
+            return response
+        else:
+            return Response({'Error': 'can not clear cookies'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
