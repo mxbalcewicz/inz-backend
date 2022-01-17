@@ -49,8 +49,9 @@ class CourseInstructorInfoSerializer(serializers.ModelSerializer):
     def validate_instructor(self, instance):
         print(instance)
         instructor_current_courses_hours = CourseInstructorInfo.objects.filter(instructor__account=instance).aggregate(Sum('hours'))['hours__sum']
-        if instructor_current_courses_hours > instance.pensum_hours:
-            raise serializers.ValidationError("Pracownik przekracza sumaryczną ilość godzin pracy.")
+        if instructor_current_courses_hours is not None:
+            if instructor_current_courses_hours > instance.pensum_hours:
+                raise serializers.ValidationError("Pracownik przekracza sumaryczną ilość godzin pracy.")
         return instance
 
 class CourseInstructorInfoGetSerializer(serializers.ModelSerializer):
