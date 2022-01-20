@@ -1,111 +1,73 @@
+from ast import Pass
+from rest_framework.exceptions import AuthenticationFailed
+from posixpath import supports_unicode_filenames
+from unicodedata import name
+from unittest.util import _MIN_END_LEN
+from django.http import request
 from rest_framework import serializers
-from .models import User, StaffAccount, DeaneryAccount
+
+# from api.views import validate
+from .models import User
 from rest_framework.validators import UniqueValidator
 from rest_framework import status
 from rest_framework.response import Response
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
 import random
 import string
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-    User serializer extended with created, updated readonly fields
-    """
-
     class Meta:
         model = User
-        fields = ['id', 'email', ]
-
-
-class UserReadSerializer(serializers.ModelSerializer):
-    """
-    User read only serializer
-    """
-
-    class Meta:
-        model = User
-        fields = ['id', 'email', 'is_dean', 'is_staff', 'is_superuser']
-
-
-class DeanAccountSerializer(serializers.ModelSerializer):
-    account = UserSerializer()
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
-
-    class Meta:
-        model = DeaneryAccount
-        fields = ['account', 'password', 'password2']
-
-    def create(self, validated_data):
-        account_data = validated_data.pop('account')
-        user = User(email=account_data.get('email'), is_dean=True)
-        user.set_password(validated_data.get('password'))
-        user.save()
-        dean = DeaneryAccount(account=user)
-        dean.save()
-        return dean
+        fields = ['id', 'email']
 
 
 class StaffAccountSerializer(serializers.ModelSerializer):
-    account = UserSerializer()
+    email = serializers.CharField()
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+    name = serializers.CharField(required=True)
+    surname = serializers.CharField(required=True)
+    institute = serializers.CharField(required=True)
+    job_title = serializers.CharField(required=True)
+    academic_title = serializers.CharField(required=True)
+    pensum_hours = serializers.IntegerField(required=True)
 
     class Meta:
-        model = StaffAccount
-        fields = ['name', 'surname', 'institute', 'job_title', 'academic_title', 'pensum_hours', 'account']
-
-    @staticmethod
-    def generate_password():
-        random_pass = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
-        return random_pass
-
-    @staticmethod
-    def generate_email(name, surname):
-        pl_dict = {
-            'ą': 'a',
-            'ć': 'c',
-            'ę': 'e',
-            'ł': 'l',
-            'ń': 'n',
-            'ó': 'o',
-            'ś': 's',
-            'ź': 'z',
-            'ż': 'ż'
-        }
-        name_initial = name[0]
-        for i in surname:
-            if i in pl_dict.keys():
-                surname = surname.replace(i, pl_dict[i])
-
-        email = (name_initial + surname + '@domain.com').lower()
-        return email
+        model = User
+        fields = ['id', 'email', 'password', 'password2', 'name', 'surname',
+                  'institute', 'job_title', 'academic_title', 'pensum_hours']
 
     def create(self, validated_data):
-        account_data = validated_data.get('account')
-        user = User(email=account_data.get('email'))
-        user.set_password(self.generate_password())
+        user = User.objects.create_staff_user(**validated_data)
         user.save()
-        staff = StaffAccount.objects.create(account=user,
-                                            name=validated_data.get('name'),
-                                            surname=validated_data.get('surname'),
-                                            institute=validated_data.get('institute'),
-                                            job_title=validated_data.get('job_title'),
-                                            academic_title=validated_data.get('academic_title'),
-                                            pensum_hours=validated_data.get('pensum_hours')
-                                            )
-        staff.save()
-        return staff
+        return user
 
 
-class StaffAccountNormalSerializer(serializers.Serializer):
-    name = serializers.CharField()
-    surname = serializers.CharField()
-    institute = serializers.CharField()
-    job_title = serializers.CharField()
-    academic_title = serializers.CharField()
-    pensum_hours = serializers.IntegerField()
-    email = serializers.CharField()
-    password = serializers.CharField(write_only=True, required=True,validators=[validate_password])
+class StaffAccountUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'name', 'surname', 'institute',
+                  'job_title', 'academic_title', 'pensum_hours']
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        return instance
+
+
+class DeanAccountUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email']
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        return instance
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -113,7 +75,52 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 
-class DeanAccountPostSerializer(serializers.Serializer):
+class DeanAccountSerializer(serializers.ModelSerializer):
     email = serializers.CharField()
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'password', 'password2']
+
+    def create(self, validated_data):
+        user = User.objects.create_dean_user(**validated_data)
+        user.save()
+        return user
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    class Meta:
+        fields = ['email']
+
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(write_only=True, min_length=6, max_length=26)
+    token = serializers.CharField(write_only=True)
+    uidb64 = serializers.CharField(write_only=True)
+
+    class Meta:
+        fields = ['password', 'token', 'uidb64']
+
+    def validate(self, validated_data):
+        try:
+            password = validated_data.get('password')
+            token = validated_data.get('token')
+            uidb64 = validated_data.get('uidb64')
+
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise AuthenticationFailed
+                #return Response(status=status.HTTP_401_UNAUTHORIZED)
+            user.set_password(password)
+            user.save()
+
+            return user
+        except Exception as e:
+            raise AuthenticationFailed

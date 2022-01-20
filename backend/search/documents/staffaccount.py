@@ -1,7 +1,7 @@
 from django.conf import settings
 from django_elasticsearch_dsl import Document, Index, fields
 from elasticsearch_dsl import analyzer, tokenizer, token_filter, normalizer
-from accounts.models import StaffAccount
+from accounts.models import User
 
 INDEX = Index(settings.ELASTICSEARCH_INDEX_NAMES[__name__])
 
@@ -69,12 +69,16 @@ class StaffAccountDocument(Document):
     )
 
     def prepare_email(self, instance):
-        return str(instance.account.email)
+        return str(instance.email)
 
     def prepare_id(self, instance):
-        return int(instance.account.id)
+        return int(instance.id)
+
 
     class Django(object):
         """Inner nested class Django."""
 
-        model = StaffAccount  # The model associate with this Document
+        model = User  # The model associate with this Document
+
+    def get_queryset(self):
+        return User.objects.filter(is_staff=True, is_superuser=False, is_active=True)

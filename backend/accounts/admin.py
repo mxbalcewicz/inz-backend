@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, DeaneryAccount, StaffAccount
+from .models import User
 from django.db import models
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.forms import Textarea
@@ -27,5 +27,5 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
-admin.site.register(DeaneryAccount)
-admin.site.register(StaffAccount)
+# admin.site.register(DeaneryAccount)
+# admin.site.register(StaffAccount)

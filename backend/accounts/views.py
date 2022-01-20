@@ -1,22 +1,33 @@
 import random
+from signal import raise_signal
 import string
-
+from tracemalloc import DomainFilter
+from elasticsearch import serializer
+import rest_framework
 import jwt
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.sites.shortcuts import get_current_site
 
-from .serializers import UserSerializer, DeanAccountSerializer, StaffAccountSerializer, StaffAccountNormalSerializer, \
-    UserLoginSerializer, DeanAccountPostSerializer
-from .models import DeaneryAccount, StaffAccount, User
-from rest_framework.generics import RetrieveAPIView, CreateAPIView
+from .serializers import DeanAccountSerializer, ResetPasswordSerializer, UserSerializer, UserLoginSerializer, StaffAccountSerializer, StaffAccountUpdateSerializer, DeanAccountUpdateSerializer, SetNewPasswordSerializer
+from .models import User
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework_simplejwt import authentication
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-
+from utils.email_handler import EmailUtil
 from config.settings import SIMPLE_JWT, SECRET_KEY
+from django.urls import reverse
+from django.conf import settings
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from utils.email_handler import EmailUtil
 
 
 class ListUsers(RetrieveAPIView):
@@ -29,28 +40,20 @@ class ListUsers(RetrieveAPIView):
 
 
 class DeanAccountGetPostView(APIView):
-    """
-    DeaneryAccount get, post view
-    """
     serializer_class = DeanAccountSerializer
     permission_classes = (AllowAny,)
 
-    def post(self, request):
-        ser = DeanAccountPostSerializer(data=request.data)
-        ser.is_valid(raise_exception=True)
-        if request.data.get('password') != request.data.get('password2'):
-            return Response({'error':'passwords are not the same'}, status=status.HTTP_400_BAD_REQUEST)
-        user = User(email=request.data.get('email'),  is_dean=True)
-        user.set_password(request.data.get('password'))
-        user.save()
-        dean = DeaneryAccount(account=user)
-        dean.save()
+    def get_queryset(self):
+        return User.objects.filter(is_dean=True, is_superuser=False)
 
-        return Response(DeanAccountSerializer(dean).data, status=status.HTTP_201_CREATED)
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
-        deanery_accounts = DeaneryAccount.objects.all()
-        serializer = self.serializer_class(deanery_accounts, many=True)
+        serializer = self.serializer_class(self.get_queryset(), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -58,135 +61,194 @@ class DeanAccountRetrieveUpdateDeleteView(APIView):
     """
     DeaneryAccount retrieve, update, delete view
     """
-    serializer_class = DeanAccountSerializer
+    serializer_class = DeanAccountUpdateSerializer
     permission_classes = (AllowAny,)
 
     def get(self, request, pk):
-        instance = get_object_or_404(DeaneryAccount, pk=pk)
+        instance = get_object_or_404(User, pk=pk)
         serializer = self.serializer_class(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
-        instance = DeaneryAccount.objects.get(pk=pk)
+        instance = User.objects.get(pk=pk)
         instance.account.delete()
         instance.delete()
         return Response(status=status.HTTP_200_OK)
 
     def put(self, request, pk):
         """Email update only method"""
-        instance = DeaneryAccount.objects.get(pk=pk)
-        instance.account.email = request.data.get('account.email')
-        instance.account.save()
-        updated_instance = DeaneryAccount.objects.get(pk=pk)
-        serializer = self.serializer_class(updated_instance)
+        instance = User.objects.get(pk=pk)
+        serializer = self.serializer_class(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class StaffAccountGetPostView(APIView):
-    """
-    StaffAccount get, post view
-    """
-    serializer_class = StaffAccountNormalSerializer
+    serializer_class = StaffAccountSerializer
     permission_classes = (AllowAny,)
 
+    def get_queryset(self):
+        return User.objects.filter(is_staff=True, is_superuser=False, is_active=True)
+
+    # Register method + send email verify
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = User(email=request.data.get('email'), is_staff=True)
-        user.set_password(request.data.get('password'))
-        user.save()
-        staff = StaffAccount.objects.create(account=user,
-                                            name=request.data.get('name'),
-                                            surname=request.data.get('surname'),
-                                            institute=request.data.get('institute'),
-                                            job_title=request.data.get('job_title'),
-                                            academic_title=request.data.get('academic_title'),
-                                            pensum_hours=request.data.get('pensum_hours')
-                                            )
-        staff.save()
-        return Response(deleteNestedAccountInStaff(staff), status=status.HTTP_201_CREATED)
+        serializer.save()
 
-    @staticmethod
-    def generate_password():
-        random_pass = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
-        return random_pass
+        user_data = serializer.data
+        user = User.objects.get(email=user_data.get('email'))
+        token = RefreshToken.for_user(user).access_token
 
-    @staticmethod
-    def generate_email(name, surname):
-        pl_dict = {
-            'ą': 'a',
-            'ć': 'c',
-            'ę': 'e',
-            'ł': 'l',
-            'ń': 'n',
-            'ó': 'o',
-            'ś': 's',
-            'ź': 'z',
-            'ż': 'ż'
+        current_site = get_current_site(request).domain
+        relative_link = reverse("email-verify")
+        abs_url = 'http://' + current_site + \
+            relative_link + "?token=" + str(token)
+        email_body = "Hello " + user.email + \
+            "\nPlease verify your email:" + "\n" + abs_url
+        data = {
+            'domain': current_site,
+            'email_body': email_body,
+            'to_email': user.email,
+            'email_subject': "Verify your email"
         }
-        name_initial = name[0]
-        for i in surname:
-            if i in pl_dict.keys():
-                surname = surname.replace(i, pl_dict[i])
 
-        email = (name_initial + surname + '@domain.com').lower()
-        return email
+        EmailUtil.send_email(data)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request):
-        staff_accounts = StaffAccount.objects.all()
-        data = []
-        for i in staff_accounts:
-            data.append(deleteNestedAccountInStaff(i))
-
-        return Response(tuple(data), status=status.HTTP_200_OK)
-
-
-def deleteNestedAccountInStaff(staff):
-    if staff is not None:
-        return {
-            'id': staff.account.id,
-            'email': staff.account.email,
-            'name': staff.name,
-            'surname': staff.surname,
-            'institute': staff.institute,
-            'job_title': staff.job_title,
-            'academic_title': staff.academic_title,
-            'pensum_hours': staff.pensum_hours
-        }
-    else:
-        return {}
+        serializer = self.serializer_class(self.get_queryset(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class StaffAccountRetrieveUpdateDeleteView(APIView):
     """
     StaffAccount retrieve, update, delete view
     """
-    serializer_class = StaffAccountSerializer
+    serializer_class = StaffAccountUpdateSerializer
     permission_classes = (AllowAny,)
 
     def get(self, request, pk):
-        instance = get_object_or_404(StaffAccount, pk=pk)
-        return Response(deleteNestedAccountInStaff(instance), status=status.HTTP_200_OK)
+        instance = get_object_or_404(User, pk=pk)
+        serializer = self.serializer_class(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
-        instance = StaffAccount.objects.get(pk=pk)
-        instance.account.delete()
+        instance = User.objects.get(pk=pk)
         instance.delete()
         return Response(status=status.HTTP_200_OK)
 
     def put(self, request, pk):
-        instance = StaffAccount.objects.get(pk=pk)
-        instance.account.email = request.data.get('email')
-        instance.account.save()
-        instance.name = request.data.get('name')
-        instance.surname = request.data.get('surname')
-        instance.institute = request.data.get('institute')
-        instance.job_title = request.data.get('job_title')
-        instance.academic_title = request.data.get('academic_title')
-        instance.save()
+        instance = User.objects.get(pk=pk)
+        serializer = self.serializer_class(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-        # serializer = self.serializer_class(instance)
-        return Response(deleteNestedAccountInStaff(instance), status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class VerifyEmail(APIView):
+    def get(self, request):
+        token = request.GET.get('token')
+        try:
+            payload = jwt.decode(
+                token, settings.SECRET_KEY, algorithms='HS256')
+            user = User.objects.get(pk=payload.get('user_id'))
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+
+            return Response({'email': 'Successfully activated!'}, status=status.HTTP_200_OK)
+
+        except jwt.ExpiredSignatureError:
+            return Response({'error': "Activation link expired."}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError:
+            return Response({'error': "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ResendVerifyEmail(APIView):
+    serializer_class = UserSerializer
+
+    def post(self, request):
+        email = request.data.get('email')
+
+        serializer = self.serializer_class(
+            instance=User.objects.get(email=email))
+        user_data = serializer.data
+        user = get_object_or_404(User, email=user_data.get('email'))
+        token = RefreshToken.for_user(user).access_token
+
+        current_site = get_current_site(request).domain
+        relative_link = reverse("email-verify")
+        abs_url = 'http://' + current_site + \
+            relative_link + "?token=" + str(token)
+        email_body = "Hello " + user.email + \
+            "\nPlease verify your email:" + "\n" + abs_url
+        data = {
+            'domain': current_site,
+            'email_body': email_body,
+            'to_email': user.email,
+            'email_subject': "Verify your email"
+        }
+
+        EmailUtil.send_email(data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class RequestPasswordResetEmail(APIView):
+    serializer_class = ResetPasswordSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = request.data.get('email')
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
+
+            token = PasswordResetTokenGenerator().make_token(user)
+            current_site = get_current_site(request).domain
+            relative_link = reverse(
+                "password-reset-confirm", kwargs={'uidb64': uidb64, 'token': token})
+            abs_url = 'http://' + current_site + relative_link
+            email_body = "Hello " + user.email + \
+                "\nYou can reset your password here:" + "\n" + abs_url
+            data = {
+                'domain': current_site,
+                'email_body': email_body,
+                'to_email': user.email,
+                'email_subject': "Reset your password"
+            }
+
+            EmailUtil.send_email(data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+
+
+class PasswordTokenCheckAPI(APIView):
+
+    def get(self, request, uidb64, token):
+        try:
+            user_id = smart_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=user_id)
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'message': "Credentials valid.", 'uidb64': uidb64, 'token': token}, status=status.HTTP_200_OK)
+
+        except DjangoUnicodeDecodeError:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+class SetNewPasswordView(APIView):
+    serializer_class = SetNewPasswordSerializer
+
+    def patch(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(status=status.HTTP_200_OK)
 
 
 class Login(APIView):
@@ -210,7 +272,8 @@ class Login(APIView):
                 if user.is_staff:
                     role_name = "STAFF"
                 user_details['role'] = role_name
-                user_details['expire'] = int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds())
+                user_details['expire'] = int(
+                    SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds())
                 response = Response(user_details, status=status.HTTP_200_OK)
                 response.set_cookie('refresh_token', str(refresh), httponly=True, secure=False, samesite=None,
                                     max_age=300, path="/",
@@ -227,7 +290,8 @@ class Refresh(APIView):
 
     def post(self, request):
         if request.COOKIES.get('refresh_token'):
-            old_refresh = jwt.decode(request.COOKIES.get('refresh_token'), SECRET_KEY, algorithms=["HS256"])
+            old_refresh = jwt.decode(request.COOKIES.get(
+                'refresh_token'), SECRET_KEY, algorithms=["HS256"])
             user = User.objects.filter(id=old_refresh['user_id']).first()
             refresh = RefreshToken.for_user(user)
             user_details = {'access': str(refresh.access_token),
@@ -238,7 +302,7 @@ class Refresh(APIView):
                                 max_age=300, path="/")
             return response
         else:
-            return Response({'Error': 'no refresh_token cookie'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Error': 'No refresh_token cookie.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Logout(APIView):
@@ -250,4 +314,4 @@ class Logout(APIView):
             response.delete_cookie('refresh_token')
             return response
         else:
-            return Response({'Error': 'can not clear cookies'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response({'Error': 'Cannot clear cookies.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
