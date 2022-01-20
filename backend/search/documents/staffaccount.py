@@ -11,13 +11,6 @@ INDEX.settings(
     number_of_replicas=1
 )
 
-# html_strip = analyzer(
-#     'html_strip',
-#     tokenizer="standard",
-#     filter=["standard", "lowercase", "stop", "snowball"],
-#     char_filter=["html_strip"]
-# )
-
 edge_ngram_completion_filter = token_filter(
     'edge_ngram_completion_filter',
     type="edge_ngram",
@@ -50,7 +43,6 @@ class StaffAccountDocument(Document):
         analyzer=edge_ngram_completion,
         fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}
     )
-    # temp, should be relation to class Institute ???? we'll see
     institute = fields.TextField(
         analyzer=edge_ngram_completion,
         fields={'raw': fields.KeywordField(normalizer=lowercase_normalizer)}

@@ -11,13 +11,6 @@ INDEX.settings(
     number_of_replicas=1
 )
 
-# html_strip = analyzer(
-#     'html_strip',
-#     tokenizer="standard",
-#     filter=["standard", "lowercase", "stop", "snowball"],
-#     char_filter=["html_strip"]
-# )
-
 edge_ngram_completion_filter = token_filter(
     'edge_ngram_completion_filter',
     type="edge_ngram",
@@ -90,8 +83,8 @@ class CourseInstructorInfoDocument(Document):
 
     def prepare_instructor(self, instance):
         return {
-                "id": instance.instructor.account.id,
-                "email": instance.instructor.account.email,
+                "id": instance.instructor.id,
+                "email": instance.instructor.email,
                 "name": instance.instructor.name,
                 "surname": instance.instructor.surname,
                 "institute": instance.instructor.institute,
