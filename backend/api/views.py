@@ -1,5 +1,7 @@
 import math
+import string
 from collections import OrderedDict
+import random
 
 from django.db.models import F
 from django.shortcuts import get_object_or_404
@@ -46,6 +48,7 @@ from django.http import HttpResponse
 import csv
 
 from accounts.models import User
+from accounts.serializers import StaffAccountImportExportSerializer
 from accounts.views import StaffAccountGetPostView
 
 
@@ -918,32 +921,19 @@ class StudentsCSVExportView(APIView):
 
 
 class StaffCSVExportView(APIView):
-    serializer_class = StaffAccountSerializer
+    serializer_class = StaffAccountImportExportSerializer
 
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="Staff.csv"'
 
-        serializer = self.serializer_class(
-            User.objects.all(), many=True)
-        header = ['id', 'email', 'name', 'surname', 'institute',
-                  'job_title', 'academic_title', 'pensum_hours']
+        serializer = self.serializer_class(User.objects.all(), many=True)
+        header = self.serializer_class.Meta.fields
 
         writer = csv.DictWriter(response, fieldnames=header)
         writer.writeheader()
         for row in serializer.data:
-            id = row['account']['id']
-            email = row['account']['email']
-            new_row = OrderedDict([('id', id),
-                                   ('email', email),
-                                   ('name', row['name']),
-                                   ('surname', row['surname']),
-                                   ('institute', row['institute']),
-                                   ('job_title', row['job_title']),
-                                   ('academic_title', row['academic_title']),
-                                   ('pensum_hours', row['pensum_hours'])])
-
-            writer.writerow(new_row)
+            writer.writerow(row)
 
         return response
 
@@ -953,7 +943,7 @@ class CourseInstructorInfosCSVExportView(APIView):
 
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="Students.csv"'
+        response['Content-Disposition'] = 'attachment; filename="CourseInstructorInfos.csv"'
 
         serializer = self.serializer_class(
             CourseInstructorInfo.objects.all(), many=True)
@@ -1286,39 +1276,49 @@ class StaffCSVImportView(APIView):
 
         for index, row in file.iterrows():
             if row['id'] is not None:
-                staff = User.objects.filter(
-                    account_id=row['id']).first()
-            if staff is not None:
-                if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
-                        row['academic_title'] and row['pensum_hours'] is not None:
-                    staff.account.email = row['email']
-                    staff.account.save()
-                    staff.name = row['name']
-                    staff.surname = row['surname']
-                    staff.institute = row['institute']
-                    staff.academic_title = row['academic_title']
-                    staff.job_title = row['job_title']
-                    staff.pensum_hours = row['pensum_hours']
-                    staff.save()
-            else:
-                if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
-                        row['academic_title'] and row['pensum_hours'] is not None:
-                    if User.objects.filter(email=row['email']).exists() is False:
-                        user = User(id=row['id'], email=row['email'])
-                        user.set_password(
-                            StaffAccountGetPostView.generate_password())
-                        user.save()
-                        staff = User(account=user,
-                                             name=row['name'],
-                                             surname=row['surname'],
-                                             institute=row['institute'],
-                                             academic_title=row['academic_title'],
-                                             job_title=row['job_title'],
-                                             pensum_hours=row['pensum_hours']
-                                             )
+                staff = User.objects.filter(id=row['id']).first()
+                if staff is not None:
+                    if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
+                            row['academic_title'] and row['pensum_hours'] is not None:
+                        staff.email = row['email']
+                        staff.name = row['name']
+                        staff.surname = row['surname']
+                        staff.institute = row['institute']
+                        staff.academic_title = row['academic_title']
+                        staff.job_title = row['job_title']
+                        staff.pensum_hours = row['pensum_hours']
+                        staff.is_dean = row['is_dean']
+                        staff.is_staff = row['is_staff']
+                        staff.is_superuser = row['is_superuser']
+                        staff.is_active = row['is_active']
+                        staff.set_password(self.generate_password())
                         staff.save()
+                else:
+                    if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
+                            row['academic_title'] and row['pensum_hours'] is not None:
+                        if User.objects.filter(email=row['email']).exists() is False:
+                            staff = User(id=row['id'],
+                                         email=row['email'],
+                                         name=row['name'],
+                                         surname=row['surname'],
+                                         institute=row['institute'],
+                                         academic_title=row['academic_title'],
+                                         job_title=row['job_title'],
+                                         pensum_hours=row['pensum_hours'],
+                                         is_dean=row['is_dean'],
+                                         is_staff=row['is_staff'],
+                                         is_superuser=row['is_superuser'],
+                                         is_active=row['is_active']
+                                         )
+                            staff.set_password(self.generate_password())
+                            staff.save()
 
         return Response(status=status.HTTP_200_OK)
+
+    @staticmethod
+    def generate_password():
+        random_pass = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
+        return random_pass
 
 
 class SemesterCSVImportView(APIView):
@@ -1507,7 +1507,7 @@ class TimeTableUnitCSVImportView(APIView):
             field_groups = row['field_groups']
             room_id = row['room']
             if row[
-                    'id'] or day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
+                'id'] or day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
                 room = Room.objects.filter(pk=room_id).first()
                 course_instructor_info = CourseInstructorInfo.objects.filter(
                     pk=course_instructor_info_id).first()
@@ -1605,7 +1605,7 @@ class StudentsJSONExportView(APIView):
 
 
 class StaffJSONExportView(APIView):
-    serializer_class = StaffAccountSerializer
+    serializer_class = StaffAccountImportExportSerializer
 
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/json')
@@ -1758,47 +1758,56 @@ class StudentsJSONImportView(APIView):
 
 
 class StaffJSONImportView(APIView):
-    serializer_class = StaffAccountSerializer
+    serializer_class = StaffAccountImportExportSerializer
 
     def post(self, request):
         file = json.load(request.FILES['files'])
-        for row in file:
 
-            if row['account']['id'] is not None:
-                staff = User.objects.filter(
-                    account_id=row['account']['id']).first()
-            if staff is not None:
-                if row['account']['email'] and row['name'] and row['surname'] is not None:
-                    staff.name = row['name']
-                    staff.name = row['name']
-                    staff.account.email = row['account']['email']
-                    staff.account.save()
-                    staff.surname = row['surname']
-                    staff.institute = row['institute']
-                    staff.academic_title = row['academic_title']
-                    staff.pensum_hours = row['pensum_hours']
-                    staff.save()
-            else:
-                if row['account']['email'] and row['name'] and row['surname'] and row['pensum_hours'] and row[
-                    'academic_title'] \
-                        and row['institute'] is not None:
-                    if User.objects.filter(account_id=row['account']['id']).exists() is False:
-                        user = User(email=row['account']
-                                    ['email'], id=row['account']['id'])
-                        user.set_password(
-                            StaffAccountGetPostView.generate_password())
-                        user.save()
-                        staff = User.objects.create(account=user,
-                                                            name=row['name'],
-                                                            surname=row['surname'],
-                                                            institute=row['institute'],
-                                                            job_title=row['job_title'],
-                                                            academic_title=row['academic_title'],
-                                                            pensum_hours=row['pensum_hours']
-                                                            )
+        for row in file:
+            if row['id'] is not None:
+                staff = User.objects.filter(id=row['id']).first()
+                if staff is not None:
+                    if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
+                            row['academic_title'] and row['pensum_hours'] is not None:
+                        staff.email = row['email']
+                        staff.name = row['name']
+                        staff.surname = row['surname']
+                        staff.institute = row['institute']
+                        staff.academic_title = row['academic_title']
+                        staff.job_title = row['job_title']
+                        staff.pensum_hours = row['pensum_hours']
+                        staff.is_dean = row['is_dean']
+                        staff.is_staff = row['is_staff']
+                        staff.is_superuser = row['is_superuser']
+                        staff.is_active = row['is_active']
+                        staff.set_password(self.generate_password())
                         staff.save()
+                else:
+                    if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
+                            row['academic_title'] and row['pensum_hours'] is not None:
+                        if User.objects.filter(email=row['email']).exists() is False:
+                            staff = User(id=row['id'],
+                                         email=row['email'],
+                                         name=row['name'],
+                                         surname=row['surname'],
+                                         institute=row['institute'],
+                                         academic_title=row['academic_title'],
+                                         job_title=row['job_title'],
+                                         pensum_hours=row['pensum_hours'],
+                                         is_dean=row['is_dean'],
+                                         is_staff=row['is_staff'],
+                                         is_superuser=row['is_superuser'],
+                                         is_active=row['is_active']
+                                         )
+                            staff.set_password(self.generate_password())
+                            staff.save()
 
         return Response(status=status.HTTP_200_OK)
+
+    @staticmethod
+    def generate_password():
+        random_pass = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
+        return random_pass
 
 
 class RoomJSONImportView(APIView):
