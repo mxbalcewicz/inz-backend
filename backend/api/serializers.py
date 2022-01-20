@@ -13,7 +13,7 @@ from api.models import (
     TimeTable,
     TimeTableUnit
 )
-from accounts.models import User, StaffAccount, DeaneryAccount
+from accounts.models import User
 from accounts.serializers import UserSerializer
 
 from accounts.serializers import StaffAccountSerializer

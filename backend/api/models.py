@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from accounts.models import StaffAccount
+from accounts.models import User
 from datetime import date, datetime
 from multiselectfield import MultiSelectField
 
@@ -19,13 +19,13 @@ class CourseInstructorInfo(models.Model):
         MinValueValidator(1),
         MaxValueValidator(60),
     ])
-    instructor = models.ForeignKey(StaffAccount, on_delete=models.CASCADE)
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE)
     course_type = models.CharField(
         default=LECTURE, choices=COURSE_TYPES, blank=False, max_length=15)
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
 
     def __str__(self):
-        instructor = StaffAccount.objects.get(pk=self.instructor)
+        instructor = User.objects.get(pk=self.instructor)
         return f'Course type:{self.course_type}, Hours:{self.hours}, Instructor:{instructor.account.email}'
 
 

@@ -13,33 +13,35 @@ import time
 import pandas as pd
 import json
 
-from .models import (Student,
-                     FieldOfStudy,
-                     Course,
-                     Room,
-                     ECTSCard,
-                     Student,
-                     CourseInstructorInfo,
-                     Semester,
-                     FieldGroup,
-                     TimeTable,
-                     TimeTableUnit
-                     )
-from accounts.models import StaffAccount
-from .serializers import (StudentSerializer,
-                          StaffAccountSerializer,
-                          FieldOfStudySerializer,
-                          CourseSerializer,
-                          RoomSerializer,
-                          ECTSCardSerializer,
-                          CourseInstructorInfoSerializer,
-                          SemesterSerializer,
-                          FieldGroupSerializer,
-                          TimeTableSerializer, TimeTableUnitSerializer, FieldOfStudyGetSerializer,
-                          ECTSCardGetSerializer, SemesterGetSerializer, TimeTableUnitGetSerializer,
-                          TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer,
-                          TimeTableWithTimeTableUnitsSerializer,
-                          )
+from .models import (
+    Student,
+    FieldOfStudy,
+    Course,
+    Room,
+    ECTSCard,
+    Student,
+    CourseInstructorInfo,
+    Semester,
+    FieldGroup,
+    TimeTable,
+    TimeTableUnit
+)
+from accounts.models import User
+from .serializers import (
+    StudentSerializer,
+    StaffAccountSerializer,
+    FieldOfStudySerializer,
+    CourseSerializer,
+    RoomSerializer,
+    ECTSCardSerializer,
+    CourseInstructorInfoSerializer,
+    SemesterSerializer,
+    FieldGroupSerializer,
+    TimeTableSerializer, TimeTableUnitSerializer, FieldOfStudyGetSerializer,
+    ECTSCardGetSerializer, SemesterGetSerializer, TimeTableUnitGetSerializer,
+    TimeTableGetSerializer, CourseInstructorInfoGetSerializer, CourseGetSerializer,
+    TimeTableWithTimeTableUnitsSerializer,
+)
 from django.http import HttpResponse
 import csv
 
@@ -48,7 +50,7 @@ from accounts.views import StaffAccountGetPostView
 
 
 class StaffUserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = StaffAccount.objects.all()
+    queryset = User.objects.all()
     serializer_class = StaffAccountSerializer
 
 
@@ -162,7 +164,8 @@ class CourseInstructorInfoGetPostView(APIView):
 
     def get(self, request):
         instructor_info_list = CourseInstructorInfo.objects.all()
-        serializer = CourseInstructorInfoGetSerializer(instructor_info_list, many=True)
+        serializer = CourseInstructorInfoGetSerializer(
+            instructor_info_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -187,8 +190,8 @@ class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
         instance = CourseInstructorInfo.objects.get(pk=pk)
         instructor_id = request.data.get('instructor')
         course_id = request.data.get('course')
-        if StaffAccount.objects.filter(pk=instructor_id).exists() and Course.objects.filter(pk=course_id):
-            instructor_instance = StaffAccount.objects.get(pk=instructor_id)
+        if User.objects.filter(pk=instructor_id).exists() and Course.objects.filter(pk=course_id):
+            instructor_instance = User.objects.get(pk=instructor_id)
             instance.instructor = instructor_instance
             course_instance = Course.objects.get(pk=course_id)
             instance.course = course_instance
@@ -404,7 +407,8 @@ class SemesterRetrieveUpdateDeleteView(APIView):
                 instance.save()
 
         if FieldOfStudy.objects.filter(id=request.data.get('field_of_study')).exists():
-            temp = FieldOfStudy.objects.get(id=request.data.get('field_of_study'))
+            temp = FieldOfStudy.objects.get(
+                id=request.data.get('field_of_study'))
             instance.field_of_study = temp
 
         updated_instance = Semester.objects.get(pk=pk)
@@ -527,11 +531,14 @@ class TimeTableUnitGetPostView(APIView):
         if Room.objects.filter(id=request.data.get('room')).exists() is False:
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            course_inst_info = CourseInstructorInfo.objects.get(
+                id=course_instructor_info_id)
             room = Room.objects.get(id=request.data.get("room"))
             time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
-                                            start_hour=request.data.get('start_hour'),
-                                            end_hour=request.data.get('end_hour'),
+                                            start_hour=request.data.get(
+                                                'start_hour'),
+                                            end_hour=request.data.get(
+                                                'end_hour'),
                                             day=request.data.get('day'),
                                             week=request.data.get('week'),
                                             room=room)
@@ -574,7 +581,8 @@ class TimeTableUnitRetrieveUpdateDeleteView(APIView):
         if TimeTableUnit.objects.filter(id=pk).exists() and CourseInstructorInfo.objects.filter(
                 id=course_inst_info_id).exists() and Room.objects.filter(id=room_id).exists():
             instance = TimeTableUnit.objects.get(pk=pk)
-            course_inst_info = CourseInstructorInfo.objects.get(id=course_inst_info_id)
+            course_inst_info = CourseInstructorInfo.objects.get(
+                id=course_inst_info_id)
             instance.course_instructor_info = course_inst_info
             instance.room = Room.objects.get(pk=room_id)
             instance.day = request.data.get('day')
@@ -685,10 +693,11 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
         )
         timetable.save()
 
-        ############# validate
+        # validate
 
         semester = Semester.objects.filter(id=timetable.semester.id).first()
-        field_of_study = FieldOfStudy.objects.filter(id=semester.field_of_study.id).first()
+        field_of_study = FieldOfStudy.objects.filter(
+            id=semester.field_of_study.id).first()
         print(time_table_unit)
         room = Room.objects.filter(id=time_table_unit['room']).first()
         if room is None:
@@ -701,11 +710,13 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
         print(all_groups)
         students_num = Student.objects.filter(semester=semester).count()
         print(students_num)
-        needed_capacity = math.ceil(((students_num * number_of_groups) / all_groups))
+        needed_capacity = math.ceil(
+            ((students_num * number_of_groups) / all_groups))
         if needed_capacity > room.capacity:
             return Response({"error": "ROOM CAPACITY IS NOT ENOUGHT"}, status=status.HTTP_400_BAD_REQUEST)
 
-        semester_type = semester.semester % 2  # Check if semester is summer/winter, 0=>winter
+        # Check if semester is summer/winter, 0=>winter
+        semester_type = semester.semester % 2
 
         # TimeTable objects where semester is the same type, same year
         time_tables = TimeTable.objects.annotate(s_type=F('semester__semester') % 2).filter(
@@ -731,7 +742,8 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
         course_instructor_info_id = time_table_unit['course_instructor_info']
 
         if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            course_inst_info = CourseInstructorInfo.objects.get(
+                id=course_instructor_info_id)
             room = Room.objects.filter(id=time_table_unit['room']).first()
             instance = TimeTableUnit(course_instructor_info=course_inst_info,
                                      start_hour=time_table_unit['start_hour'],
@@ -770,11 +782,14 @@ class AddTimeTableUnitToTimeTable(APIView):
         if Room.objects.filter(id=request.data.get('room')).exists() is False:
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            course_inst_info = CourseInstructorInfo.objects.get(
+                id=course_instructor_info_id)
             room = Room.objects.filter(id=request.data.get("room")).first()
             time_table_unit = TimeTableUnit(course_instructor_info=course_inst_info,
-                                            start_hour=request.data.get('start_hour'),
-                                            end_hour=request.data.get('end_hour'),
+                                            start_hour=request.data.get(
+                                                'start_hour'),
+                                            end_hour=request.data.get(
+                                                'end_hour'),
                                             day=request.data.get('day'),
                                             week=request.data.get('week'),
                                             room=room)
@@ -786,7 +801,7 @@ class AddTimeTableUnitToTimeTable(APIView):
                     time_table_unit.field_groups.add(temp)
                     time_table_unit.save()
 
-            timetable.time_table_units.add(time_table_unit);
+            timetable.time_table_units.add(time_table_unit)
             timetable.save()
 
         return Response(TimeTableUnitGetSerializer(time_table_unit).data, status=status.HTTP_201_CREATED)
@@ -802,7 +817,8 @@ class UpdateTimeTableUnit(APIView):
         v = validate(request, timetable_pk)
         if v is not True:
             return v
-        time_table_unit = TimeTableUnit.objects.filter(id=timetableunit_pk).first()
+        time_table_unit = TimeTableUnit.objects.filter(
+            id=timetableunit_pk).first()
         if time_table_unit is None:
             return Response("There is no timtableunit with given id", status=status.HTTP_400_BAD_REQUEST)
         timetable = TimeTable.objects.filter(id=timetable_pk).first()
@@ -812,7 +828,8 @@ class UpdateTimeTableUnit(APIView):
         if Room.objects.filter(id=request.data.get('room')).exists() is False:
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-            course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+            course_inst_info = CourseInstructorInfo.objects.get(
+                id=course_instructor_info_id)
             room = Room.objects.get(id=request.data.get("room"))
             time_table_unit.course_instructor_info = course_inst_info
             time_table_unit.start_hour = request.data.get('start_hour')
@@ -830,7 +847,7 @@ class UpdateTimeTableUnit(APIView):
                     time_table_unit.field_groups.add(temp)
                     time_table_unit.save()
 
-            timetable.time_table_units.add(time_table_unit);
+            timetable.time_table_units.add(time_table_unit)
             timetable.save()
             updated_instance = TimeTableUnit.objects.get(pk=timetableunit_pk)
             serializer = TimeTableUnitGetSerializer(updated_instance)
@@ -842,7 +859,8 @@ def validate(request, timetable_id):
     if timetable is None:
         return Response({"error": "TIMETABLE WITH GIVEN ID DOEN NOT EXIST"}, status=status.HTTP_400_BAD_REQUEST)
     semester = Semester.objects.filter(id=timetable.semester.id).first()
-    field_of_study = FieldOfStudy.objects.filter(id=semester.field_of_study.id).first()
+    field_of_study = FieldOfStudy.objects.filter(
+        id=semester.field_of_study.id).first()
     room = Room.objects.filter(id=request.data.get("room")).first()
     if room is None:
         return Response({"error": "ROOM WITH GIVEN ID DOES NOT EXIST"}, status=status.HTTP_400_BAD_REQUEST)
@@ -851,11 +869,13 @@ def validate(request, timetable_id):
     number_of_groups = len(request.data.get('field_groups'))
     all_groups = field_of_study.field_groups.count()
     students_num = Student.objects.filter(semester=semester).count()
-    needed_capacity = math.ceil(((students_num * number_of_groups) / all_groups))
+    needed_capacity = math.ceil(
+        ((students_num * number_of_groups) / all_groups))
     if needed_capacity > room.capacity:
         return Response({"error": "ROOM CAPACITY IS NOT ENOUGHT"}, status=status.HTTP_400_BAD_REQUEST)
 
-    semester_type = semester.semester % 2  # Check if semester is summer/winter, 0=>winter
+    # Check if semester is summer/winter, 0=>winter
+    semester_type = semester.semester % 2
 
     # TimeTable objects where semester is the same type, same year
     time_tables = TimeTable.objects.annotate(s_type=F('semester__semester') % 2).filter(semester__year=semester.year,
@@ -865,8 +885,10 @@ def validate(request, timetable_id):
     for time_table in time_tables:
         # Filter only
         time_table_units = time_table.time_table_units.filter(room=room.id,
-                                                              day=request.data.get('day'),
-                                                              start_hour=request.data.get('start_hour'),
+                                                              day=request.data.get(
+                                                                  'day'),
+                                                              start_hour=request.data.get(
+                                                                  'start_hour'),
                                                               end_hour=request.data.get('end_hour'))  # err
         # print(time_table.time_table_units.filter(day=day, end_hour=time_to))
 
@@ -902,8 +924,10 @@ class StaffCSVExportView(APIView):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="Staff.csv"'
 
-        serializer = self.serializer_class(StaffAccount.objects.all(), many=True)
-        header = ['id', 'email', 'name', 'surname', 'institute', 'job_title', 'academic_title', 'pensum_hours']
+        serializer = self.serializer_class(
+            User.objects.all(), many=True)
+        header = ['id', 'email', 'name', 'surname', 'institute',
+                  'job_title', 'academic_title', 'pensum_hours']
 
         writer = csv.DictWriter(response, fieldnames=header)
         writer.writeheader()
@@ -931,7 +955,8 @@ class CourseInstructorInfosCSVExportView(APIView):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="Students.csv"'
 
-        serializer = self.serializer_class(CourseInstructorInfo.objects.all(), many=True)
+        serializer = self.serializer_class(
+            CourseInstructorInfo.objects.all(), many=True)
         header = self.serializer_class.Meta.fields
 
         writer = csv.DictWriter(response, fieldnames=header)
@@ -1165,7 +1190,8 @@ class CourseCSVImportView(APIView):
                     course.name = row['name']
                     course.points_value = row['points_value']
                 else:
-                    course = Course(id=row['id'], name=row['name'], points_value=row['points_value'])
+                    course = Course(
+                        id=row['id'], name=row['name'], points_value=row['points_value'])
 
                 if row['prerequisites'] is not None:
                     course.prerequisites = row['prerequisites']
@@ -1196,11 +1222,13 @@ class CourseInstructorInfosCSVImportView(APIView):
 
         for index, row in file.iterrows():
             if row['id'] is not None:
-                courseinstinfo = CourseInstructorInfo.objects.filter(id=row['id']).first()
+                courseinstinfo = CourseInstructorInfo.objects.filter(
+                    id=row['id']).first()
                 if courseinstinfo is not None:
                     courseinstinfo.hours = row['hours']
                     courseinstinfo.course_type = row['course_type']
-                    instructor = StaffAccount.objects.filter(pk=row['instructor']).first()
+                    instructor = User.objects.filter(
+                        pk=row['instructor']).first()
                     if instructor is not None:
                         courseinstinfo.instructor = instructor
                     course = Course.objects.get(pk=row['course'])
@@ -1209,12 +1237,12 @@ class CourseInstructorInfosCSVImportView(APIView):
                     courseinstinfo.save()
                 else:
                     if Course.objects.filter(pk=row['course']).exists() and \
-                            StaffAccount.objects.filter(pk=row['instructor']).exists() is not False:
+                            User.objects.filter(pk=row['instructor']).exists() is not False:
                         if row['course_type'] and row['hours'] is not None:
                             courseinstinfo = CourseInstructorInfo(id=row['id'],
                                                                   hours=row['hours'],
                                                                   course_type=row['course_type'],
-                                                                  instructor=StaffAccount.objects.get(
+                                                                  instructor=User.objects.get(
                                                                       pk=row['instructor']),
                                                                   course=Course.objects.get(pk=row['course']))
                             courseinstinfo.save()
@@ -1258,7 +1286,8 @@ class StaffCSVImportView(APIView):
 
         for index, row in file.iterrows():
             if row['id'] is not None:
-                staff = StaffAccount.objects.filter(account_id=row['id']).first()
+                staff = User.objects.filter(
+                    account_id=row['id']).first()
             if staff is not None:
                 if row['job_title'] and row['email'] and row['name'] and row['surname'] and row['institute'] and \
                         row['academic_title'] and row['pensum_hours'] is not None:
@@ -1276,9 +1305,10 @@ class StaffCSVImportView(APIView):
                         row['academic_title'] and row['pensum_hours'] is not None:
                     if User.objects.filter(email=row['email']).exists() is False:
                         user = User(id=row['id'], email=row['email'])
-                        user.set_password(StaffAccountGetPostView.generate_password())
+                        user.set_password(
+                            StaffAccountGetPostView.generate_password())
                         user.save()
-                        staff = StaffAccount(account=user,
+                        staff = User(account=user,
                                              name=row['name'],
                                              surname=row['surname'],
                                              institute=row['institute'],
@@ -1305,7 +1335,8 @@ class SemesterCSVImportView(APIView):
                     if semester is not None:
                         semester.year = row['year']
                         semester.semester = row['semester']
-                        fieldofstudy = FieldOfStudy.objects.filter(id=row['field_of_study']).first()
+                        fieldofstudy = FieldOfStudy.objects.filter(
+                            id=row['field_of_study']).first()
                         if fieldofstudy is not None:
                             semester.field_of_study = fieldofstudy
                         semester.semester_start_date = row['semester_start_date']
@@ -1330,7 +1361,8 @@ class SemesterCSVImportView(APIView):
                     else:
                         fieldofstudy_id = row['field_of_study']
                         if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
-                            fieldofstudy = FieldOfStudy.objects.get(id=fieldofstudy_id)
+                            fieldofstudy = FieldOfStudy.objects.get(
+                                id=fieldofstudy_id)
 
                             semester = Semester(
                                 id=row['id'],
@@ -1341,7 +1373,8 @@ class SemesterCSVImportView(APIView):
                                 semester_end_date=row['semester_end_date']
                             )
                             semester.save()
-                            students = convertStringCSVArrtoArr(row['students'])
+                            students = convertStringCSVArrtoArr(
+                                row['students'])
 
                             for i in students:
                                 if Student.objects.filter(id=i).exists():
@@ -1385,7 +1418,8 @@ class FieldOfStudyCSVImportView(APIView):
         for index, row in file.iterrows():
             if row['id'] and row['name'] and row['study_type'] and row['start_date'] and row['end_date'] \
                     and row['field_groups'] is not None:
-                field_of_study = FieldOfStudy.objects.filter(id=row['id']).first()
+                field_of_study = FieldOfStudy.objects.filter(
+                    id=row['id']).first()
                 if field_of_study is None:
                     field_of_study = FieldOfStudy(id=row['id'],
                                                   name=row['name'],
@@ -1420,14 +1454,16 @@ class ECTSCardCSVImportView(APIView):
             semester_id = row['semester']
             if row['id'] and field_of_study_id and semester_id is not None:
                 semester = Semester.objects.filter(pk=semester_id).first()
-                field_of_study = FieldOfStudy.objects.filter(pk=field_of_study_id).first()
+                field_of_study = FieldOfStudy.objects.filter(
+                    pk=field_of_study_id).first()
                 if semester or field_of_study is None:
                     ects_card = ECTSCard.objects.filter(id=row['id']).first()
                     if ects_card is not None:
                         ects_card.semester = semester
                         ects_card.field_of_study = field_of_study
                     else:
-                        ects_card = ECTSCard(id=row['id'], semester=semester, field_of_study=field_of_study)
+                        ects_card = ECTSCard(
+                            id=row['id'], semester=semester, field_of_study=field_of_study)
                     ects_card.save()
 
         return Response(status=status.HTTP_200_OK)
@@ -1471,11 +1507,13 @@ class TimeTableUnitCSVImportView(APIView):
             field_groups = row['field_groups']
             room_id = row['room']
             if row[
-                'id'] or day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
+                    'id'] or day or start_hour or end_hour or week or course_instructor_info_id or field_groups or room_id is None:
                 room = Room.objects.filter(pk=room_id).first()
-                course_instructor_info = CourseInstructorInfo.objects.filter(pk=course_instructor_info_id).first()
+                course_instructor_info = CourseInstructorInfo.objects.filter(
+                    pk=course_instructor_info_id).first()
                 if room or course_instructor_info is None:
-                    time_table_unit = TimeTableUnit.objects.filter(id=row['id']).first()
+                    time_table_unit = TimeTableUnit.objects.filter(
+                        id=row['id']).first()
                     if time_table_unit is not None:
                         time_table_unit.day = day
                         time_table_unit.start_hour = start_hour
@@ -1511,13 +1549,17 @@ class AvailableRoomsView(APIView):
         semester_id = request.GET.get('semester', None)
         # day = request.GET.get('day', None).upper()                # str option
         # day = time.strftime(request.GET.get('day'), "%A").tm_wday          # convert int to weekday
-        day = days_list[int(request.GET.get('day', None)) - 1]  # Integer option
-        time_from = datetime.strptime(request.GET.get('from', None), "%H:%M").time()
-        time_to = datetime.strptime(request.GET.get('to', None), "%H:%M").time()
+        # Integer option
+        day = days_list[int(request.GET.get('day', None)) - 1]
+        time_from = datetime.strptime(
+            request.GET.get('from', None), "%H:%M").time()
+        time_to = datetime.strptime(
+            request.GET.get('to', None), "%H:%M").time()
 
         semester = Semester.objects.get(pk=semester_id)
         semester_year = semester.year
-        semester_type = semester.semester % 2  # Check if semester is summer/winter, 0=>winter
+        # Check if semester is summer/winter, 0=>winter
+        semester_type = semester.semester % 2
 
         # TimeTable objects where semester is the same type, same year
         time_tables = TimeTable.objects.annotate(s_type=F('semester__semester') % 2).filter(
@@ -1535,7 +1577,8 @@ class AvailableRoomsView(APIView):
         # print(taken_rooms)
 
         # Room.objects.all().exclude(id__in=taken_rooms)
-        serializer = self.serializer_class(Room.objects.all().exclude(id__in=taken_rooms), many=True)
+        serializer = self.serializer_class(
+            Room.objects.all().exclude(id__in=taken_rooms), many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -1567,7 +1610,8 @@ class StaffJSONExportView(APIView):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/json')
         response['Content-Disposition'] = 'attachment; filename="Staff.json"'
-        serializer = self.serializer_class(StaffAccount.objects.all(), many=True)
+        serializer = self.serializer_class(
+            User.objects.all(), many=True)
         data = json.dumps(serializer.data)
         response.write(data)
         return response
@@ -1603,7 +1647,8 @@ class CourseInstructorInfosJSONExportView(APIView):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/json')
         response['Content-Disposition'] = 'attachment; filename="CourseInstructorInfos.json"'
-        serializer = self.serializer_class(CourseInstructorInfo.objects.all(), many=True)
+        serializer = self.serializer_class(
+            CourseInstructorInfo.objects.all(), many=True)
         data = json.dumps(serializer.data)
         response.write(data)
         return response
@@ -1639,7 +1684,8 @@ class FieldOfStudyJSONExportView(APIView):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/json')
         response['Content-Disposition'] = 'attachment; filename="FieldOfStudy.json"'
-        serializer = self.serializer_class(FieldOfStudy.objects.all(), many=True)
+        serializer = self.serializer_class(
+            FieldOfStudy.objects.all(), many=True)
         data = json.dumps(serializer.data)
         response.write(data)
         return response
@@ -1663,7 +1709,8 @@ class TimeTableUnitJSONExportView(APIView):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/json')
         response['Content-Disposition'] = 'attachment; filename="TimeTableUnit.json"'
-        serializer = self.serializer_class(TimeTableUnit.objects.all(), many=True)
+        serializer = self.serializer_class(
+            TimeTableUnit.objects.all(), many=True)
         data = json.dumps(serializer.data)
         response.write(data)
         return response
@@ -1718,7 +1765,8 @@ class StaffJSONImportView(APIView):
         for row in file:
 
             if row['account']['id'] is not None:
-                staff = StaffAccount.objects.filter(account_id=row['account']['id']).first()
+                staff = User.objects.filter(
+                    account_id=row['account']['id']).first()
             if staff is not None:
                 if row['account']['email'] and row['name'] and row['surname'] is not None:
                     staff.name = row['name']
@@ -1734,11 +1782,13 @@ class StaffJSONImportView(APIView):
                 if row['account']['email'] and row['name'] and row['surname'] and row['pensum_hours'] and row[
                     'academic_title'] \
                         and row['institute'] is not None:
-                    if StaffAccount.objects.filter(account_id=row['account']['id']).exists() is False:
-                        user = User(email=row['account']['email'], id=row['account']['id'])
-                        user.set_password(StaffAccountGetPostView.generate_password())
+                    if User.objects.filter(account_id=row['account']['id']).exists() is False:
+                        user = User(email=row['account']
+                                    ['email'], id=row['account']['id'])
+                        user.set_password(
+                            StaffAccountGetPostView.generate_password())
                         user.save()
-                        staff = StaffAccount.objects.create(account=user,
+                        staff = User.objects.create(account=user,
                                                             name=row['name'],
                                                             surname=row['surname'],
                                                             institute=row['institute'],
@@ -1785,7 +1835,8 @@ class CourseJSONImportView(APIView):
                     course.name = row['name']
                     course.points_value = row['points_value']
                 else:
-                    course = Course(id=row['id'], name=row['name'], points_value=row['points_value'])
+                    course = Course(
+                        id=row['id'], name=row['name'], points_value=row['points_value'])
 
                 if row['prerequisites'] is not None:
                     course.prerequisites = row['prerequisites']
@@ -1816,11 +1867,13 @@ class CourseInstructorInfosJSONImportView(APIView):
         file = json.load(request.FILES['files'])
         for row in file:
             if row['id'] is not None:
-                courseinstinfo = CourseInstructorInfo.objects.filter(id=row['id']).first()
+                courseinstinfo = CourseInstructorInfo.objects.filter(
+                    id=row['id']).first()
                 if courseinstinfo is not None:
                     courseinstinfo.hours = row['hours']
                     courseinstinfo.course_type = row['course_type']
-                    instructor = StaffAccount.objects.filter(pk=row['instructor']).first()
+                    instructor = User.objects.filter(
+                        pk=row['instructor']).first()
                     if instructor is not None:
                         courseinstinfo.instructor = instructor
                     course = Course.objects.get(pk=row['course'])
@@ -1829,12 +1882,12 @@ class CourseInstructorInfosJSONImportView(APIView):
                     courseinstinfo.save()
                 else:
                     if Course.objects.filter(pk=row['course']).exists() and \
-                            StaffAccount.objects.filter(pk=row['instructor']).exists() is not False:
+                            User.objects.filter(pk=row['instructor']).exists() is not False:
                         if row['course_type'] and row['hours'] is not None:
                             courseinstinfo = CourseInstructorInfo(id=row['id'],
                                                                   hours=row['hours'],
                                                                   course_type=row['course_type'],
-                                                                  instructor=StaffAccount.objects.get(
+                                                                  instructor=User.objects.get(
                                                                       pk=row['instructor']),
                                                                   course=Course.objects.get(pk=row['course']))
                             courseinstinfo.save()
@@ -1856,7 +1909,8 @@ class SemesterJSONImportView(APIView):
             id = row['id']
             if id or fieldofstudy_id or year or semester_num or semester_end_date or semester_start_date is not None:
                 if FieldOfStudy.objects.filter(id=fieldofstudy_id).exists():
-                    fieldofstudy = FieldOfStudy.objects.filter(id=fieldofstudy_id).first()
+                    fieldofstudy = FieldOfStudy.objects.filter(
+                        id=fieldofstudy_id).first()
                     semester = Semester.objects.filter(id=id).first()
                     if semester is None:
                         semester = Semester(
@@ -1920,7 +1974,8 @@ class FieldOfStudyJSONImportView(APIView):
             start_date = row['start_date']
             end_date = row['end_date']
             if row['id'] or name or study_type or start_date or end_date is not None:
-                field_of_study = FieldOfStudy.objects.filter(id=row['id']).first()
+                field_of_study = FieldOfStudy.objects.filter(
+                    id=row['id']).first()
                 if field_of_study is not None:
                     field_of_study.id = row['id']
                     field_of_study.name = name
@@ -1957,14 +2012,16 @@ class ECTSCardJSONImportView(APIView):
             semester_id = row['semester']
             if row['id'] and field_of_study_id and semester_id is not None:
                 semester = Semester.objects.filter(pk=semester_id).first()
-                field_of_study = FieldOfStudy.objects.filter(pk=field_of_study_id).first()
+                field_of_study = FieldOfStudy.objects.filter(
+                    pk=field_of_study_id).first()
                 if semester or field_of_study is None:
                     ects_card = ECTSCard.objects.filter(id=row['id']).first()
                     if ects_card is not None:
                         ects_card.semester = semester
                         ects_card.field_of_study = field_of_study
                     else:
-                        ects_card = ECTSCard(id=row['id'], semester=semester, field_of_study=field_of_study)
+                        ects_card = ECTSCard(
+                            id=row['id'], semester=semester, field_of_study=field_of_study)
                     ects_card.save()
 
         return Response(status=status.HTTP_200_OK)
@@ -2013,9 +2070,11 @@ class TimeTableUnitJSONImportView(APIView):
                 if Room.objects.filter(id=row['room']).exists() is False:
                     return Response("Room doesnt exists", status=status.HTTP_400_BAD_REQUEST)
                 if CourseInstructorInfo.objects.filter(id=course_instructor_info_id).exists():
-                    course_inst_info = CourseInstructorInfo.objects.get(id=course_instructor_info_id)
+                    course_inst_info = CourseInstructorInfo.objects.get(
+                        id=course_instructor_info_id)
                     room = Room.objects.get(id=row["room"])
-                    time_table_unit = TimeTableUnit.objects.filter(id=row['id']).first()
+                    time_table_unit = TimeTableUnit.objects.filter(
+                        id=row['id']).first()
                     if time_table_unit is None:
                         time_table_unit = TimeTableUnit(id=row['id'],
                                                         course_instructor_info=course_inst_info,
