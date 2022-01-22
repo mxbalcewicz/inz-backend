@@ -11,6 +11,9 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py search_index --rebuild -f
 
+# Create superuser with data from .env
+python manage.py createsuperuser --noinput
+
 # Start server
 #echo "Starting server"
 #python manage.py runserver 0.0.0.0:8000
