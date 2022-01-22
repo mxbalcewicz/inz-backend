@@ -1183,22 +1183,22 @@ class CourseCSVImportView(APIView):
                     course = Course(
                         id=row['id'], name=row['name'], points_value=row['points_value'])
 
-                if row['prerequisites'] is not None:
+                if pd.isna(row['prerequisites']) is False:
                     course.prerequisites = row['prerequisites']
-                if row['subject_learning_outcomes'] is not None:
+                if pd.isna(row['subject_learning_outcomes']) is False:
                     course.subject_learning_outcomes = row['subject_learning_outcomes']
-                if row['purposes'] is not None:
+                if pd.isna(row['purposes']) is False:
                     course.purposes = row['purposes']
-                if row['methods_of_verification_of_learning_outcomes_and_criteria'] is not None:
+                if pd.isna(row['methods_of_verification_of_learning_outcomes_and_criteria']) is False:
                     course.methods_of_verification_of_learning_outcomes_and_criteria = row[
                         'methods_of_verification_of_learning_outcomes_and_criteria']
-                if row['content_of_the_subject'] is not None:
+                if pd.isna(row['content_of_the_subject']) is False:
                     course.content_of_the_subject = row['content_of_the_subject']
-                if row['didactic_methods'] is not None:
+                if pd.isna(row['didactic_methods']) is False:
                     course.didactic_methods = row['didactic_methods']
-                if row['literature'] is not None:
+                if pd.isna(row['literature']) is False:
                     course.literature = row['literature']
-                if row['balance_of_work_of_an_avg_student'] is not None:
+                if pd.isna(row['balance_of_work_of_an_avg_student']) is False:
                     course.balance_of_work_of_an_avg_student = row['balance_of_work_of_an_avg_student']
                 course.save()
 
