@@ -5,6 +5,7 @@
 # python manage.py collectstatic --noinput
 
 # Apply database migrations
+ls
 echo "Apply database migrations"
 python manage.py makemigrations
 python manage.py migrate

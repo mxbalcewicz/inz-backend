@@ -116,10 +116,37 @@ class SetNewPasswordSerializer(serializers.Serializer):
 
             if not PasswordResetTokenGenerator().check_token(user, token):
                 raise AuthenticationFailed
-                #return Response(status=status.HTTP_401_UNAUTHORIZED)
+                # return Response(status=status.HTTP_401_UNAUTHORIZED)
             user.set_password(password)
             user.save()
 
             return user
         except Exception as e:
             raise AuthenticationFailed
+
+
+class StaffAccountImportExportSerializer(serializers.ModelSerializer):
+    email = serializers.CharField()
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+    name = serializers.CharField(required=True)
+    surname = serializers.CharField(required=True)
+    institute = serializers.CharField(required=True)
+    job_title = serializers.CharField(required=True)
+    academic_title = serializers.CharField(required=True)
+    pensum_hours = serializers.IntegerField(required=True)
+    is_dean = serializers.BooleanField(required=True)
+    is_staff = serializers.BooleanField(required=True)
+    is_active = serializers.BooleanField(required=True)
+    is_superuser = serializers.BooleanField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'password', 'password2', 'name', 'surname',
+                  'institute', 'job_title', 'academic_title', 'pensum_hours', 'is_dean', 'is_staff', 'is_active', 'is_superuser']
+
+    def create(self, validated_data):
+        user = User.objects.create_staff_user(**validated_data)
+        user.save()
+        return user
