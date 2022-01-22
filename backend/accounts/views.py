@@ -329,4 +329,4 @@ class Logout(APIView):
             response.delete_cookie('refresh_token')
             return response
         else:
-            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response(status=status.HTTP_200_OK)
