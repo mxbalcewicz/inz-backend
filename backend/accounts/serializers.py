@@ -28,9 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class StaffAccountSerializer(serializers.ModelSerializer):
     email = serializers.CharField()
-    password = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
+    # password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    # password2 = serializers.CharField(write_only=True, required=True)
     name = serializers.CharField(required=True)
     surname = serializers.CharField(required=True)
     institute = serializers.CharField(required=True)
@@ -40,7 +39,7 @@ class StaffAccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'password2', 'name', 'surname',
+        fields = ['id', 'email', 'name', 'surname',
                   'institute', 'job_title', 'academic_title', 'pensum_hours']
 
     def create(self, validated_data):
@@ -79,11 +78,11 @@ class DeanAccountSerializer(serializers.ModelSerializer):
     email = serializers.CharField()
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
+    # password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'password2']
+        fields = ['id', 'email', 'password']
 
     def create(self, validated_data):
         user = User.objects.create_dean_user(**validated_data)
@@ -93,7 +92,7 @@ class DeanAccountSerializer(serializers.ModelSerializer):
 
 class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
-
+    
     class Meta:
         fields = ['email']
 

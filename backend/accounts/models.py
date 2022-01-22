@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_dean_user(self, email, password, password2, **kwargs):
+    def create_dean_user(self, email, password, **kwargs):
         """
         Create and return a `User` with an email and password
         """
@@ -33,26 +33,24 @@ class UserManager(BaseUserManager):
             raise TypeError('User must have a password.')
         if not email:
             raise ValueError('User must have an email.')
-        if password != password2:
-            raise ValueError("User's passwords do not match.")
+        # if password != password2:
+        #     raise ValueError("User's passwords do not match.")
         email = self.normalize_email(email)
         user = self.model(email=self.normalize_email(email), **kwargs)
         user.is_dean = True
+        user.is_active = True
         user.set_password(password)
         user.save()
 
         return user
 
-    def create_staff_user(self, email, password, password2, **kwargs):
+    def create_staff_user(self, email, **kwargs):
         """
         Create and return a `User` with an email and password
         """
-        if password is None:
-            raise TypeError('User must have a password.')
         if not email:
             raise ValueError('User must have an email.')
-        if password != password2:
-            raise ValueError("User's passwords do not match.")
+        password = User.objects.make_random_password()
         email = self.normalize_email(email)
         user = self.model(email=self.normalize_email(email), **kwargs)
         user.is_staff = True
@@ -92,7 +90,6 @@ class User(AbstractUser):
 
     name = models.CharField(max_length=20, null=True, default=None)
     surname = models.CharField(max_length=30, null=True, default=None)
-    # temp, should be relation to class Institute :X
     institute = models.CharField(max_length=100, null=True, default=None)
     job_title = models.CharField(max_length=50, null=True, default=None)
     academic_title = models.CharField(max_length=50, null=True, default=None)
@@ -100,7 +97,6 @@ class User(AbstractUser):
         MinValueValidator(0),
         MaxValueValidator(250),
     ])
-    
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
