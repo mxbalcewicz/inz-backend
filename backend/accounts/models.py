@@ -68,7 +68,9 @@ class UserManager(BaseUserManager):
         if email is None:
             raise TypeError('Superuser must have an email.')
 
-        user = self.create_user(email, password)
+        #user = self.create_user(email, password)
+        user = self.model(email=self.normalize_email(email), **kwargs)
+        user.set_password(password)
         user.is_active = True
         user.is_superuser = True
         user.is_staff = True
