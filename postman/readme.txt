@@ -1,1 +1,0 @@
-Kolekcja requestów do testowania api, do zaimportowania w postmanie
