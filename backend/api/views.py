@@ -28,6 +28,7 @@ from .models import (
     TimeTable,
     TimeTableUnit
 )
+from accounts.permissions import CheckDeanOrStaffPermission
 from accounts.models import User
 from .serializers import (
     StudentSerializer,
@@ -62,7 +63,7 @@ class RoomGetPostView(APIView):
     Room get, post view
     """
     serializer_class = RoomSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -81,7 +82,7 @@ class RoomRetrieveUpdateDeleteView(APIView):
     Room retrieve, update, delete view
     """
     serializer_class = RoomSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(Room, pk=pk)
@@ -109,7 +110,7 @@ class StudentGetPostView(APIView):
     Student get, post view
     """
     serializer_class = StudentSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -128,7 +129,7 @@ class StudentRetrieveUpdateDeleteView(APIView):
     Student retrieve, update, delete view
     """
     serializer_class = StudentSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(Student, pk=pk)
@@ -157,7 +158,7 @@ class CourseInstructorInfoGetPostView(APIView):
     CourseInstructorInfo get, post view
     """
     serializer_class = CourseInstructorInfoSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -177,7 +178,7 @@ class CourseInstructorInfoRetrieveUpdateDeleteView(APIView):
     CourseInstructorInfo retrieve, update, delete view
     """
     serializer_class = CourseInstructorInfoSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(CourseInstructorInfo, pk=pk)
@@ -211,7 +212,7 @@ class CourseGetPostView(APIView):
     Course get, post view
     """
     serializer_class = CourseSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -231,7 +232,7 @@ class CourseRetrieveUpdateDeleteView(APIView):
     Course retrieve, update, delete view
     """
     serializer_class = CourseSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(Course, pk=pk)
@@ -257,7 +258,7 @@ class FieldOfStudyGetPostView(APIView):
     FieldOfStudy get, post view
     """
     serializer_class = FieldOfStudySerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -290,7 +291,7 @@ class FieldOfStudyRetrieveUpdateDeleteView(APIView):
     FieldOfStudy retrieve, update, delete view
     """
     serializer_class = FieldOfStudySerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(FieldOfStudy, pk=pk)
@@ -328,7 +329,7 @@ class SemesterGetPostView(APIView):
     Semester get, post view
     """
     serializer_class = SemesterSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -372,7 +373,7 @@ class SemesterRetrieveUpdateDeleteView(APIView):
     Semester retrieve, update, delete view
     """
     serializer_class = SemesterSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(Semester, pk=pk)
@@ -424,7 +425,7 @@ class ECTSCardGetPostView(APIView):
     ECTSCard get, post view
     """
     serializer_class = ECTSCardSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -443,7 +444,7 @@ class ECTSCardRetrieveUpdateDeleteView(APIView):
     ECTSCard retrieve, update, delete view
     """
     serializer_class = ECTSCardSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(ECTSCard, pk=pk)
@@ -478,7 +479,7 @@ class FieldGroupGetPostView(APIView):
     FieldGroup get, post view
     """
     serializer_class = FieldGroupSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -497,7 +498,7 @@ class FieldGroupRetrieveUpdateDeleteView(APIView):
     FieldGroup retrieve, update, delete view
     """
     serializer_class = FieldGroupSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(FieldGroup, pk=pk)
@@ -525,7 +526,7 @@ class TimeTableUnitGetPostView(APIView):
     TimeTableUnit get, post view
     """
     serializer_class = TimeTableUnitSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -566,7 +567,7 @@ class TimeTableUnitRetrieveUpdateDeleteView(APIView):
     TimeTableUnit retrieve, update, delete view
     """
     serializer_class = TimeTableUnitSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(TimeTableUnit, pk=pk)
@@ -613,7 +614,7 @@ class TimeTableGetPostView(APIView):
     TimeTable get, post view
     """
     serializer_class = TimeTableSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -645,7 +646,7 @@ class TimeTableRetrieveUpdateDeleteView(APIView):
     TimeTable retrieve, update, delete view
     """
     serializer_class = TimeTableSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(TimeTable, pk=pk)
@@ -681,6 +682,7 @@ class TimeTableRetrieveUpdateDeleteView(APIView):
 
 class TimeTableWithTimeTableUnitsPostView(APIView):
     serializer_class = TimeTableWithTimeTableUnitsSerializer
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -770,7 +772,7 @@ class TimeTableWithTimeTableUnitsPostView(APIView):
 
 class AddTimeTableUnitToTimeTable(APIView):
     serializer_class = TimeTableUnitSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def post(self, request, pk):
         serializer = self.serializer_class(data=request.data)
@@ -812,7 +814,7 @@ class AddTimeTableUnitToTimeTable(APIView):
 
 class UpdateTimeTableUnit(APIView):
     serializer_class = TimeTableUnitSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def put(self, request, timetable_pk, timetableunit_pk):
         serializer = self.serializer_class(data=request.data)

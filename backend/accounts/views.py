@@ -28,7 +28,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from utils.email_handler import EmailUtil
-
+from .permissions import CheckDeanOrStaffPermission
 
 class ListUsers(RetrieveAPIView):
     """
@@ -41,7 +41,7 @@ class ListUsers(RetrieveAPIView):
 
 class DeanAccountGetPostView(APIView):
     serializer_class = DeanAccountSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get_queryset(self):
         return User.objects.filter(is_dean=True, is_superuser=False, is_active=True)
@@ -62,7 +62,7 @@ class DeanAccountRetrieveUpdateDeleteView(APIView):
     DeaneryAccount retrieve, update, delete view
     """
     serializer_class = DeanAccountUpdateSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(User, pk=pk)
@@ -87,7 +87,7 @@ class DeanAccountRetrieveUpdateDeleteView(APIView):
 
 class StaffAccountGetPostView(APIView):
     serializer_class = StaffAccountSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get_queryset(self):
         return User.objects.filter(is_staff=True, is_superuser=False, is_active=True)
@@ -105,7 +105,7 @@ class StaffAccountGetPostView(APIView):
         current_site = get_current_site(request).domain
         relative_link = reverse("activate-account")
         abs_url = FRONTEND_REDIRECT_URL + \
-            relative_link + "?token=" + str(token)
+            relative_link + "/" + str(token)
         email_body = "Witaj " + user.email + \
             "\nZweryfikuj adres email i aktywuj konto klikając w link:" + "\n" + abs_url
         data = {
@@ -129,7 +129,7 @@ class StaffAccountRetrieveUpdateDeleteView(APIView):
     StaffAccount retrieve, update, delete view
     """
     serializer_class = StaffAccountUpdateSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (CheckDeanOrStaffPermission,)
 
     def get(self, request, pk):
         instance = get_object_or_404(User, pk=pk)
@@ -184,8 +184,8 @@ class ResendVerifyEmail(APIView):
 
         current_site = get_current_site(request).domain
         relative_link = reverse("activate-account")
-        abs_url = 'http://' + current_site + \
-            relative_link + "?token=" + str(token)
+        abs_url = FRONTEND_REDIRECT_URL + \
+            relative_link + "/" + str(token)
         email_body = "Witaj " + user.email + \
             "\nZweryfikuj adres email i aktywuj konto klikając w link:" + "\n" + abs_url
         data = {
@@ -254,7 +254,7 @@ class SetNewPasswordView(APIView):
 
 
 class Login(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = (CheckDeanOrStaffPermission,)
     serializer_class = UserLoginSerializer
 
     def post(self, request):
@@ -291,7 +291,7 @@ class Login(APIView):
 
 
 class Refresh(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [CheckDeanOrStaffPermission]
 
     def post(self, request):
         if request.COOKIES.get('refresh_token'):
@@ -321,7 +321,7 @@ class Refresh(APIView):
 
 
 class Logout(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [CheckDeanOrStaffPermission]
 
     def post(self, request):
         if request.COOKIES.get('refresh_token'):
