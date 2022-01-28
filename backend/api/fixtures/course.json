@@ -1,0 +1,1602 @@
+[
+    {
+      "model": "api.Course",
+      "pk": 1,
+      "fields": {
+        "name": "Consectetur aliqua mollit veniam nisi ex in reprehenderit.",
+        "points_value": 4,
+        "prerequisites": "Pariatur labore do cillum minim fugiat est eu nulla eiusmod ipsum amet cupidatat veniam sit. Nisi voluptate labore aute enim.",
+        "purposes": "Pariatur ea sint anim ad. Ut laborum reprehenderit nostrud ullamco ea est pariatur esse.",
+        "subject_learning_outcomes": "Pariatur ullamco proident consectetur cupidatat. Labore eiusmod anim voluptate do id quis ut.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Commodo non consectetur consequat consectetur eu eiusmod quis cupidatat proident excepteur enim dolore laborum. Aliqua ullamco minim ea commodo sint mollit.",
+        "content_of_the_subject": "Duis nostrud in duis labore labore Lorem mollit irure cillum culpa laboris adipisicing esse. Ex ex enim laboris laborum dolore commodo dolore mollit laborum non ut consequat.",
+        "didactic_methods": "Veniam laboris cupidatat ullamco ullamco amet non adipisicing cupidatat pariatur ullamco culpa. Laborum do exercitation qui veniam commodo elit ea.",
+        "literature": "Et voluptate velit cillum anim veniam nisi veniam est minim. Ex officia enim anim velit voluptate minim aliqua labore.",
+        "balance_of_work_of_an_avg_student": "Et voluptate consectetur culpa reprehenderit proident nisi dolore qui anim quis qui. Et minim laboris quis non dolore culpa excepteur."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 2,
+      "fields": {
+        "name": "Aliquip Lorem mollit ex amet consequat consectetur veniam ipsum amet.",
+        "points_value": 1,
+        "prerequisites": "Aliquip non deserunt do in. Veniam ut exercitation dolore consectetur.",
+        "purposes": "Cillum adipisicing non sit in excepteur esse nisi velit amet Lorem eiusmod. Veniam in consectetur Lorem dolor ex in sint id laborum eiusmod laborum ea sint amet.",
+        "subject_learning_outcomes": "Magna incididunt elit ea voluptate laboris magna officia Lorem Lorem tempor nisi non ex. Aute nulla nisi dolore cupidatat qui incididunt cillum reprehenderit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Irure est culpa in minim occaecat ex exercitation commodo eiusmod incididunt consectetur mollit. Quis ipsum aliquip eu nisi ad ea.",
+        "content_of_the_subject": "Magna qui est magna cillum nostrud esse aute. Aliqua sit nostrud nostrud eiusmod labore.",
+        "didactic_methods": "Minim ea proident officia cillum culpa aliqua cupidatat. Cillum elit non sit esse non excepteur deserunt dolore culpa.",
+        "literature": "Eiusmod mollit in amet consectetur enim. Sunt ipsum amet fugiat tempor laborum irure commodo duis pariatur eiusmod fugiat.",
+        "balance_of_work_of_an_avg_student": "Eu magna magna ex veniam irure aliqua qui laboris ea. Culpa ad magna deserunt elit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 3,
+      "fields": {
+        "name": "Consequat culpa elit ipsum ut amet deserunt exercitation et.",
+        "points_value": 4,
+        "prerequisites": "Est sunt esse ad do enim exercitation incididunt qui. Do enim nulla laborum laborum aliqua amet exercitation quis ea adipisicing culpa proident nostrud.",
+        "purposes": "Exercitation do ullamco duis et velit ullamco minim officia commodo velit velit. Deserunt ipsum Lorem ex reprehenderit velit cupidatat sit adipisicing minim magna labore.",
+        "subject_learning_outcomes": "Consectetur dolore nulla Lorem deserunt sunt commodo duis eu cupidatat in veniam. Sunt sunt excepteur culpa eiusmod.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Excepteur dolor Lorem amet laboris nisi consectetur. Ad reprehenderit et ad adipisicing occaecat fugiat velit do pariatur mollit ex pariatur.",
+        "content_of_the_subject": "Aliqua velit occaecat ipsum minim officia anim culpa. Lorem id exercitation ad voluptate non ad ipsum id consectetur et.",
+        "didactic_methods": "Velit incididunt id commodo pariatur reprehenderit laborum ipsum laboris deserunt aute labore. Proident nulla commodo excepteur aliqua.",
+        "literature": "Duis ex mollit est Lorem sunt incididunt exercitation elit cupidatat ad. Ex ipsum enim ex duis sit do do reprehenderit nulla veniam ut cupidatat laborum nostrud.",
+        "balance_of_work_of_an_avg_student": "Lorem ex fugiat do cillum non. In adipisicing consequat sunt ullamco nulla esse cillum aliqua nisi elit sunt voluptate veniam exercitation."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 4,
+      "fields": {
+        "name": "In aute deserunt ex officia dolor occaecat ad.",
+        "points_value": 4,
+        "prerequisites": "Consectetur veniam non consequat ullamco officia id. Sit dolor laborum adipisicing tempor excepteur nisi labore.",
+        "purposes": "Veniam Lorem dolore fugiat anim excepteur nulla sit dolore. Aliqua proident mollit eu duis voluptate elit labore sint eu eu.",
+        "subject_learning_outcomes": "Minim sint ullamco id ad laborum ex. Officia Lorem pariatur nisi elit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Esse Lorem Lorem fugiat elit. Lorem ut veniam sint pariatur incididunt irure minim.",
+        "content_of_the_subject": "Cupidatat minim sit ipsum minim consectetur. Aliquip magna id irure tempor labore velit sunt.",
+        "didactic_methods": "Labore consectetur et do aute consequat proident duis mollit. Aliquip nulla cupidatat nostrud aliquip nulla fugiat magna enim occaecat sint.",
+        "literature": "Sint officia ut ad ad nisi ad est. Dolor ut elit irure tempor duis minim.",
+        "balance_of_work_of_an_avg_student": "Aliquip adipisicing sint ut nostrud. Lorem cillum amet sint laboris laborum aliquip aute nisi adipisicing ex."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 5,
+      "fields": {
+        "name": "Cupidatat tempor reprehenderit voluptate qui.",
+        "points_value": 4,
+        "prerequisites": "Labore anim labore consectetur id non Lorem enim magna. Et velit laborum veniam ipsum eiusmod consectetur nulla ex quis duis ex ut.",
+        "purposes": "Velit ut est ex sunt culpa. Voluptate est non duis fugiat quis proident aliquip anim proident reprehenderit aliqua.",
+        "subject_learning_outcomes": "Irure occaecat enim eiusmod sunt eu aute deserunt voluptate ipsum veniam nisi est consectetur et. Mollit mollit laboris fugiat esse aliquip excepteur ea irure anim adipisicing.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Adipisicing aute quis cillum nulla occaecat proident laboris. Cillum exercitation fugiat pariatur irure ut ex.",
+        "content_of_the_subject": "Tempor commodo et tempor qui nisi ut id. Aliqua qui qui occaecat elit ut nostrud id laboris aliqua dolor.",
+        "didactic_methods": "Velit cupidatat pariatur voluptate duis est ad non adipisicing. Fugiat ullamco veniam consectetur culpa enim ullamco culpa duis irure mollit adipisicing.",
+        "literature": "Nisi ipsum ad ex duis exercitation magna. Veniam deserunt nisi laboris dolor voluptate.",
+        "balance_of_work_of_an_avg_student": "Consequat nulla laborum do sint. Est ullamco officia laboris pariatur enim dolore tempor ullamco elit laboris."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 6,
+      "fields": {
+        "name": "Reprehenderit et minim eu deserunt mollit laborum consequat.",
+        "points_value": 4,
+        "prerequisites": "Aliqua est deserunt sit eiusmod minim. Laborum enim ex officia nisi.",
+        "purposes": "Ex veniam magna quis amet. Esse sit ad laboris magna enim adipisicing eiusmod duis occaecat incididunt fugiat cupidatat Lorem aute.",
+        "subject_learning_outcomes": "Officia proident aliquip non cillum nostrud fugiat sunt. Commodo eu proident eiusmod duis Lorem dolor do culpa duis irure veniam deserunt proident.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Occaecat do cillum qui culpa. Id Lorem nostrud est irure occaecat laborum reprehenderit ut esse ad adipisicing dolor quis labore.",
+        "content_of_the_subject": "Officia anim culpa amet veniam eu ad fugiat quis cupidatat. Amet sint sit nulla do duis quis velit.",
+        "didactic_methods": "Amet ad tempor quis voluptate aute excepteur dolore cillum est. Sunt mollit officia ex enim in.",
+        "literature": "In nostrud duis reprehenderit nulla deserunt labore eu ea deserunt. Aliqua amet velit labore est exercitation.",
+        "balance_of_work_of_an_avg_student": "Enim Lorem culpa et excepteur nisi do cupidatat ipsum. Voluptate dolor reprehenderit pariatur ex et ex laborum minim eu."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 7,
+      "fields": {
+        "name": "Nostrud mollit eu irure anim deserunt do cillum minim cillum consectetur aliqua ipsum.",
+        "points_value": 2,
+        "prerequisites": "Deserunt sit irure in elit in eu ipsum. Voluptate anim qui do laborum.",
+        "purposes": "Ex incididunt et eiusmod cillum esse. Mollit eu esse nulla nostrud.",
+        "subject_learning_outcomes": "Voluptate exercitation anim ad ea amet. Non culpa tempor laboris culpa laboris et enim eu do dolore ad sit mollit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Consequat ipsum laborum dolor cillum pariatur aute et ut labore voluptate incididunt pariatur excepteur ex. Tempor dolor cupidatat aliqua anim tempor elit laboris aliquip pariatur sit non.",
+        "content_of_the_subject": "Exercitation officia sit aliquip dolore do sit dolore. Aliquip sunt consequat incididunt nisi deserunt qui aliquip velit veniam reprehenderit cillum veniam.",
+        "didactic_methods": "Duis veniam tempor irure ipsum pariatur. Velit incididunt velit officia anim pariatur dolor.",
+        "literature": "Mollit dolor cupidatat Lorem minim in ad id excepteur laborum Lorem sunt ut excepteur ad. Eiusmod fugiat elit tempor do ad irure.",
+        "balance_of_work_of_an_avg_student": "Cupidatat ad officia amet ut ad esse mollit eu minim officia culpa. Est nisi ullamco laborum eiusmod eu elit veniam duis ullamco Lorem nostrud."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 8,
+      "fields": {
+        "name": "Non voluptate dolore laboris aliqua tempor nulla deserunt tempor voluptate sit duis.",
+        "points_value": 4,
+        "prerequisites": "Qui nulla magna non occaecat dolor consequat id qui do adipisicing laboris. Id laboris culpa ipsum labore quis sunt consectetur sunt excepteur nostrud.",
+        "purposes": "Enim dolore amet eiusmod nisi. Officia eiusmod excepteur deserunt qui incididunt incididunt velit duis consectetur anim aute.",
+        "subject_learning_outcomes": "Et consectetur ipsum nulla laboris officia eu ullamco proident laborum eu velit culpa sit. Nulla ullamco ullamco ex sunt nisi adipisicing ex anim sunt laborum.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Veniam ex eu eiusmod et mollit ea ipsum labore nostrud nostrud esse. Cillum magna qui sint magna aliquip pariatur non esse ipsum sit.",
+        "content_of_the_subject": "Excepteur magna enim elit dolor. Lorem ipsum in do sint.",
+        "didactic_methods": "Est in magna culpa anim laboris. Ut labore veniam excepteur consectetur eiusmod.",
+        "literature": "Ipsum anim officia non cillum labore occaecat mollit. Officia eiusmod excepteur pariatur in do dolore.",
+        "balance_of_work_of_an_avg_student": "Eu sunt pariatur sit anim pariatur adipisicing anim est. Exercitation elit proident commodo nostrud."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 9,
+      "fields": {
+        "name": "Ut consectetur ea eu voluptate laboris pariatur esse.",
+        "points_value": 3,
+        "prerequisites": "Do aliquip consequat elit irure adipisicing incididunt deserunt sit in officia. Qui aute culpa officia ipsum nostrud.",
+        "purposes": "Ipsum eiusmod eiusmod eiusmod velit veniam magna et sint exercitation mollit. Proident nostrud ut tempor ut aliquip laborum fugiat officia nostrud sint reprehenderit exercitation voluptate laborum.",
+        "subject_learning_outcomes": "Sunt minim laborum proident adipisicing dolore aliqua Lorem occaecat do laborum dolor dolore qui. Occaecat officia ea nisi mollit voluptate.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Id nulla duis occaecat non velit aliquip laboris aliqua eiusmod proident. Laborum pariatur mollit minim proident tempor.",
+        "content_of_the_subject": "Pariatur aliqua Lorem laborum non eiusmod sit ad incididunt quis enim et adipisicing culpa ea. Laborum duis dolore consequat cillum ipsum aute labore ut reprehenderit amet id ea duis voluptate.",
+        "didactic_methods": "Veniam id fugiat nulla in sit enim cupidatat eiusmod mollit aliqua sunt qui laborum commodo. Cillum ipsum id officia id esse consequat laboris dolore ad incididunt eu fugiat duis.",
+        "literature": "Consequat eu sit aliqua elit dolore aliquip aliquip nostrud pariatur laborum esse esse non. Officia sunt culpa incididunt eiusmod velit nisi non pariatur nulla nulla do duis.",
+        "balance_of_work_of_an_avg_student": "Lorem pariatur eiusmod sint est reprehenderit. Qui excepteur magna excepteur pariatur qui."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 10,
+      "fields": {
+        "name": "Cillum non ipsum consectetur quis qui consequat culpa ad voluptate sint nulla labore est.",
+        "points_value": 4,
+        "prerequisites": "Officia dolore eiusmod fugiat cillum laborum dolore voluptate irure nulla veniam dolor aliqua anim. Ea nisi laboris non amet quis excepteur fugiat commodo officia aliquip culpa incididunt.",
+        "purposes": "Nostrud minim enim irure occaecat ipsum. Consectetur nulla magna incididunt deserunt reprehenderit fugiat adipisicing quis exercitation.",
+        "subject_learning_outcomes": "Ea cillum in laborum qui. Officia est ut enim sit labore.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Velit officia amet laboris mollit eiusmod ut duis minim magna in anim. Esse nostrud commodo est amet dolor exercitation officia ipsum do sunt aute.",
+        "content_of_the_subject": "Aliquip ullamco ex ut aliquip deserunt aliquip pariatur exercitation. Proident et elit ea irure officia do dolor proident incididunt reprehenderit aute.",
+        "didactic_methods": "Aliqua qui cillum culpa do deserunt cillum enim sint ea occaecat nisi irure et id. Nisi aliqua consectetur nulla anim ex dolore.",
+        "literature": "Proident ullamco duis velit labore laborum commodo. Exercitation veniam do in magna sunt sint ipsum proident id laboris irure enim occaecat proident.",
+        "balance_of_work_of_an_avg_student": "Ipsum occaecat nisi proident pariatur. Irure incididunt commodo amet in eiusmod irure aute nostrud."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 11,
+      "fields": {
+        "name": "Deserunt irure est excepteur aute quis consectetur velit Lorem.",
+        "points_value": 2,
+        "prerequisites": "Nisi exercitation do ea mollit nostrud adipisicing duis est laborum ad adipisicing reprehenderit exercitation veniam. Eiusmod sunt elit tempor tempor aute veniam minim commodo dolor do.",
+        "purposes": "Excepteur quis ullamco non et aute. Ea qui dolore quis cillum laboris aliquip proident duis labore et minim aliqua ea duis.",
+        "subject_learning_outcomes": "Excepteur amet deserunt nostrud incididunt sint deserunt duis non. Ipsum aute id nostrud laborum ut quis.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Velit deserunt duis commodo minim. Mollit labore Lorem eu do Lorem dolore.",
+        "content_of_the_subject": "Velit in fugiat officia pariatur aliqua exercitation incididunt sit qui. Labore ea commodo ut sit eiusmod est aliquip qui.",
+        "didactic_methods": "Incididunt do veniam pariatur adipisicing adipisicing sint. Quis consequat aliquip esse officia.",
+        "literature": "Amet magna aliqua eiusmod sunt ut et sint mollit incididunt proident ullamco aliqua. Proident ad veniam occaecat est occaecat occaecat irure veniam minim quis sit magna.",
+        "balance_of_work_of_an_avg_student": "Officia magna non ut consectetur officia nostrud voluptate exercitation consectetur. Consequat duis adipisicing excepteur amet quis."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 12,
+      "fields": {
+        "name": "Sint nisi nostrud do do irure dolor laborum ipsum commodo eu proident consequat aute pariatur.",
+        "points_value": 3,
+        "prerequisites": "Reprehenderit consectetur aliquip anim deserunt non. Officia velit amet ullamco officia aliqua sit reprehenderit eiusmod adipisicing veniam laboris aute.",
+        "purposes": "Nostrud proident dolore dolore minim irure ut in. Ex ullamco deserunt sunt qui.",
+        "subject_learning_outcomes": "Consequat aliquip tempor dolor adipisicing magna reprehenderit ea velit labore. Officia tempor nulla non eiusmod cillum excepteur in et ex irure tempor ullamco.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Commodo veniam minim velit aliquip aliquip ea. Et velit qui nulla occaecat non et est ut.",
+        "content_of_the_subject": "Do sunt veniam dolore occaecat sunt sunt laboris tempor non in enim. Et anim occaecat adipisicing enim anim velit proident id nisi.",
+        "didactic_methods": "Officia cillum sunt incididunt duis velit. Est incididunt laboris aliquip dolor aute esse pariatur do deserunt enim ullamco velit aute mollit.",
+        "literature": "Enim occaecat cillum amet nisi tempor veniam sint amet nostrud cupidatat proident incididunt velit. Magna ullamco culpa ex sint et excepteur reprehenderit velit nulla culpa elit.",
+        "balance_of_work_of_an_avg_student": "Ad qui est veniam Lorem aliquip voluptate incididunt esse aute sunt pariatur quis. Minim elit eu incididunt commodo dolore quis consectetur dolore quis."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 13,
+      "fields": {
+        "name": "Dolore laboris et sunt laborum do.",
+        "points_value": 4,
+        "prerequisites": "Nisi ullamco eiusmod adipisicing ipsum non. Exercitation excepteur nulla qui velit ea mollit amet deserunt.",
+        "purposes": "Laborum tempor duis aliqua consectetur qui in nisi cupidatat ea occaecat ex aliqua. Qui proident veniam sunt nisi enim enim enim commodo aliqua deserunt.",
+        "subject_learning_outcomes": "Esse quis ea eu officia cupidatat nulla. Nostrud officia voluptate ipsum nisi velit et veniam non sit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Fugiat cupidatat duis sit nulla consequat. Do elit mollit irure Lorem sunt do commodo id enim.",
+        "content_of_the_subject": "Laboris excepteur irure ex est voluptate sint reprehenderit elit cillum eu mollit esse. Id exercitation voluptate pariatur eiusmod laborum do.",
+        "didactic_methods": "Nisi dolore proident dolor et aliquip incididunt esse commodo Lorem deserunt voluptate eu id. Officia qui minim cupidatat ex culpa eiusmod veniam qui ad quis.",
+        "literature": "Veniam mollit reprehenderit cillum sint exercitation Lorem est ex ut est. Laboris pariatur irure sunt quis enim id enim duis laboris eu quis aliqua ut excepteur.",
+        "balance_of_work_of_an_avg_student": "Labore laboris ipsum cillum esse consequat in mollit irure sint ullamco ut laboris aute. Cupidatat reprehenderit elit dolor officia et deserunt consequat esse veniam fugiat."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 14,
+      "fields": {
+        "name": "Esse eu ad eiusmod deserunt minim nisi enim laboris fugiat.",
+        "points_value": 4,
+        "prerequisites": "Elit commodo est ut consectetur sit veniam irure consectetur. Irure eiusmod proident nulla exercitation exercitation sunt et sunt amet cillum consectetur ipsum.",
+        "purposes": "Commodo id dolore mollit occaecat eu irure eu consequat nulla reprehenderit Lorem esse est in. Ut culpa consectetur aliquip aliqua Lorem laboris in duis proident magna.",
+        "subject_learning_outcomes": "Sunt aute culpa exercitation fugiat. Commodo magna quis tempor enim ea non quis quis nisi fugiat eiusmod cupidatat mollit amet.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Sint ullamco cillum exercitation esse non. Ad dolore Lorem mollit pariatur voluptate duis.",
+        "content_of_the_subject": "Commodo pariatur non nulla est duis qui amet ullamco. Veniam reprehenderit eiusmod proident occaecat nisi nisi elit in ex adipisicing in tempor magna.",
+        "didactic_methods": "Est fugiat exercitation sunt laboris dolor esse. Aliqua fugiat ad elit ex nostrud fugiat non.",
+        "literature": "Elit ea ut qui occaecat adipisicing fugiat veniam non cillum Lorem exercitation ex elit. Magna eiusmod elit aliquip elit aute et aute.",
+        "balance_of_work_of_an_avg_student": "Aliquip anim consequat magna ea. Pariatur enim excepteur amet est."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 15,
+      "fields": {
+        "name": "Culpa amet nisi eu proident cupidatat elit voluptate laboris.",
+        "points_value": 1,
+        "prerequisites": "Ut dolore dolore nisi aliqua in sint culpa. Sint excepteur non incididunt eiusmod ea quis nulla sint cillum quis ad eiusmod commodo dolor.",
+        "purposes": "Mollit consequat eiusmod ut duis incididunt voluptate. Amet et labore reprehenderit duis.",
+        "subject_learning_outcomes": "Esse irure minim cillum esse consectetur nostrud officia proident. Do ullamco aute consequat voluptate eiusmod elit reprehenderit occaecat.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Sit enim duis do est eiusmod aute commodo ea voluptate mollit sunt proident adipisicing ut. Adipisicing qui aliqua nisi eu dolor duis excepteur.",
+        "content_of_the_subject": "Magna officia commodo aliquip dolore mollit culpa qui. Dolor reprehenderit qui qui ex aliquip dolore exercitation.",
+        "didactic_methods": "Proident esse incididunt pariatur officia aute aute sint dolor. Nisi ad mollit quis aute eu sit veniam nulla culpa voluptate ex nostrud in velit.",
+        "literature": "Duis sint anim do aute commodo anim laboris velit. Esse nisi consequat aliqua exercitation.",
+        "balance_of_work_of_an_avg_student": "Sunt sunt commodo est tempor sunt cupidatat esse ea Lorem proident incididunt ex in. Occaecat ea ipsum aliquip sit quis sunt aliqua occaecat officia officia."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 16,
+      "fields": {
+        "name": "Elit minim do sint ad enim velit laboris tempor.",
+        "points_value": 2,
+        "prerequisites": "Qui deserunt voluptate ullamco do laborum consectetur nostrud. Enim elit sit excepteur minim nulla.",
+        "purposes": "Ad est nisi pariatur in non mollit eiusmod occaecat cillum proident minim ullamco. Ipsum aliquip adipisicing ex dolore ea tempor in laborum laboris.",
+        "subject_learning_outcomes": "Tempor dolor elit consectetur commodo cillum dolore dolore incididunt do ullamco. Aute sunt ex reprehenderit excepteur sunt qui velit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Proident dolore esse elit duis laborum irure commodo elit labore. Quis dolore pariatur eiusmod consequat est sunt esse dolor ut.",
+        "content_of_the_subject": "Excepteur duis amet culpa veniam tempor exercitation eu laborum consectetur ut adipisicing. Qui minim cupidatat deserunt occaecat exercitation commodo officia sit adipisicing.",
+        "didactic_methods": "Tempor aute duis esse est adipisicing. Cupidatat ex nisi labore exercitation in excepteur dolore consectetur duis Lorem nisi id.",
+        "literature": "Consequat proident et pariatur quis veniam non. Ipsum laboris exercitation ut deserunt deserunt non anim quis elit id aliquip.",
+        "balance_of_work_of_an_avg_student": "Veniam officia ullamco esse voluptate irure duis non non Lorem do enim Lorem. Est Lorem velit Lorem dolore."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 17,
+      "fields": {
+        "name": "Ad et incididunt sit mollit tempor nulla laborum irure qui labore veniam officia aliquip aute.",
+        "points_value": 5,
+        "prerequisites": "Commodo eu esse velit commodo ex commodo cillum est adipisicing nostrud fugiat amet. Incididunt ipsum ullamco dolore est velit.",
+        "purposes": "Exercitation laborum do minim duis aliquip commodo magna ad ullamco. Dolore sunt ut excepteur exercitation laboris deserunt consequat ut cupidatat enim minim ullamco laborum.",
+        "subject_learning_outcomes": "Eiusmod aute officia est voluptate aliqua aliquip anim officia. Nulla quis consequat eiusmod cupidatat nisi magna mollit fugiat mollit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ut laboris magna est laboris ea irure labore nulla. Id occaecat est magna commodo tempor magna nisi et duis nulla.",
+        "content_of_the_subject": "Ut ad veniam eiusmod veniam aliqua esse commodo commodo reprehenderit ullamco dolor. Eiusmod nisi sunt dolor sunt aliquip magna commodo voluptate.",
+        "didactic_methods": "Ex mollit ipsum veniam excepteur ullamco cillum irure nostrud adipisicing do eiusmod nostrud magna. Dolore excepteur aliqua commodo incididunt consectetur cupidatat cillum occaecat est nostrud sunt do.",
+        "literature": "Aliquip laborum dolore ex pariatur sit excepteur. Aliquip reprehenderit dolor dolor aute laboris nisi anim labore proident proident.",
+        "balance_of_work_of_an_avg_student": "Culpa et sint nisi aute elit magna voluptate nisi duis. Nisi consequat ad nisi adipisicing non consectetur reprehenderit commodo sit fugiat quis esse aliquip elit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 18,
+      "fields": {
+        "name": "Sunt est exercitation sint ex est ex dolor dolore eu.",
+        "points_value": 4,
+        "prerequisites": "Qui ad aliqua eu tempor consectetur nisi mollit anim labore do consequat. Dolore aliquip fugiat excepteur sint ullamco fugiat elit enim eu proident sunt eu proident.",
+        "purposes": "Eu incididunt anim laborum anim occaecat voluptate irure. Aliqua occaecat aliquip deserunt excepteur anim est minim non excepteur consectetur.",
+        "subject_learning_outcomes": "Proident anim excepteur cupidatat ea ad consequat irure quis qui quis sit ex commodo dolor. Reprehenderit pariatur duis irure id nulla consectetur excepteur enim consequat pariatur deserunt esse consectetur ea.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aliqua dolore ullamco amet proident mollit reprehenderit enim sint non commodo occaecat mollit dolor. Mollit veniam tempor incididunt excepteur reprehenderit.",
+        "content_of_the_subject": "Ipsum qui proident nisi culpa deserunt sunt eiusmod anim nostrud qui pariatur laborum laborum. Est laboris ipsum commodo exercitation magna aliqua reprehenderit Lorem aliqua proident.",
+        "didactic_methods": "Officia pariatur aliquip tempor do irure non proident ut labore ex ut. Magna laboris velit ut minim excepteur eiusmod dolore adipisicing.",
+        "literature": "Consectetur duis officia adipisicing quis aliquip aute nulla adipisicing. Duis in ut et commodo non magna in magna in officia commodo ipsum ea.",
+        "balance_of_work_of_an_avg_student": "Tempor sit proident excepteur exercitation anim deserunt sunt ut eu. Exercitation duis dolor sit dolore non adipisicing Lorem officia incididunt."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 19,
+      "fields": {
+        "name": "Lorem consectetur et aute minim cupidatat do dolore ipsum ipsum esse ex labore.",
+        "points_value": 3,
+        "prerequisites": "Incididunt exercitation aliqua mollit nisi magna dolor anim id reprehenderit est duis aliquip. Ut amet aute labore reprehenderit do velit cillum laborum tempor qui.",
+        "purposes": "Ea eiusmod adipisicing sit incididunt proident ullamco esse amet reprehenderit nulla est labore do voluptate. Qui ex adipisicing sunt mollit consequat deserunt consectetur duis sunt dolor aliquip.",
+        "subject_learning_outcomes": "Deserunt laboris proident esse Lorem labore magna eu sint ullamco laborum. Eiusmod ea cillum veniam proident sint ipsum velit elit mollit aute enim.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Cupidatat sint elit laborum ut esse ipsum enim quis commodo sunt sunt incididunt excepteur ullamco. Eiusmod pariatur ad laborum magna aliqua eu.",
+        "content_of_the_subject": "Ullamco ut do id qui reprehenderit duis eiusmod sint. Irure ex veniam excepteur minim quis nostrud occaecat et sunt quis enim.",
+        "didactic_methods": "Lorem ad sint anim fugiat Lorem non commodo reprehenderit ullamco elit. Sit amet Lorem excepteur esse cupidatat anim occaecat tempor incididunt tempor deserunt duis id ipsum.",
+        "literature": "Nulla labore occaecat ex quis quis eiusmod commodo esse consectetur consectetur. Minim cupidatat sint et nulla nisi culpa.",
+        "balance_of_work_of_an_avg_student": "Pariatur nostrud ad fugiat id enim ipsum dolor consequat eu consequat ut sint minim et. Enim fugiat eiusmod id consectetur cillum cupidatat irure."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 20,
+      "fields": {
+        "name": "Ullamco ipsum ut non nisi amet duis excepteur eiusmod voluptate dolore officia nostrud.",
+        "points_value": 2,
+        "prerequisites": "Ea ea duis laborum nulla dolore aliqua deserunt proident. Veniam dolore pariatur irure aliqua incididunt incididunt deserunt non elit incididunt.",
+        "purposes": "Quis consequat voluptate pariatur aliqua occaecat reprehenderit occaecat non est. Nulla excepteur reprehenderit duis anim est.",
+        "subject_learning_outcomes": "Ea fugiat laboris minim reprehenderit dolor. Commodo sint deserunt reprehenderit pariatur qui enim eu ea duis est sint aliquip eu.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Cupidatat magna velit veniam nostrud et magna dolor ad labore excepteur incididunt enim labore fugiat. Aliquip et labore labore deserunt laboris laboris ipsum ullamco.",
+        "content_of_the_subject": "Aliquip et cupidatat culpa voluptate. Pariatur proident exercitation sint tempor nulla esse velit in sint voluptate incididunt fugiat.",
+        "didactic_methods": "Culpa Lorem sunt veniam ut quis excepteur nisi non anim aliqua non veniam. Aliqua quis nulla commodo qui ea nostrud non eiusmod esse nulla cillum.",
+        "literature": "Tempor esse veniam id et voluptate dolor aliquip tempor. Do ex occaecat ipsum non laboris exercitation consectetur cillum occaecat.",
+        "balance_of_work_of_an_avg_student": "Fugiat commodo proident exercitation qui esse tempor veniam. Officia mollit in pariatur labore id cillum proident dolore nulla anim."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 21,
+      "fields": {
+        "name": "Exercitation ut et culpa ea sit incididunt anim id.",
+        "points_value": 3,
+        "prerequisites": "Ullamco exercitation in eiusmod aliqua. Duis veniam adipisicing Lorem commodo consequat duis est sit anim ut cupidatat proident ad.",
+        "purposes": "Do fugiat sit deserunt nisi est elit veniam adipisicing sit elit. Laboris occaecat minim ut eiusmod id.",
+        "subject_learning_outcomes": "In tempor nisi officia cupidatat occaecat in deserunt qui Lorem eiusmod cupidatat cupidatat exercitation. Est adipisicing incididunt est sit excepteur reprehenderit ullamco ad id adipisicing enim aliqua id.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Commodo fugiat exercitation deserunt sint esse laborum laborum anim Lorem occaecat cillum minim. Commodo veniam exercitation Lorem tempor eu officia in duis aliqua ad.",
+        "content_of_the_subject": "Laboris culpa cupidatat qui sint exercitation officia est. Et aliquip incididunt sint duis ut ex veniam in duis officia adipisicing enim.",
+        "didactic_methods": "Reprehenderit labore reprehenderit irure culpa laborum proident sit elit. Amet excepteur occaecat occaecat amet amet proident dolor fugiat anim.",
+        "literature": "Reprehenderit culpa sint eu voluptate et sunt sit consectetur. In quis magna adipisicing ad magna ad est.",
+        "balance_of_work_of_an_avg_student": "Aute aliqua amet exercitation officia culpa. Anim laboris Lorem voluptate magna do enim amet fugiat tempor elit nulla officia irure."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 22,
+      "fields": {
+        "name": "Mollit nulla occaecat velit fugiat tempor anim consequat nisi in aute adipisicing laborum.",
+        "points_value": 4,
+        "prerequisites": "Commodo cillum incididunt excepteur duis anim ad minim voluptate. Cupidatat nisi in duis incididunt ea et deserunt sit tempor ut et minim labore.",
+        "purposes": "Lorem do aliqua qui anim pariatur occaecat occaecat sint velit. Pariatur eu quis et aute consequat amet ex.",
+        "subject_learning_outcomes": "Excepteur consequat sit duis aute in sit sit ad exercitation fugiat nostrud excepteur et. Velit qui do nostrud aliquip consectetur nostrud minim.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Reprehenderit duis ea tempor nisi amet. Ut ad voluptate dolor pariatur tempor fugiat culpa commodo elit.",
+        "content_of_the_subject": "Sunt pariatur consequat aute cupidatat ex in sunt non aliquip mollit. Ea minim anim laboris elit.",
+        "didactic_methods": "Ipsum magna magna ipsum officia proident et. Culpa pariatur laboris esse ad nulla sint enim.",
+        "literature": "Qui aliqua reprehenderit ad cupidatat ad non commodo nulla laborum minim sit consectetur. Anim ex ex sunt veniam aute.",
+        "balance_of_work_of_an_avg_student": "In nulla Lorem do qui ipsum adipisicing et veniam laborum aute laboris laboris nulla. Excepteur esse ad laboris nulla excepteur."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 23,
+      "fields": {
+        "name": "Consequat adipisicing sint eiusmod ipsum exercitation aliquip magna labore aliqua.",
+        "points_value": 1,
+        "prerequisites": "Et consectetur adipisicing ut minim laborum esse nulla amet. In pariatur ipsum quis amet deserunt aute veniam non eiusmod deserunt elit.",
+        "purposes": "Occaecat cupidatat pariatur duis incididunt proident ut aliqua esse sit. Irure ullamco proident do aliquip dolor duis elit fugiat cupidatat enim occaecat cupidatat.",
+        "subject_learning_outcomes": "Sunt eiusmod consequat commodo ea esse. Est qui mollit cillum velit excepteur dolore aliquip sunt ut officia aliqua enim.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aliqua amet duis reprehenderit minim. Quis ipsum reprehenderit Lorem pariatur.",
+        "content_of_the_subject": "Quis aute occaecat labore eiusmod sunt mollit qui. Voluptate duis velit velit minim elit officia nisi est dolor cillum.",
+        "didactic_methods": "Lorem voluptate non veniam laborum ad nostrud proident. Sit ex labore ullamco nisi aute minim fugiat fugiat sit.",
+        "literature": "Ad do sint labore culpa duis. Fugiat ex dolor esse eu quis.",
+        "balance_of_work_of_an_avg_student": "Occaecat non dolore et eiusmod. Et officia velit ut ex velit anim cillum cupidatat commodo Lorem ex anim sunt aute."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 24,
+      "fields": {
+        "name": "Anim anim ut excepteur mollit esse reprehenderit pariatur dolore exercitation officia laborum est mollit.",
+        "points_value": 2,
+        "prerequisites": "Nulla fugiat adipisicing aliqua consectetur in fugiat. Deserunt consectetur incididunt nostrud do nulla exercitation occaecat id ut cillum in officia dolore.",
+        "purposes": "Eiusmod dolor esse enim eiusmod aliquip non exercitation. Deserunt aute cillum velit mollit culpa aliqua id reprehenderit qui nostrud aliqua.",
+        "subject_learning_outcomes": "Aliqua in laboris esse nostrud laboris. Quis laboris reprehenderit et nostrud do veniam amet laborum est laboris cillum nisi laborum nostrud.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Irure nisi irure sunt labore minim ex reprehenderit sunt officia elit do mollit. Enim dolore non deserunt cupidatat tempor qui ut nisi sit dolor elit.",
+        "content_of_the_subject": "Nulla do cillum aliquip labore ex elit cupidatat tempor commodo nulla. Sit minim dolor amet est cillum aliquip consectetur ea mollit culpa adipisicing ipsum aliquip.",
+        "didactic_methods": "Consectetur consequat dolor culpa qui ut aliquip voluptate. Id mollit esse minim sint tempor.",
+        "literature": "Cillum voluptate in officia ex adipisicing exercitation Lorem. Minim magna ad duis sunt ipsum nostrud cillum pariatur laboris officia.",
+        "balance_of_work_of_an_avg_student": "Exercitation enim qui amet occaecat amet velit occaecat laborum velit consequat et nisi. Laboris dolore excepteur magna sit do dolor est ad ipsum."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 25,
+      "fields": {
+        "name": "Laborum ex excepteur consequat non sunt adipisicing non.",
+        "points_value": 4,
+        "prerequisites": "Id voluptate ullamco irure excepteur amet. Sit do duis ut minim consectetur minim elit cupidatat officia nulla reprehenderit veniam.",
+        "purposes": "Ut veniam aliquip adipisicing occaecat minim quis duis ex magna mollit cupidatat aliquip sint. Aliquip cillum nostrud quis aute minim sit duis.",
+        "subject_learning_outcomes": "Occaecat sit velit do elit deserunt consectetur sit commodo sunt ex. Duis ea quis adipisicing cillum.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Sunt quis tempor nostrud ex commodo fugiat occaecat voluptate minim adipisicing nulla commodo exercitation. Irure nisi enim labore non anim do veniam pariatur sit nostrud.",
+        "content_of_the_subject": "Aliqua cillum consectetur culpa officia. Eiusmod pariatur consequat cupidatat deserunt consectetur qui sit culpa laboris cillum.",
+        "didactic_methods": "Culpa laborum esse est aliquip reprehenderit velit duis duis. Elit Lorem id in consequat non mollit dolor incididunt anim aliqua sint nostrud.",
+        "literature": "Sunt consequat proident adipisicing adipisicing aute exercitation est tempor voluptate id amet anim labore enim. Nostrud mollit non reprehenderit laborum.",
+        "balance_of_work_of_an_avg_student": "Sint quis exercitation sunt commodo enim exercitation commodo est labore eiusmod. Esse dolore nisi dolore excepteur."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 26,
+      "fields": {
+        "name": "Eiusmod dolore nostrud irure ad voluptate dolore quis.",
+        "points_value": 1,
+        "prerequisites": "Amet nulla officia nulla magna non sint mollit enim. Eu consectetur exercitation sunt enim dolor pariatur consequat enim proident commodo.",
+        "purposes": "Ipsum cupidatat in exercitation pariatur ex eu amet dolore sunt ad duis. Veniam ipsum nisi ullamco velit culpa.",
+        "subject_learning_outcomes": "Esse culpa aliquip excepteur incididunt eiusmod ut voluptate excepteur eu ipsum duis anim labore. Duis et exercitation proident sit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Sint incididunt et officia aliquip Lorem occaecat proident voluptate cupidatat. Consectetur commodo non sunt velit ad nisi.",
+        "content_of_the_subject": "Amet occaecat nostrud veniam quis magna. Tempor in labore qui adipisicing eu amet enim dolor commodo quis.",
+        "didactic_methods": "Ullamco velit elit quis ex ad enim nostrud ut excepteur tempor ea dolor cupidatat. Ut excepteur reprehenderit adipisicing irure veniam et duis Lorem ullamco ex eu cupidatat incididunt in.",
+        "literature": "Irure mollit tempor dolor cillum qui commodo sit consectetur ipsum dolore est commodo. Cillum ex sunt enim est labore in voluptate magna magna proident esse.",
+        "balance_of_work_of_an_avg_student": "Pariatur aliqua dolore est et dolore nisi aliquip nostrud in deserunt Lorem ea culpa aute. Minim veniam eiusmod ea voluptate Lorem occaecat cupidatat consequat voluptate nulla ullamco."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 27,
+      "fields": {
+        "name": "Nulla pariatur aliquip eiusmod do aute officia irure excepteur aute ullamco adipisicing do.",
+        "points_value": 1,
+        "prerequisites": "Lorem amet enim minim sit commodo laborum. Labore in nostrud ipsum velit nostrud minim.",
+        "purposes": "Magna excepteur do ipsum velit ad. Dolor amet do fugiat nisi.",
+        "subject_learning_outcomes": "Commodo eu nulla minim amet nostrud dolore ex est. Eu cupidatat velit velit anim tempor ex.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Commodo ex ad ea Lorem est occaecat consectetur laborum et consequat anim quis esse. Id nostrud ad voluptate ad aute esse dolor velit.",
+        "content_of_the_subject": "Duis nisi cupidatat ea laborum. Officia duis mollit sit adipisicing ut nulla fugiat nisi consequat reprehenderit eiusmod.",
+        "didactic_methods": "Minim voluptate exercitation officia minim ipsum enim fugiat exercitation. Ipsum excepteur pariatur pariatur anim eu irure incididunt laborum consequat et aliquip eiusmod.",
+        "literature": "Aliquip reprehenderit commodo id aute aliqua sit. Eu minim cupidatat consectetur duis incididunt ea et est sint ad excepteur ad.",
+        "balance_of_work_of_an_avg_student": "Voluptate ut ex amet excepteur ex cillum duis velit consectetur sint velit voluptate. Et aliquip do dolore cillum ut excepteur cillum et deserunt ipsum ipsum pariatur."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 28,
+      "fields": {
+        "name": "Pariatur quis aliqua laboris reprehenderit irure ea laborum exercitation ad anim voluptate tempor proident.",
+        "points_value": 5,
+        "prerequisites": "Esse mollit id reprehenderit eu sit. Excepteur et amet reprehenderit culpa.",
+        "purposes": "Officia aliqua pariatur Lorem Lorem irure nisi elit aute. Laboris do proident aliqua culpa.",
+        "subject_learning_outcomes": "Eiusmod ex pariatur adipisicing in aliquip ad sit voluptate. Quis in aliqua nostrud incididunt velit exercitation dolor.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Cupidatat ex ad officia consequat incididunt nisi sit exercitation sit. Esse culpa quis irure irure ex voluptate quis do dolor incididunt esse.",
+        "content_of_the_subject": "Pariatur nisi duis culpa consequat dolor mollit adipisicing tempor irure sunt. Dolore velit consequat aliquip consectetur elit non.",
+        "didactic_methods": "Do ullamco aliquip adipisicing occaecat commodo excepteur mollit et dolore nisi id. Ad incididunt excepteur eiusmod nostrud mollit non sit incididunt.",
+        "literature": "Ut amet amet ipsum labore anim voluptate pariatur qui in. Dolor mollit sint in amet officia duis.",
+        "balance_of_work_of_an_avg_student": "Do nostrud ullamco laboris in. Eu ipsum ullamco do nostrud laboris ea nisi tempor aliqua dolore."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 29,
+      "fields": {
+        "name": "Consequat id occaecat amet occaecat sint do in dolor adipisicing aute minim proident sint magna.",
+        "points_value": 3,
+        "prerequisites": "Id consectetur ut aliqua ea ex ipsum laborum esse. Excepteur amet labore est do.",
+        "purposes": "Eu dolore esse Lorem in ipsum aliquip magna nisi fugiat nisi fugiat quis dolor incididunt. Est est elit deserunt duis ut qui ut non elit consequat adipisicing id proident.",
+        "subject_learning_outcomes": "Laborum commodo nostrud anim aliqua pariatur proident consectetur ipsum ex minim. Veniam non excepteur tempor dolor amet enim incididunt velit laborum ipsum.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Voluptate officia dolor Lorem ullamco aute. Laborum et deserunt excepteur ea.",
+        "content_of_the_subject": "Aute nisi dolore laboris aute voluptate labore velit commodo dolor. Ut esse et laborum magna.",
+        "didactic_methods": "Elit aliquip enim duis eiusmod reprehenderit velit amet. Reprehenderit adipisicing consectetur eiusmod sint.",
+        "literature": "Ullamco id reprehenderit non aute ullamco excepteur ipsum ullamco amet irure culpa quis. Exercitation non proident cillum consequat qui sint sit esse.",
+        "balance_of_work_of_an_avg_student": "Tempor aliqua reprehenderit elit sint ad eiusmod nulla irure cillum esse aute irure. Tempor ad tempor amet ipsum velit esse fugiat aliquip laborum minim."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 30,
+      "fields": {
+        "name": "Aliquip tempor culpa magna dolore do pariatur sit consequat adipisicing.",
+        "points_value": 1,
+        "prerequisites": "Enim officia dolore officia consectetur ex. Ullamco qui et minim reprehenderit labore officia consequat elit occaecat.",
+        "purposes": "Consectetur incididunt consequat incididunt amet deserunt consequat sunt in culpa deserunt consectetur ad. In culpa eu eiusmod irure culpa excepteur ex proident sint.",
+        "subject_learning_outcomes": "Ipsum commodo sint eu anim deserunt occaecat mollit laboris veniam mollit sit dolor et. Sit veniam commodo commodo tempor.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Anim reprehenderit velit commodo in Lorem. Consectetur velit pariatur enim magna.",
+        "content_of_the_subject": "Excepteur irure in nisi duis labore quis est non ullamco. Incididunt sunt id aliquip laborum sint et ipsum ullamco veniam quis Lorem laborum id in.",
+        "didactic_methods": "Ad consectetur ut excepteur elit sunt nisi fugiat. Eu incididunt ea nisi proident aliquip laborum consequat aliqua.",
+        "literature": "Lorem proident et id minim id tempor mollit Lorem ullamco. Commodo quis nostrud adipisicing non commodo qui fugiat et.",
+        "balance_of_work_of_an_avg_student": "Eu excepteur reprehenderit ex reprehenderit irure aute reprehenderit consequat aliquip commodo duis et magna labore. Laborum irure ipsum ipsum mollit reprehenderit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 31,
+      "fields": {
+        "name": "Anim incididunt labore deserunt irure commodo.",
+        "points_value": 1,
+        "prerequisites": "Ut pariatur qui tempor elit est laborum. Qui id nulla ut sit.",
+        "purposes": "Tempor irure duis laboris anim do duis ullamco irure duis. Labore duis labore do adipisicing.",
+        "subject_learning_outcomes": "Ex nisi velit qui eiusmod exercitation qui velit tempor. Sunt commodo irure Lorem pariatur enim dolore consequat qui deserunt est magna anim ipsum nulla.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Sint aliquip ad magna cupidatat. Ut commodo Lorem minim officia ullamco ad.",
+        "content_of_the_subject": "Aute minim sunt culpa aliqua aliquip sunt. Proident eu fugiat pariatur velit tempor.",
+        "didactic_methods": "Anim nisi ut irure irure voluptate non consequat nisi magna. Minim incididunt labore dolore ipsum.",
+        "literature": "Et nisi velit officia irure sunt cillum sunt eiusmod. Officia excepteur nulla laboris officia velit do consectetur enim et tempor culpa cillum quis in.",
+        "balance_of_work_of_an_avg_student": "Eu esse irure occaecat veniam. Nostrud anim mollit et quis amet nisi amet labore."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 32,
+      "fields": {
+        "name": "Sit tempor magna ipsum elit incididunt irure voluptate sint reprehenderit et minim.",
+        "points_value": 5,
+        "prerequisites": "Elit tempor occaecat ipsum velit adipisicing Lorem laborum pariatur veniam laboris duis enim fugiat enim. Sunt duis nulla ex nisi occaecat ex laboris quis fugiat amet cupidatat culpa.",
+        "purposes": "Quis elit velit ut tempor Lorem Lorem sunt et. Fugiat amet quis id voluptate qui est dolore ex labore aliqua.",
+        "subject_learning_outcomes": "Adipisicing et quis minim nostrud sit consequat qui reprehenderit mollit. Ea qui amet excepteur qui eiusmod.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "In mollit non Lorem aliquip fugiat ea nisi deserunt culpa. Quis proident in consequat commodo in proident laboris proident fugiat reprehenderit enim ipsum proident adipisicing.",
+        "content_of_the_subject": "Irure consectetur laboris cupidatat labore pariatur et aliqua do ea duis velit pariatur dolor cillum. Do anim enim proident ipsum irure commodo anim consectetur.",
+        "didactic_methods": "Quis sunt Lorem excepteur amet minim. Non veniam ipsum esse veniam dolore occaecat fugiat mollit ut sunt consequat ex occaecat.",
+        "literature": "Elit aute qui consequat aliqua nostrud dolore reprehenderit excepteur. Dolor eu commodo id sit sint occaecat.",
+        "balance_of_work_of_an_avg_student": "Cillum et ex cupidatat magna aliqua sunt irure veniam non mollit ut ipsum excepteur non. Reprehenderit nulla et ea laboris Lorem labore incididunt minim do."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 33,
+      "fields": {
+        "name": "Ex quis id consectetur ipsum enim do eiusmod eu deserunt laboris non ut.",
+        "points_value": 2,
+        "prerequisites": "Fugiat deserunt consectetur eu laborum exercitation ullamco eiusmod fugiat. Proident cillum adipisicing elit aliquip esse.",
+        "purposes": "Ea ex nulla minim laboris quis excepteur non aute non. Qui dolore amet ipsum eu do et sit elit elit aliquip mollit est tempor.",
+        "subject_learning_outcomes": "Sint anim Lorem do elit reprehenderit sint nisi. Nisi dolore esse labore nostrud tempor laborum voluptate id ad voluptate qui aliqua.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Amet anim ullamco duis tempor nostrud sint aliquip culpa excepteur qui deserunt est. Lorem minim ut enim veniam aliquip.",
+        "content_of_the_subject": "Lorem duis ad officia magna exercitation irure enim ut fugiat enim consequat. Aliqua velit do labore aliqua Lorem velit do consectetur.",
+        "didactic_methods": "Esse labore aute magna ea dolore eu dolor eu eiusmod esse anim. Ipsum anim fugiat cillum quis cupidatat officia eiusmod proident deserunt eiusmod consectetur officia cillum.",
+        "literature": "Quis minim non et irure et nisi. Lorem irure consectetur ipsum ullamco et esse eiusmod.",
+        "balance_of_work_of_an_avg_student": "Mollit sunt ad aliqua nulla occaecat laborum non amet eiusmod veniam laboris. Sit mollit nisi occaecat cupidatat aliquip eu ex."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 34,
+      "fields": {
+        "name": "Ad incididunt labore minim non aliquip dolor anim id magna fugiat reprehenderit in.",
+        "points_value": 1,
+        "prerequisites": "Do in proident dolore ullamco proident dolore cillum aliqua officia. Nulla occaecat dolore dolor ullamco sint eiusmod eiusmod ipsum deserunt elit aute deserunt.",
+        "purposes": "Velit do laboris sint amet mollit amet non nostrud ea irure aute ad mollit id. Irure id labore incididunt exercitation laboris nisi magna qui excepteur.",
+        "subject_learning_outcomes": "Veniam velit reprehenderit occaecat dolore ea commodo. Lorem occaecat nulla esse est nostrud ut duis non ipsum.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ex cillum cillum cillum elit laborum voluptate. Minim culpa occaecat elit proident in reprehenderit ad enim irure adipisicing veniam reprehenderit incididunt id.",
+        "content_of_the_subject": "Eu laboris mollit dolor qui magna consequat est pariatur labore qui cupidatat. Enim aliquip sint aliquip eiusmod eiusmod minim ex incididunt officia fugiat pariatur officia.",
+        "didactic_methods": "Velit excepteur enim aliqua excepteur excepteur. Laboris et dolore sint do.",
+        "literature": "Exercitation dolor duis aliqua ut nostrud. Lorem incididunt ex adipisicing aliquip nostrud occaecat.",
+        "balance_of_work_of_an_avg_student": "Ex culpa magna consequat anim aliqua ullamco nostrud non magna pariatur eu officia. Culpa nostrud enim magna dolore ut."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 35,
+      "fields": {
+        "name": "In reprehenderit do ea exercitation velit sunt elit sunt sit.",
+        "points_value": 5,
+        "prerequisites": "Elit do aliqua velit quis cillum ullamco consectetur pariatur laboris qui eu. Commodo mollit commodo ex sit cupidatat ea pariatur consequat.",
+        "purposes": "Ad excepteur ullamco deserunt veniam dolore. Dolor eu commodo mollit sunt qui cillum esse ex.",
+        "subject_learning_outcomes": "Incididunt mollit excepteur duis incididunt commodo. Ullamco est eu sunt officia quis labore eiusmod reprehenderit enim enim Lorem fugiat ullamco.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Adipisicing exercitation irure deserunt esse aute irure irure exercitation minim minim culpa dolor deserunt laborum. Ad sunt anim labore id excepteur et cupidatat dolor exercitation dolore eiusmod.",
+        "content_of_the_subject": "Reprehenderit sunt magna cillum tempor irure deserunt nisi fugiat cillum elit minim irure. Magna eu aliquip nulla ea ea cupidatat aliquip.",
+        "didactic_methods": "Labore aute magna voluptate cillum. Non veniam sint elit in eu est excepteur do commodo in non.",
+        "literature": "Tempor minim eiusmod duis nisi. Non elit laboris incididunt ex.",
+        "balance_of_work_of_an_avg_student": "Aliqua commodo velit velit commodo et occaecat. Sit veniam laboris ut sint cillum eiusmod cillum excepteur laboris ullamco non magna mollit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 36,
+      "fields": {
+        "name": "Aute et ex veniam dolore.",
+        "points_value": 5,
+        "prerequisites": "Excepteur laboris adipisicing consequat id amet adipisicing cupidatat tempor veniam esse deserunt est adipisicing. Reprehenderit voluptate veniam quis sit incididunt fugiat cillum ea dolore.",
+        "purposes": "Exercitation enim Lorem mollit eu adipisicing voluptate nisi magna officia. Qui fugiat in ad esse id fugiat officia sit reprehenderit.",
+        "subject_learning_outcomes": "Minim nisi irure quis magna adipisicing occaecat enim eiusmod exercitation eiusmod occaecat. Ex dolore ex ullamco culpa consectetur laborum magna nisi incididunt exercitation velit sit amet velit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Nisi officia et mollit sunt nisi Lorem sit dolor commodo. Laboris in ullamco deserunt nostrud.",
+        "content_of_the_subject": "Excepteur culpa cillum sint sit duis fugiat do nulla culpa. Labore non Lorem qui pariatur eu adipisicing amet deserunt amet id.",
+        "didactic_methods": "Consequat pariatur occaecat sint enim cillum laborum nisi reprehenderit. Dolor quis pariatur do amet elit cillum ex quis labore veniam quis.",
+        "literature": "In exercitation irure proident sint id cupidatat laborum non elit nisi cupidatat ullamco aliquip occaecat. Voluptate ut Lorem nulla veniam cupidatat non magna.",
+        "balance_of_work_of_an_avg_student": "Laboris dolor esse id amet ipsum ad. Amet et incididunt ea officia mollit eiusmod."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 37,
+      "fields": {
+        "name": "Consequat duis magna eiusmod officia incididunt.",
+        "points_value": 4,
+        "prerequisites": "Qui nostrud tempor ex occaecat proident aute culpa adipisicing eiusmod id. Commodo irure et voluptate do tempor eu dolore enim ex quis fugiat consequat.",
+        "purposes": "Ut anim ullamco consectetur labore non nisi magna officia voluptate do veniam. Nostrud veniam magna dolor et incididunt aliqua.",
+        "subject_learning_outcomes": "Qui pariatur commodo occaecat do aliqua ut aute. Aute consequat consectetur quis amet nostrud sint voluptate ex.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Reprehenderit elit eu esse fugiat aliqua voluptate ex sunt sit dolor. Mollit ea dolor nisi quis enim tempor.",
+        "content_of_the_subject": "Velit ut aliquip consequat sit est sit ex in deserunt qui culpa tempor deserunt. Adipisicing minim duis exercitation commodo aliquip velit adipisicing amet fugiat.",
+        "didactic_methods": "Aliquip incididunt pariatur amet proident et consectetur ex elit aute eiusmod eu. Reprehenderit duis excepteur laboris consequat cillum ut ut in consectetur est.",
+        "literature": "Elit id minim incididunt culpa. Nostrud enim qui ea laborum non elit irure sint veniam.",
+        "balance_of_work_of_an_avg_student": "In ullamco anim cillum anim aliquip in velit est commodo eiusmod laborum culpa duis aute. Occaecat id consectetur elit fugiat est tempor enim et dolore veniam nulla sit elit sit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 38,
+      "fields": {
+        "name": "Esse ad dolor esse sit laboris proident reprehenderit tempor est fugiat minim qui do.",
+        "points_value": 3,
+        "prerequisites": "Duis culpa consequat duis non laboris ad. Fugiat adipisicing cupidatat laborum duis quis pariatur laborum sit duis aute laboris cillum.",
+        "purposes": "Ut voluptate in id ipsum ex id irure incididunt do aliqua laborum occaecat. Labore consequat voluptate eu voluptate amet excepteur quis cillum excepteur tempor nulla incididunt qui.",
+        "subject_learning_outcomes": "Ullamco occaecat adipisicing nisi id velit in sunt ea mollit eiusmod eiusmod sint. Est deserunt voluptate consequat eu nulla adipisicing aute minim aute incididunt dolore voluptate.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Enim veniam non dolor exercitation id amet ex. Sit qui ullamco incididunt consectetur quis proident voluptate ex eiusmod labore fugiat officia ex anim.",
+        "content_of_the_subject": "Fugiat veniam non amet enim cillum. Labore laboris ut officia in nisi Lorem veniam qui cupidatat cupidatat exercitation.",
+        "didactic_methods": "Eu ut ut ullamco laboris tempor exercitation minim do commodo laboris anim. Eu velit amet velit minim.",
+        "literature": "In ad sint velit excepteur aliqua incididunt labore magna irure labore ullamco ad. Lorem non voluptate ea minim.",
+        "balance_of_work_of_an_avg_student": "Mollit commodo deserunt nostrud nisi. Ad excepteur laborum amet incididunt."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 39,
+      "fields": {
+        "name": "Ullamco esse sint nisi sit Lorem.",
+        "points_value": 2,
+        "prerequisites": "Consectetur deserunt dolor ipsum excepteur officia cillum sunt magna deserunt ea culpa. Est cillum sit mollit enim sit dolor ea excepteur voluptate laborum laboris.",
+        "purposes": "Id proident est consequat qui ad. Ex duis Lorem mollit tempor id ipsum do cillum.",
+        "subject_learning_outcomes": "Duis culpa commodo consectetur excepteur nulla ipsum mollit irure est. Sunt amet veniam deserunt id qui eiusmod occaecat ipsum consectetur aliquip exercitation velit cupidatat officia.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ipsum sint aute quis ut enim irure laborum officia ea. Aliquip est sit veniam aute ex eiusmod velit in.",
+        "content_of_the_subject": "Sit esse dolore nisi do amet. Reprehenderit aliqua laborum id qui eu exercitation nostrud dolore sit non dolor occaecat.",
+        "didactic_methods": "Sunt qui aliquip proident ad officia anim labore nostrud commodo nostrud cillum do. Enim exercitation proident in fugiat sint.",
+        "literature": "Fugiat quis eu magna ex ea laboris dolor ad nisi eiusmod laborum ea. Non sunt sunt eu laborum in.",
+        "balance_of_work_of_an_avg_student": "Ad eu consectetur ullamco sit elit Lorem elit anim. Enim labore esse labore in cillum ea amet sunt."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 40,
+      "fields": {
+        "name": "Dolor non esse esse eiusmod Lorem.",
+        "points_value": 3,
+        "prerequisites": "Adipisicing ut commodo laboris irure ipsum officia do laborum fugiat. Irure ipsum laboris eu laborum non ad irure pariatur proident officia voluptate irure cillum.",
+        "purposes": "Ex cupidatat excepteur amet laboris ea dolor incididunt. Aliqua non laborum ullamco exercitation dolore occaecat fugiat velit.",
+        "subject_learning_outcomes": "Ut mollit dolor pariatur sunt laborum culpa pariatur quis. Ex pariatur commodo est occaecat Lorem aliqua.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Qui ut velit ullamco consectetur commodo laborum et. Ipsum ad anim nulla aute aliquip cillum exercitation dolore et veniam.",
+        "content_of_the_subject": "Commodo deserunt incididunt cupidatat nulla elit fugiat mollit nulla enim velit. Consequat anim reprehenderit nostrud nulla consequat eiusmod Lorem ullamco commodo nisi ipsum elit Lorem fugiat.",
+        "didactic_methods": "Ut mollit sit eiusmod dolor cillum proident. Consectetur qui deserunt enim ad cupidatat adipisicing enim amet.",
+        "literature": "Dolore minim nisi labore proident enim incididunt laboris laborum tempor tempor. Voluptate consectetur pariatur eu sunt voluptate fugiat ut in elit reprehenderit.",
+        "balance_of_work_of_an_avg_student": "Aute labore aliquip non fugiat aliquip do duis. Enim officia culpa ipsum in pariatur ad."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 41,
+      "fields": {
+        "name": "Ad ad sint eiusmod adipisicing id ex fugiat ut cupidatat nostrud.",
+        "points_value": 4,
+        "prerequisites": "Deserunt sint velit ea deserunt occaecat non aliqua do occaecat qui non. Et deserunt laboris irure ullamco.",
+        "purposes": "Sit elit eu nulla commodo dolore veniam in ullamco pariatur. Amet dolore quis ad irure cillum adipisicing qui deserunt voluptate.",
+        "subject_learning_outcomes": "Adipisicing magna officia id et. Ad duis sunt Lorem duis ea magna velit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Esse in incididunt occaecat mollit sunt cillum elit cupidatat tempor exercitation. Dolor dolore adipisicing est cillum do.",
+        "content_of_the_subject": "Aliqua fugiat ad ullamco tempor do Lorem commodo labore deserunt mollit. Ea consectetur dolor fugiat pariatur velit mollit amet officia Lorem.",
+        "didactic_methods": "Labore do ad ad sunt aliqua cillum culpa duis laborum. Nulla nostrud aute do eu reprehenderit.",
+        "literature": "Pariatur sunt deserunt quis sunt in. In fugiat eiusmod incididunt mollit ullamco.",
+        "balance_of_work_of_an_avg_student": "Minim excepteur aliqua et laboris sunt reprehenderit. Do labore excepteur laborum sit esse incididunt consequat eu consequat in."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 42,
+      "fields": {
+        "name": "Irure ipsum laboris laborum dolore quis proident officia consequat ullamco nulla.",
+        "points_value": 1,
+        "prerequisites": "Aliqua sunt ad cillum nulla aliquip aliqua culpa exercitation dolor do dolore tempor culpa. Duis adipisicing esse qui ullamco pariatur quis deserunt est dolor occaecat laboris.",
+        "purposes": "Incididunt proident cillum ex exercitation excepteur qui esse fugiat voluptate qui. Sint minim id ex qui duis consectetur in.",
+        "subject_learning_outcomes": "Ullamco cillum magna voluptate do Lorem labore aute nisi amet cupidatat. Veniam reprehenderit deserunt cillum deserunt excepteur eu irure aliqua sit deserunt esse amet officia qui.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Reprehenderit consequat mollit ut ex sunt consequat eiusmod anim. Deserunt ut in aute enim nisi velit magna consectetur elit.",
+        "content_of_the_subject": "Sunt ad irure elit irure do amet duis irure tempor. Labore adipisicing consectetur ad aliqua magna magna sit irure Lorem deserunt aute in esse.",
+        "didactic_methods": "Cillum qui cillum exercitation laboris et culpa aliqua qui laborum commodo cupidatat aute eiusmod proident. Mollit velit excepteur anim do nulla voluptate ex id aliqua do aliqua laborum sunt non.",
+        "literature": "Et deserunt commodo nisi elit eiusmod laborum ullamco Lorem Lorem. Velit laborum sint voluptate est ea dolor Lorem aliqua veniam in mollit exercitation enim aliqua.",
+        "balance_of_work_of_an_avg_student": "Excepteur ullamco eu esse laborum enim irure fugiat ut sunt. Laborum velit cillum cillum magna voluptate dolor excepteur exercitation nisi tempor dolore Lorem."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 43,
+      "fields": {
+        "name": "Sunt irure Lorem Lorem commodo in irure officia sunt tempor anim officia.",
+        "points_value": 3,
+        "prerequisites": "Minim nostrud deserunt velit cillum magna qui minim est pariatur Lorem sit labore tempor irure. Dolore labore culpa incididunt sint qui adipisicing amet exercitation incididunt enim sint ad.",
+        "purposes": "Labore veniam consectetur laborum enim ipsum incididunt ipsum pariatur enim sit aliquip reprehenderit. Nostrud do in elit in consectetur.",
+        "subject_learning_outcomes": "Lorem tempor incididunt ad ad quis duis commodo pariatur incididunt magna culpa. Amet duis do non nostrud fugiat est.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Nulla ad enim aute mollit adipisicing veniam ea cillum esse eiusmod deserunt. Amet qui reprehenderit cillum eiusmod irure id do.",
+        "content_of_the_subject": "Pariatur commodo qui nostrud Lorem ad velit. Ea sint incididunt qui excepteur sunt laborum deserunt.",
+        "didactic_methods": "Id fugiat excepteur id enim magna laborum exercitation et nisi aute. Pariatur commodo nostrud incididunt exercitation dolor.",
+        "literature": "Cupidatat duis aute amet aliqua ipsum proident nisi irure sit voluptate ut ut exercitation. Do sint consectetur aute nostrud fugiat fugiat non magna irure id enim.",
+        "balance_of_work_of_an_avg_student": "Duis duis nisi proident sint labore minim nisi commodo ex sit. Ex aute id consectetur exercitation ut labore qui culpa sunt ex sunt est nulla officia."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 44,
+      "fields": {
+        "name": "Commodo voluptate tempor pariatur velit occaecat ut nulla.",
+        "points_value": 2,
+        "prerequisites": "Est cillum enim ex quis deserunt culpa aliqua do cillum cupidatat qui eiusmod Lorem labore. Sint deserunt tempor consequat ut et sunt proident pariatur consequat fugiat qui.",
+        "purposes": "Adipisicing esse exercitation eiusmod deserunt fugiat est fugiat et cillum Lorem. Adipisicing amet laborum quis anim exercitation quis velit enim cupidatat fugiat quis aliquip ut nulla.",
+        "subject_learning_outcomes": "Sint eiusmod cupidatat esse et consectetur nostrud non veniam id Lorem consectetur nisi. Adipisicing dolore est proident mollit adipisicing proident eu enim consectetur id.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Cupidatat elit voluptate est nisi minim sint pariatur incididunt ea. Amet laboris tempor ex laboris.",
+        "content_of_the_subject": "Lorem eiusmod sint tempor ex. Fugiat ad veniam deserunt eiusmod ut aute Lorem cupidatat est do veniam eu mollit.",
+        "didactic_methods": "Eu amet culpa consequat sint qui est fugiat incididunt. Pariatur laboris deserunt pariatur culpa pariatur ex.",
+        "literature": "Duis voluptate commodo laborum quis irure excepteur mollit mollit. Mollit aliquip culpa fugiat nulla nostrud sunt adipisicing duis non.",
+        "balance_of_work_of_an_avg_student": "Ipsum id incididunt sint aute fugiat nulla consequat incididunt Lorem consequat dolore proident. Cillum mollit irure eu fugiat enim."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 45,
+      "fields": {
+        "name": "Consequat reprehenderit sint ipsum magna nostrud ad cillum duis in cupidatat do voluptate cillum.",
+        "points_value": 2,
+        "prerequisites": "Proident est qui velit do ad eu reprehenderit aliquip ad adipisicing. Dolore sunt enim eu consectetur pariatur dolor culpa in.",
+        "purposes": "Excepteur tempor pariatur culpa exercitation. Consequat elit ipsum elit nulla sit minim magna.",
+        "subject_learning_outcomes": "Ad fugiat nisi occaecat ipsum. Commodo commodo tempor laboris sit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Esse irure laborum veniam ipsum minim incididunt eu Lorem consequat veniam amet nisi. Sit officia adipisicing duis consectetur Lorem nostrud mollit est exercitation tempor reprehenderit minim.",
+        "content_of_the_subject": "Non nostrud veniam id laboris enim amet voluptate tempor esse commodo laborum do quis. Qui et occaecat nisi consequat aliquip irure velit est.",
+        "didactic_methods": "Velit nostrud minim id mollit in ad aliqua et consequat laboris et. Amet sint eu velit aute anim.",
+        "literature": "Officia incididunt adipisicing deserunt Lorem eiusmod minim magna id occaecat nisi culpa est magna. Anim id nisi nostrud et quis mollit dolore eu duis aliquip.",
+        "balance_of_work_of_an_avg_student": "Excepteur veniam aliqua reprehenderit ad nulla ex pariatur nostrud excepteur voluptate. Deserunt aute magna occaecat exercitation deserunt cillum."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 46,
+      "fields": {
+        "name": "Excepteur laboris tempor officia occaecat qui sint fugiat cupidatat anim nostrud cillum fugiat veniam culpa.",
+        "points_value": 2,
+        "prerequisites": "Voluptate aliquip ullamco ad ex velit nisi labore irure dolor commodo mollit tempor. Consequat anim incididunt adipisicing est in laboris ipsum excepteur.",
+        "purposes": "Pariatur minim tempor ad esse deserunt exercitation enim minim Lorem fugiat velit ea nisi labore. Magna officia irure ipsum excepteur occaecat eu est deserunt aute occaecat veniam dolore dolor labore.",
+        "subject_learning_outcomes": "Adipisicing ipsum excepteur aute irure et do irure qui dolor culpa. Nisi sit mollit amet voluptate sint nisi est irure irure minim id fugiat magna.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Labore labore labore laboris reprehenderit in ut culpa anim Lorem occaecat non ad. Quis consectetur irure adipisicing non velit ad aliqua occaecat qui.",
+        "content_of_the_subject": "Nisi qui dolor aliqua adipisicing cillum nostrud enim. Id ex fugiat nostrud eu.",
+        "didactic_methods": "Deserunt aute Lorem incididunt eiusmod qui do incididunt. Aliqua elit duis quis pariatur dolor nulla sunt excepteur consequat deserunt tempor dolor sunt.",
+        "literature": "Voluptate laboris velit velit minim aliquip. Voluptate tempor reprehenderit est tempor aliqua officia excepteur do culpa tempor.",
+        "balance_of_work_of_an_avg_student": "Minim consectetur dolore adipisicing minim nisi ullamco cupidatat fugiat. Elit tempor id excepteur et sunt labore esse sint ipsum laboris."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 47,
+      "fields": {
+        "name": "Eu exercitation excepteur magna eiusmod adipisicing do laboris cillum.",
+        "points_value": 5,
+        "prerequisites": "Nostrud consectetur consequat non consectetur magna qui magna ad ut commodo et tempor anim in. Fugiat minim fugiat proident Lorem.",
+        "purposes": "Ipsum ea pariatur cupidatat occaecat enim minim in nulla nisi qui voluptate consectetur do sint. In anim esse consectetur incididunt aliquip enim anim nulla reprehenderit velit pariatur amet Lorem est.",
+        "subject_learning_outcomes": "Dolor sunt incididunt in dolor ut do Lorem elit magna ex aute eiusmod labore. Aute nostrud cillum dolore eu aute cupidatat aliqua aliqua reprehenderit occaecat sint veniam.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Minim in veniam voluptate in ullamco exercitation commodo esse eiusmod eu enim minim officia. Tempor culpa veniam aliquip nulla reprehenderit.",
+        "content_of_the_subject": "Nostrud nulla aliquip dolor incididunt sint irure non. Excepteur tempor deserunt sit tempor irure minim ad ipsum commodo qui proident consequat et ipsum.",
+        "didactic_methods": "Adipisicing nisi est exercitation in consequat fugiat deserunt aliqua consectetur minim sunt minim. Cupidatat minim ex fugiat exercitation culpa mollit aute.",
+        "literature": "Ex consectetur consequat cillum ad. Officia adipisicing labore est veniam officia ea anim.",
+        "balance_of_work_of_an_avg_student": "Lorem culpa duis anim excepteur in consectetur eu officia laboris amet voluptate. Est qui Lorem do do proident mollit officia."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 48,
+      "fields": {
+        "name": "Ullamco deserunt nisi sit proident deserunt aliquip qui eu ad dolore aliqua velit.",
+        "points_value": 2,
+        "prerequisites": "Laborum consectetur adipisicing incididunt magna excepteur irure do eiusmod duis do eu culpa qui culpa. Aliqua tempor minim et non aliquip sint reprehenderit.",
+        "purposes": "Aliquip officia irure aliquip nisi laboris anim. Minim magna pariatur culpa cupidatat sint nisi commodo quis minim veniam culpa.",
+        "subject_learning_outcomes": "Adipisicing est est eiusmod anim adipisicing nulla consectetur et velit magna anim tempor. Tempor tempor dolore eiusmod cupidatat eu.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Incididunt velit anim et ipsum exercitation amet ipsum duis nulla proident. Dolor aute quis ad ut ullamco eu nisi sint eu aliqua qui minim.",
+        "content_of_the_subject": "Amet elit id laboris velit. Magna in adipisicing tempor cupidatat duis cupidatat exercitation veniam.",
+        "didactic_methods": "Exercitation ea cillum deserunt irure anim laboris reprehenderit ipsum. Non elit reprehenderit dolor mollit eu ut proident sit.",
+        "literature": "Anim consectetur Lorem sint tempor. Labore consequat ipsum aute adipisicing sit.",
+        "balance_of_work_of_an_avg_student": "Consequat non cillum laboris dolor aliqua ipsum nostrud pariatur pariatur excepteur id qui est. Anim veniam qui ea aliqua dolore ullamco in quis."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 49,
+      "fields": {
+        "name": "Consequat pariatur laborum Lorem amet.",
+        "points_value": 4,
+        "prerequisites": "Eu nulla cillum eu labore magna ut enim culpa sit consectetur aliquip culpa anim consequat. Quis aliquip Lorem labore magna esse cupidatat deserunt ut non id aliqua ea labore.",
+        "purposes": "Esse labore velit ad mollit laborum minim. Non voluptate ex tempor ex excepteur cupidatat proident pariatur adipisicing deserunt labore.",
+        "subject_learning_outcomes": "Deserunt eiusmod sint officia minim occaecat ad eiusmod reprehenderit labore do duis nisi ipsum. Excepteur duis voluptate sunt deserunt quis nostrud commodo ut.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Laboris est ad aute aute duis eiusmod deserunt eu dolore proident labore eu eu in. Officia commodo id do aliquip laborum proident pariatur.",
+        "content_of_the_subject": "Nulla cillum nostrud quis consectetur ex nostrud in fugiat enim fugiat adipisicing velit voluptate. Ad anim veniam aliqua dolore ipsum quis consequat cillum ullamco cillum labore duis eu.",
+        "didactic_methods": "Anim magna Lorem exercitation aliquip voluptate tempor veniam. Amet sint ullamco cupidatat ut deserunt laboris cillum ea labore.",
+        "literature": "Exercitation amet mollit dolore elit adipisicing minim nisi qui ad reprehenderit esse sint nulla dolore. Anim ullamco dolore et occaecat nisi consequat eu elit labore aute laboris.",
+        "balance_of_work_of_an_avg_student": "Voluptate amet id nulla aute pariatur eiusmod excepteur tempor nostrud officia qui laborum. Et sint ad duis incididunt sint consectetur voluptate deserunt labore eu."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 50,
+      "fields": {
+        "name": "Duis id proident eu sint aliquip culpa consectetur duis consectetur quis enim officia.",
+        "points_value": 5,
+        "prerequisites": "Qui voluptate nostrud ea laborum do esse mollit nisi do. Culpa ipsum voluptate nisi fugiat velit culpa in adipisicing ipsum do.",
+        "purposes": "Consectetur dolor anim nisi sit elit. Nulla ipsum non veniam pariatur in.",
+        "subject_learning_outcomes": "Culpa sit nulla voluptate tempor qui. Enim occaecat quis anim eiusmod ea proident tempor aliqua proident eiusmod enim ex.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "In officia commodo aliqua nisi ullamco sit excepteur cillum nulla ut et tempor ullamco aliquip. Occaecat exercitation do ullamco aliqua adipisicing.",
+        "content_of_the_subject": "Reprehenderit nostrud consequat tempor elit labore do excepteur adipisicing in nisi adipisicing pariatur. Lorem reprehenderit cupidatat sunt quis eiusmod deserunt enim dolor est dolor incididunt ea excepteur.",
+        "didactic_methods": "Duis aliquip laboris duis culpa aute reprehenderit et veniam aute qui fugiat reprehenderit non. Fugiat enim nostrud ut enim veniam reprehenderit in exercitation consectetur sunt ea duis laborum.",
+        "literature": "Eiusmod ipsum eu elit proident ea ut velit pariatur. Commodo nostrud excepteur adipisicing incididunt.",
+        "balance_of_work_of_an_avg_student": "Nulla ullamco dolore laborum incididunt adipisicing enim pariatur veniam labore adipisicing dolore nisi. Eiusmod reprehenderit ullamco pariatur magna do dolore."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 51,
+      "fields": {
+        "name": "Ad aute dolore esse do do qui sunt nulla ut id do laborum eiusmod ipsum.",
+        "points_value": 2,
+        "prerequisites": "Officia amet laborum consectetur irure ullamco id pariatur sint. Cillum labore velit irure veniam elit minim excepteur proident ipsum.",
+        "purposes": "Adipisicing ad excepteur dolor ipsum in irure laboris deserunt dolor reprehenderit amet. Velit labore dolor occaecat et nisi consequat.",
+        "subject_learning_outcomes": "Tempor velit veniam aliqua laboris duis amet et aute do tempor fugiat id sit. Dolor incididunt eu anim cillum consequat.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Cillum quis cupidatat laboris occaecat ipsum aliquip esse incididunt commodo. Ea sunt sunt occaecat Lorem nulla aliquip in.",
+        "content_of_the_subject": "Laborum qui minim minim voluptate ex cupidatat excepteur cillum. Consequat magna reprehenderit minim in.",
+        "didactic_methods": "Aute eu nostrud excepteur aute deserunt fugiat labore culpa reprehenderit. Consequat pariatur deserunt occaecat nulla ut anim aliqua pariatur ex nostrud dolore eu aliquip.",
+        "literature": "Qui nisi aliquip occaecat nisi in laboris aliquip cupidatat consectetur non nulla aute ipsum. Fugiat anim velit tempor anim proident exercitation.",
+        "balance_of_work_of_an_avg_student": "Sint occaecat proident dolor officia culpa deserunt fugiat labore cillum excepteur enim eu labore et. Laborum consequat irure nisi est pariatur."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 52,
+      "fields": {
+        "name": "Nisi esse non adipisicing consequat laborum deserunt excepteur aute.",
+        "points_value": 5,
+        "prerequisites": "Culpa dolor cupidatat incididunt nisi dolore. Velit consectetur sunt ex ut aute ex officia non pariatur id consectetur nulla.",
+        "purposes": "Non voluptate nisi eiusmod aliqua labore est qui laborum ut aute ea excepteur ad. Laborum cillum in ipsum ea et ex.",
+        "subject_learning_outcomes": "Deserunt dolore elit et elit enim officia ipsum. Ex dolore exercitation non fugiat do aliquip ut ea ea.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ullamco ea veniam incididunt aliquip irure esse tempor ad culpa ipsum. Ullamco commodo officia magna non deserunt exercitation proident adipisicing sint sunt.",
+        "content_of_the_subject": "Aliquip Lorem magna in est aliquip adipisicing et. Proident exercitation non aliqua consequat anim in incididunt dolore adipisicing eiusmod officia tempor.",
+        "didactic_methods": "Non duis irure aliqua elit enim ipsum. Tempor minim laborum non laboris cillum commodo anim magna.",
+        "literature": "Exercitation amet consequat nostrud aliquip eu Lorem culpa incididunt in. Aliquip nostrud sit qui ipsum proident ullamco veniam ullamco voluptate.",
+        "balance_of_work_of_an_avg_student": "Ut sunt quis commodo non culpa id deserunt labore nisi elit consectetur. Minim amet pariatur est id sunt ea consectetur veniam tempor irure."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 53,
+      "fields": {
+        "name": "Nulla excepteur magna aliqua anim pariatur sit mollit fugiat sunt ad minim nulla.",
+        "points_value": 4,
+        "prerequisites": "Aliqua dolore ut aliqua amet ipsum nulla eu magna anim in elit est dolor amet. Mollit mollit ad duis labore aute deserunt.",
+        "purposes": "Incididunt consequat amet nulla enim elit incididunt do laboris do do adipisicing tempor. Cupidatat adipisicing cupidatat ad culpa culpa in consequat excepteur voluptate dolor.",
+        "subject_learning_outcomes": "Id officia non elit tempor est magna laborum ipsum ut pariatur eiusmod dolor eu consequat. Dolor esse laboris deserunt minim cupidatat anim esse nulla.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Nostrud dolor anim irure adipisicing ea qui nisi reprehenderit eiusmod eu id ipsum. Adipisicing aute laboris duis laboris incididunt id sint mollit voluptate do et occaecat.",
+        "content_of_the_subject": "Et sint eu amet nisi nulla aliquip consequat nisi commodo ullamco dolore irure ea. Nisi proident magna ullamco incididunt cillum reprehenderit ullamco do aliqua deserunt tempor in voluptate ad.",
+        "didactic_methods": "Amet cillum incididunt aliquip mollit laborum officia exercitation. Elit culpa laborum elit nisi adipisicing.",
+        "literature": "Qui duis voluptate irure non do et nulla veniam nulla. Cillum deserunt ullamco eu pariatur ullamco sunt sit dolore ea nostrud.",
+        "balance_of_work_of_an_avg_student": "Sunt nostrud excepteur est eiusmod amet. Occaecat adipisicing magna Lorem dolore amet Lorem officia."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 54,
+      "fields": {
+        "name": "Fugiat adipisicing aute laborum velit qui occaecat nisi in laborum proident deserunt qui.",
+        "points_value": 2,
+        "prerequisites": "Enim veniam proident ex labore exercitation ipsum esse. Dolore pariatur et officia nulla incididunt reprehenderit amet labore enim cillum laboris labore adipisicing excepteur.",
+        "purposes": "Officia et nulla minim laboris ut culpa est est anim cupidatat elit fugiat et. Exercitation nostrud consectetur exercitation fugiat enim incididunt velit aute.",
+        "subject_learning_outcomes": "Eiusmod Lorem tempor anim Lorem laborum nisi eiusmod occaecat irure velit incididunt nisi. Velit eiusmod quis fugiat officia deserunt nisi eiusmod ut dolor nisi nostrud.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Consequat est qui minim ad magna voluptate velit nisi eiusmod. Excepteur tempor velit fugiat magna minim ex.",
+        "content_of_the_subject": "Dolore reprehenderit ea cillum pariatur pariatur eu excepteur excepteur ea officia deserunt Lorem Lorem. Pariatur cupidatat elit quis quis aliquip fugiat duis enim amet aute est.",
+        "didactic_methods": "Irure nisi quis cupidatat in. Sit labore ex Lorem nisi.",
+        "literature": "Irure aliquip sint aliquip incididunt ullamco dolor esse. Mollit elit reprehenderit minim Lorem irure irure est amet excepteur anim eiusmod.",
+        "balance_of_work_of_an_avg_student": "Do laborum magna nulla duis nostrud deserunt consectetur ut. Duis labore aliquip est ad cupidatat laborum ad ea laborum nostrud esse."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 55,
+      "fields": {
+        "name": "Id aute laboris incididunt irure ut cillum magna veniam aliqua duis reprehenderit magna sunt.",
+        "points_value": 1,
+        "prerequisites": "Occaecat reprehenderit consectetur fugiat proident. Sint laborum elit sunt minim enim deserunt ad ea.",
+        "purposes": "Cupidatat irure officia anim nostrud tempor cupidatat ea exercitation. Sunt labore ut Lorem dolor minim mollit laborum nisi officia exercitation.",
+        "subject_learning_outcomes": "Do exercitation do dolore veniam incididunt ea do sint in enim excepteur laborum ipsum. Pariatur reprehenderit irure id duis laboris aute aliquip aliquip.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Qui quis ullamco commodo cillum. Proident tempor occaecat laborum adipisicing et labore culpa laboris ea proident veniam commodo dolor aliqua.",
+        "content_of_the_subject": "Laborum tempor ad pariatur ullamco sunt anim sit incididunt. Deserunt occaecat commodo in ea.",
+        "didactic_methods": "Commodo deserunt anim aliqua cupidatat duis sit ex non officia culpa deserunt aute non magna. Nisi est elit pariatur ea commodo cupidatat mollit do aliquip.",
+        "literature": "Dolore Lorem adipisicing culpa nulla nostrud. Quis proident sit incididunt nisi proident labore commodo consectetur nisi magna dolore sit laboris.",
+        "balance_of_work_of_an_avg_student": "Sint anim commodo officia laboris do do ut ipsum laboris. Ad ea cupidatat sit nisi sit esse."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 56,
+      "fields": {
+        "name": "Ad velit id veniam minim irure voluptate aute reprehenderit esse do dolore cupidatat quis mollit.",
+        "points_value": 4,
+        "prerequisites": "Nisi officia magna magna sunt voluptate aute culpa voluptate occaecat esse duis dolore enim. Commodo ea esse et laboris sunt amet elit officia labore laborum adipisicing eu incididunt culpa.",
+        "purposes": "Dolore quis ex do sit eiusmod duis fugiat aute. Cillum et sunt laborum excepteur nulla sint nisi ad.",
+        "subject_learning_outcomes": "Proident do cillum officia sunt irure commodo duis. Enim excepteur cillum velit consectetur fugiat excepteur officia irure laboris voluptate et occaecat deserunt aliquip.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Est adipisicing ex dolore incididunt consectetur laboris nulla pariatur irure labore minim anim dolore. Id aliqua cupidatat nulla dolor laborum reprehenderit.",
+        "content_of_the_subject": "Sunt laborum pariatur excepteur non quis consequat. Dolor proident dolore velit veniam aliquip labore.",
+        "didactic_methods": "Sunt dolore exercitation dolor commodo exercitation esse veniam duis magna labore incididunt. Est sit Lorem tempor cupidatat laborum reprehenderit fugiat voluptate non ad amet elit.",
+        "literature": "Quis do eu nulla deserunt cillum aliqua proident culpa. Quis mollit sit ex cillum occaecat est id aliquip aliquip enim eiusmod nisi consequat fugiat.",
+        "balance_of_work_of_an_avg_student": "Cupidatat nulla consequat culpa consectetur irure Lorem adipisicing reprehenderit sint et deserunt. Quis enim eu deserunt ex nisi laborum ad."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 57,
+      "fields": {
+        "name": "Nostrud tempor esse voluptate reprehenderit eu laboris nostrud mollit in cupidatat duis velit.",
+        "points_value": 2,
+        "prerequisites": "Ad nulla nisi nulla esse id aliquip duis esse elit officia consectetur irure aliqua. Dolore quis et do consequat adipisicing aliqua esse excepteur ut dolor culpa.",
+        "purposes": "Incididunt aliqua veniam laboris culpa cillum ea dolor. Reprehenderit ipsum magna ipsum ad cillum culpa reprehenderit.",
+        "subject_learning_outcomes": "Ullamco reprehenderit pariatur non incididunt elit nulla nulla eu minim reprehenderit Lorem pariatur duis. Qui ipsum et do minim voluptate ut.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Elit in quis aliquip excepteur non Lorem fugiat amet veniam occaecat dolore id amet voluptate. Sint exercitation duis non pariatur amet irure aliquip proident eu anim.",
+        "content_of_the_subject": "Mollit consectetur aliquip occaecat culpa esse anim velit cupidatat ex nostrud aliquip laboris ut in. Magna ullamco ad id sit anim id enim laboris cillum aliquip deserunt ipsum excepteur fugiat.",
+        "didactic_methods": "Excepteur incididunt proident magna officia minim pariatur nostrud in nisi ex esse in. Non enim aute incididunt minim tempor pariatur.",
+        "literature": "Consequat nulla cillum sunt mollit veniam ea cillum consectetur proident ipsum. Amet aliquip eiusmod duis ut laboris eiusmod velit ut ex adipisicing.",
+        "balance_of_work_of_an_avg_student": "Aliquip pariatur duis deserunt enim aliqua est quis quis aute. Eu nulla culpa elit aliquip cillum deserunt anim officia adipisicing aliquip sint."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 58,
+      "fields": {
+        "name": "Proident eiusmod consequat labore exercitation mollit exercitation ut aliqua consequat proident tempor ad proident.",
+        "points_value": 1,
+        "prerequisites": "Ut officia do minim mollit enim ut cillum laborum nisi officia incididunt nulla. Fugiat dolore exercitation cupidatat enim minim nulla nisi qui proident.",
+        "purposes": "Ut laboris occaecat eu sunt dolore duis in culpa consequat veniam aliquip ex ex nulla. Sunt non ex deserunt commodo veniam magna consequat quis.",
+        "subject_learning_outcomes": "Est eiusmod mollit minim ullamco consequat enim officia culpa in occaecat anim. Ex incididunt incididunt adipisicing aliqua proident nisi velit mollit fugiat sint eiusmod sint.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Tempor enim aute voluptate Lorem occaecat eiusmod pariatur esse enim laboris quis eu id consequat. Do laboris anim tempor sint ipsum non proident ex aliquip dolore mollit tempor aliquip anim.",
+        "content_of_the_subject": "Enim commodo voluptate ut enim proident labore do. Anim pariatur elit nulla reprehenderit deserunt pariatur.",
+        "didactic_methods": "Qui tempor voluptate magna ullamco tempor velit consequat amet ut id. Eu voluptate commodo incididunt incididunt officia do enim occaecat nostrud dolor laboris.",
+        "literature": "Do nulla nostrud adipisicing proident ullamco dolor labore fugiat fugiat. Nisi aliqua minim duis deserunt reprehenderit reprehenderit laborum anim reprehenderit tempor voluptate laboris anim.",
+        "balance_of_work_of_an_avg_student": "Incididunt est sint elit enim amet. Eiusmod eiusmod sit non labore sit sit consequat fugiat incididunt deserunt officia incididunt aute sint."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 59,
+      "fields": {
+        "name": "Tempor dolor ea ex anim est eu amet cillum laborum incididunt dolor ullamco id.",
+        "points_value": 1,
+        "prerequisites": "Voluptate veniam sint occaecat dolor sint esse proident veniam et fugiat. Commodo eiusmod anim sit duis ad amet adipisicing pariatur minim consequat.",
+        "purposes": "Duis excepteur fugiat aute nisi dolore est irure aliqua consectetur laboris ut. Ea reprehenderit qui velit ullamco non.",
+        "subject_learning_outcomes": "Sit proident culpa ex amet sit do velit. Qui fugiat reprehenderit cillum nostrud nisi aute commodo.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Enim magna nulla ex nulla ea proident nisi aliquip minim. Enim in cupidatat deserunt tempor sunt incididunt.",
+        "content_of_the_subject": "Quis mollit excepteur eiusmod sit consectetur ad adipisicing elit ex ullamco et. Commodo exercitation nisi sint culpa velit do voluptate ea amet excepteur nulla cillum.",
+        "didactic_methods": "Incididunt veniam occaecat eiusmod anim officia dolor ipsum pariatur nisi pariatur excepteur qui. Qui pariatur enim labore sint magna ullamco.",
+        "literature": "Nisi commodo laboris exercitation mollit officia esse ipsum eu. Fugiat mollit ut laborum ullamco deserunt quis.",
+        "balance_of_work_of_an_avg_student": "Est aliqua pariatur labore do adipisicing anim pariatur eiusmod cillum. Consectetur velit commodo ullamco dolore voluptate Lorem culpa minim aliquip est dolore sint."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 60,
+      "fields": {
+        "name": "Nostrud velit eu do duis nostrud.",
+        "points_value": 4,
+        "prerequisites": "Anim mollit voluptate non elit eiusmod do anim velit et est. In ea qui officia ullamco in labore duis irure.",
+        "purposes": "Mollit incididunt do exercitation laborum magna ea officia in excepteur proident ad. Incididunt enim amet do consequat ea consequat.",
+        "subject_learning_outcomes": "Elit sint et ut Lorem exercitation eu ut Lorem dolore irure minim in. Minim adipisicing consectetur aliquip et velit qui ipsum non incididunt aliquip consequat ea culpa aliqua.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Excepteur ut voluptate amet incididunt officia ex. Esse laborum elit tempor duis proident qui minim excepteur laborum reprehenderit.",
+        "content_of_the_subject": "Eiusmod aliquip excepteur quis culpa exercitation labore pariatur adipisicing id. Labore laborum veniam et duis sunt qui enim laboris eiusmod nulla deserunt do nulla.",
+        "didactic_methods": "Ad enim tempor sint mollit. Labore consectetur labore pariatur consequat do voluptate laboris id sint.",
+        "literature": "Anim pariatur sunt deserunt consectetur. Cupidatat non aliqua in sit occaecat.",
+        "balance_of_work_of_an_avg_student": "Excepteur excepteur esse cupidatat ullamco. Irure quis magna irure labore ipsum in sit ex."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 61,
+      "fields": {
+        "name": "Amet enim irure eiusmod deserunt.",
+        "points_value": 2,
+        "prerequisites": "Irure labore veniam aliquip incididunt sint duis ipsum ex sit mollit esse commodo. Quis proident qui sunt officia pariatur ut aute anim laboris commodo consequat non.",
+        "purposes": "Ad voluptate proident ullamco dolore aliqua non id dolore. Deserunt velit proident ad commodo excepteur.",
+        "subject_learning_outcomes": "Labore mollit id mollit quis dolore quis in non elit id adipisicing dolore amet. Dolore eu quis incididunt fugiat aliqua tempor culpa non ex est aliquip cillum fugiat ad.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Est adipisicing officia nisi laborum eu reprehenderit do enim. Veniam commodo quis labore consequat adipisicing nostrud pariatur minim nostrud fugiat enim dolor.",
+        "content_of_the_subject": "Officia amet minim id ex irure commodo nostrud aliquip quis consequat consectetur sunt. Veniam irure velit amet non sunt culpa aliqua proident magna proident excepteur ut.",
+        "didactic_methods": "Id dolore veniam nisi et culpa proident culpa aute sunt fugiat et aliquip aliqua sunt. Nulla excepteur est esse voluptate commodo sunt cupidatat id dolor.",
+        "literature": "Anim adipisicing commodo nisi quis quis Lorem adipisicing excepteur anim eiusmod dolor voluptate reprehenderit. Amet voluptate pariatur quis excepteur officia in consequat laborum adipisicing est tempor.",
+        "balance_of_work_of_an_avg_student": "Ut fugiat exercitation pariatur sint non do et incididunt cupidatat sunt ea ipsum. Aliquip voluptate amet nulla velit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 62,
+      "fields": {
+        "name": "Velit eiusmod adipisicing est reprehenderit laborum eiusmod commodo nostrud dolor dolore sit nisi qui sint.",
+        "points_value": 3,
+        "prerequisites": "Voluptate labore eiusmod adipisicing sint ullamco voluptate id sint qui eu fugiat enim nulla. Incididunt labore sint cillum exercitation ad irure irure quis incididunt laboris sit adipisicing.",
+        "purposes": "Tempor et qui nisi excepteur. Irure sint ad et proident aute cillum culpa.",
+        "subject_learning_outcomes": "Ullamco do et tempor labore ea quis excepteur aute labore proident velit mollit. Deserunt magna commodo cillum ut velit exercitation consequat qui ex.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Occaecat anim aute sunt aute. Consequat fugiat esse quis ut aliquip id eiusmod in.",
+        "content_of_the_subject": "Magna aliquip nostrud sit anim sit aute laborum reprehenderit minim sunt qui enim. Laboris dolore elit laborum incididunt qui do consectetur dolore sit adipisicing consectetur ad qui.",
+        "didactic_methods": "Cupidatat enim dolor eu nulla reprehenderit ex laborum fugiat labore magna ullamco enim dolore sint. Cillum nisi aliqua ea consequat labore duis.",
+        "literature": "Nisi anim pariatur nulla exercitation sunt cupidatat proident anim. Aute dolore commodo do veniam quis tempor esse consectetur laboris voluptate ex.",
+        "balance_of_work_of_an_avg_student": "Eiusmod in incididunt ea in officia et dolore elit duis dolore commodo aliqua eiusmod. Est ullamco consectetur duis eiusmod ea ad laborum nulla labore non exercitation voluptate enim."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 63,
+      "fields": {
+        "name": "Mollit ad aute cupidatat do mollit duis et eu dolor deserunt nisi laborum.",
+        "points_value": 2,
+        "prerequisites": "Proident aute consequat aute minim nulla consequat. Reprehenderit et Lorem exercitation incididunt fugiat eiusmod quis sint aliqua.",
+        "purposes": "Eu excepteur ullamco tempor culpa magna eu id nostrud. Dolor dolore amet nulla pariatur ad.",
+        "subject_learning_outcomes": "Aliquip consequat esse amet cillum. Ullamco occaecat duis pariatur id labore pariatur ullamco ex non culpa.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Elit excepteur ut sunt eu sunt proident Lorem labore consequat tempor. Eiusmod commodo deserunt cupidatat cupidatat ad consequat amet deserunt excepteur tempor et ex Lorem cupidatat.",
+        "content_of_the_subject": "Ea eu sint veniam nisi voluptate nulla. Laborum veniam anim adipisicing consectetur magna non ex.",
+        "didactic_methods": "Mollit magna elit dolor laborum fugiat consequat ad mollit. Occaecat veniam ea incididunt eu consectetur voluptate anim ex aliqua excepteur velit dolore.",
+        "literature": "Sit reprehenderit magna in ipsum culpa velit elit consequat commodo. Veniam do dolore ullamco Lorem ea ut dolore voluptate deserunt proident aute.",
+        "balance_of_work_of_an_avg_student": "Anim tempor velit incididunt nostrud magna tempor aliquip eiusmod ea cupidatat non esse qui. Non magna cupidatat esse pariatur aliquip exercitation esse cupidatat sunt duis ipsum."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 64,
+      "fields": {
+        "name": "Labore ex culpa nulla voluptate aute nostrud cillum reprehenderit.",
+        "points_value": 2,
+        "prerequisites": "Ea voluptate anim ullamco exercitation sunt aute ex duis reprehenderit. Enim mollit labore proident ut amet sint aliqua.",
+        "purposes": "Deserunt officia fugiat aliqua eu amet commodo non et aliquip Lorem id. Labore do mollit eu esse in qui et non.",
+        "subject_learning_outcomes": "Tempor mollit proident dolor ex dolore deserunt incididunt et dolor laborum consequat sint. Dolor duis amet laborum fugiat nisi veniam reprehenderit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Minim dolore cillum magna ipsum cupidatat laborum culpa elit anim exercitation. Magna ipsum reprehenderit exercitation voluptate eiusmod voluptate reprehenderit consequat do dolor ea deserunt.",
+        "content_of_the_subject": "Officia aliquip ea sit aute fugiat aute aute voluptate aliqua consectetur eiusmod irure. In aliqua ullamco non exercitation labore proident et nulla occaecat occaecat quis sint nulla.",
+        "didactic_methods": "Voluptate reprehenderit enim sit anim est aliqua pariatur commodo eu aute tempor fugiat deserunt. Culpa veniam labore ipsum ex magna anim cupidatat irure.",
+        "literature": "In mollit officia elit officia non dolore aliquip cillum laborum irure nisi dolore. Aliquip minim consequat labore do aliqua anim ullamco occaecat duis in aliquip amet.",
+        "balance_of_work_of_an_avg_student": "Duis aliquip ex pariatur nulla duis. Sint ipsum sit magna eiusmod eiusmod esse elit elit pariatur eu."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 65,
+      "fields": {
+        "name": "Fugiat incididunt amet commodo incididunt velit amet est dolore.",
+        "points_value": 3,
+        "prerequisites": "Occaecat voluptate ad occaecat Lorem culpa minim aliquip excepteur reprehenderit. Quis voluptate cupidatat nostrud excepteur ipsum elit nostrud laboris laborum sint laborum velit.",
+        "purposes": "Voluptate veniam cillum excepteur dolore ex enim Lorem ipsum sunt velit ut in id pariatur. Enim incididunt non culpa non.",
+        "subject_learning_outcomes": "Nisi sit aliquip ea mollit magna enim occaecat proident. Labore esse tempor reprehenderit eiusmod occaecat cupidatat do non ullamco adipisicing consectetur do dolore cupidatat.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Occaecat dolor magna anim non commodo elit nulla excepteur excepteur. Ad adipisicing eiusmod id reprehenderit magna mollit.",
+        "content_of_the_subject": "Dolore reprehenderit nostrud ipsum et adipisicing do do laboris officia officia. Occaecat esse minim ut laboris.",
+        "didactic_methods": "Esse aliqua enim aute duis irure magna qui ea nulla occaecat. Non officia dolore cillum cillum laboris cillum mollit eiusmod anim mollit ad nostrud.",
+        "literature": "Ullamco incididunt qui magna sint aute laborum proident sunt veniam dolor in. Deserunt laborum incididunt dolor do in dolor.",
+        "balance_of_work_of_an_avg_student": "Et eiusmod ut magna laboris ullamco in cillum deserunt ipsum velit. Tempor sit ad pariatur aliqua adipisicing cupidatat adipisicing et reprehenderit esse quis culpa."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 66,
+      "fields": {
+        "name": "Voluptate id voluptate sunt tempor.",
+        "points_value": 2,
+        "prerequisites": "Eu reprehenderit cillum fugiat duis reprehenderit dolor ad dolore duis fugiat ut pariatur minim quis. Fugiat velit amet reprehenderit tempor commodo commodo dolor id laboris laboris.",
+        "purposes": "Ex ad cillum aliquip labore id in nostrud cillum do. Cillum tempor ullamco sint dolore cupidatat anim laborum veniam reprehenderit Lorem.",
+        "subject_learning_outcomes": "Ut proident Lorem voluptate laborum enim cupidatat officia voluptate enim reprehenderit laborum labore excepteur anim. Duis duis ea et elit id nulla ullamco et eu.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Sunt qui minim cillum non cupidatat sit amet nisi id exercitation. Elit ullamco officia nostrud occaecat occaecat ipsum irure irure eu.",
+        "content_of_the_subject": "Ad mollit deserunt ut anim sint voluptate nostrud. Amet ut excepteur anim in est excepteur ea tempor sit in nisi.",
+        "didactic_methods": "Aliqua esse anim anim aliqua proident cupidatat eu est ut. Consectetur velit officia nostrud incididunt ullamco laboris commodo commodo.",
+        "literature": "Nostrud velit aliqua ad sunt tempor laboris. Et anim sint consequat anim incididunt ex amet ut nostrud consequat exercitation cupidatat eu ut.",
+        "balance_of_work_of_an_avg_student": "Ea velit sint commodo aute laboris mollit non pariatur dolore commodo est duis magna et. Sint officia sit anim labore ut magna consequat."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 67,
+      "fields": {
+        "name": "Officia deserunt consequat exercitation Lorem cillum nostrud exercitation eiusmod laborum Lorem cillum.",
+        "points_value": 3,
+        "prerequisites": "Exercitation sunt magna ex nisi labore ut. Enim quis ipsum occaecat voluptate ea aliqua incididunt labore qui commodo id Lorem occaecat magna.",
+        "purposes": "Ex aute mollit aliqua veniam ullamco est officia eu. Pariatur tempor voluptate ex cupidatat quis velit ut proident et et ex sunt amet.",
+        "subject_learning_outcomes": "Enim tempor minim minim velit mollit anim mollit est sint voluptate officia irure. Dolor do tempor elit do reprehenderit aliquip non ex.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aliqua sit excepteur exercitation ipsum dolor laboris cillum consequat duis veniam elit duis veniam et. Laboris elit pariatur do est.",
+        "content_of_the_subject": "Incididunt est Lorem occaecat duis ullamco incididunt adipisicing do exercitation exercitation exercitation. Labore adipisicing do mollit eu dolore pariatur deserunt tempor irure enim Lorem sunt.",
+        "didactic_methods": "Commodo aliquip magna et excepteur. In aliquip nisi ex commodo.",
+        "literature": "Aliquip eiusmod exercitation quis amet consectetur minim laborum excepteur culpa consectetur sunt laboris. Velit consectetur in officia consectetur nisi incididunt laboris eiusmod non esse ut amet duis.",
+        "balance_of_work_of_an_avg_student": "Mollit officia ex est magna do. Exercitation nisi voluptate dolore ut occaecat duis est amet sint ex sunt amet aute."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 68,
+      "fields": {
+        "name": "Sit culpa quis id irure officia enim officia do non esse.",
+        "points_value": 1,
+        "prerequisites": "Labore do aliquip qui qui ut excepteur. Tempor eu qui magna sit reprehenderit consectetur ex adipisicing in eu.",
+        "purposes": "Cupidatat sunt fugiat sunt irure et ad anim eu mollit quis ut. Do amet voluptate nostrud nisi mollit consectetur nisi officia culpa consectetur magna.",
+        "subject_learning_outcomes": "Excepteur ullamco consectetur labore sit veniam Lorem ut ut aliqua consectetur voluptate elit reprehenderit. Anim laborum aliquip in minim aliquip culpa ad.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Enim ipsum eu mollit voluptate voluptate. Dolore Lorem proident irure velit ipsum Lorem amet sit ut labore ut nulla.",
+        "content_of_the_subject": "Et duis eiusmod ipsum labore aute ad amet. Commodo nisi eiusmod ex fugiat exercitation adipisicing quis.",
+        "didactic_methods": "Cillum magna deserunt consequat cillum laboris sunt non sunt irure sunt sit eu minim do. Exercitation fugiat laboris laborum proident.",
+        "literature": "Esse cupidatat cillum mollit velit dolor minim dolore laboris reprehenderit mollit duis consectetur in quis. Laborum quis consequat mollit occaecat Lorem laboris aliquip mollit do exercitation sit dolor veniam.",
+        "balance_of_work_of_an_avg_student": "Sit irure occaecat deserunt reprehenderit et nulla ex et enim commodo. Laboris sint aute dolore non."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 69,
+      "fields": {
+        "name": "Reprehenderit minim et culpa cupidatat cillum exercitation ad non cillum et.",
+        "points_value": 4,
+        "prerequisites": "Deserunt ex pariatur eiusmod ipsum veniam elit laboris proident deserunt laboris ullamco. Id eu ullamco laborum labore consequat culpa.",
+        "purposes": "Velit anim nulla adipisicing id laborum occaecat dolor velit irure laboris adipisicing do laborum in. Duis adipisicing deserunt ullamco veniam mollit qui adipisicing magna dolor anim non aliqua occaecat.",
+        "subject_learning_outcomes": "Lorem veniam consectetur proident proident laboris fugiat eiusmod magna commodo. Eu id ipsum proident fugiat fugiat ad eiusmod occaecat labore ipsum ipsum excepteur fugiat.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aliquip est cillum qui velit dolor culpa aliquip aute eiusmod sit ea consequat non. Duis incididunt consectetur laborum id.",
+        "content_of_the_subject": "Aliquip eu ut exercitation ex aliqua Lorem eiusmod tempor Lorem. Dolor duis et adipisicing sunt ipsum sit duis elit laborum quis.",
+        "didactic_methods": "Qui culpa aliquip exercitation non. Nisi esse et eiusmod ea voluptate id exercitation enim irure tempor dolore incididunt aute reprehenderit.",
+        "literature": "Aliquip elit pariatur irure officia reprehenderit velit quis dolore cupidatat fugiat eu cupidatat exercitation. Exercitation id ea cupidatat irure consequat laboris mollit nostrud consectetur adipisicing.",
+        "balance_of_work_of_an_avg_student": "Mollit cupidatat aute nisi culpa excepteur. Eiusmod adipisicing duis magna laborum pariatur irure non et elit incididunt do amet."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 70,
+      "fields": {
+        "name": "Sint nostrud cillum excepteur irure cillum.",
+        "points_value": 4,
+        "prerequisites": "Lorem reprehenderit officia consequat ipsum ex aliquip cillum pariatur excepteur tempor non ex occaecat Lorem. Id do id cupidatat adipisicing dolore non pariatur aute esse veniam esse quis.",
+        "purposes": "Exercitation commodo ex excepteur culpa proident id voluptate duis incididunt et minim occaecat veniam. Consequat officia dolore laborum cupidatat deserunt aliquip ad commodo consequat ex eiusmod.",
+        "subject_learning_outcomes": "Esse ea elit duis eu veniam ea tempor do veniam velit ut irure elit. Lorem ad ex adipisicing quis enim deserunt laboris.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aute in aliquip enim nostrud aliquip ullamco sunt aliqua. Irure ex aliquip excepteur Lorem anim consequat ad eiusmod do esse ut.",
+        "content_of_the_subject": "Magna non ex dolore id aute. Ex proident labore qui aliquip nisi esse ea consequat duis enim.",
+        "didactic_methods": "Anim minim non consectetur elit elit cillum duis aliquip laborum non ea culpa anim pariatur. Ea aute do ex aliquip voluptate sint laboris sunt dolor proident duis irure anim.",
+        "literature": "Et officia irure irure aliquip anim sint pariatur excepteur ad pariatur. Eiusmod cupidatat laboris tempor ea magna consectetur consectetur elit id.",
+        "balance_of_work_of_an_avg_student": "Consequat culpa velit dolor sit veniam enim sit. Eu ea nulla veniam id aliquip dolor eiusmod ad irure aute."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 71,
+      "fields": {
+        "name": "In eu excepteur voluptate duis commodo magna duis duis velit officia reprehenderit nostrud sit ex.",
+        "points_value": 4,
+        "prerequisites": "Et ipsum consequat elit culpa ea veniam Lorem qui Lorem nostrud pariatur. Consequat aliqua est laborum excepteur nostrud eu reprehenderit laborum cillum officia.",
+        "purposes": "Culpa ad id tempor id consectetur. Quis esse anim velit eu enim cillum eu anim reprehenderit.",
+        "subject_learning_outcomes": "Proident incididunt labore in mollit cillum ad cillum laborum mollit aliquip aliqua magna cupidatat proident. Velit sunt anim deserunt nisi qui id voluptate ipsum nostrud irure commodo cillum est id.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Nostrud elit aliquip dolore ea occaecat velit ex do tempor. Proident laborum culpa deserunt culpa incididunt eu aute ipsum ipsum.",
+        "content_of_the_subject": "Proident aliquip minim sint aliquip laboris occaecat. Dolore nulla cillum officia do proident quis.",
+        "didactic_methods": "Elit in do ex laborum dolore Lorem anim ut ea proident proident occaecat ex. Reprehenderit exercitation deserunt consectetur ut aliquip magna cupidatat deserunt.",
+        "literature": "Minim pariatur pariatur excepteur ad id dolore aute cillum eu ipsum. Lorem et do eu velit magna quis irure culpa dolor occaecat pariatur.",
+        "balance_of_work_of_an_avg_student": "Sint et commodo qui nisi velit laborum nostrud occaecat ex. Nostrud tempor do consequat velit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 72,
+      "fields": {
+        "name": "Sint veniam velit nulla culpa proident irure.",
+        "points_value": 3,
+        "prerequisites": "Cupidatat voluptate esse quis quis cupidatat officia aute enim non est in elit eu id. Incididunt pariatur anim nisi dolor esse aliqua dolore.",
+        "purposes": "Esse eu magna sit ad do excepteur eiusmod amet anim nisi velit magna officia. Ullamco duis nulla minim ex ut minim non.",
+        "subject_learning_outcomes": "Est est labore culpa voluptate amet exercitation ullamco veniam sit nostrud. Voluptate aliqua excepteur qui aliqua ea eiusmod anim eiusmod mollit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aliquip do do ad est qui cupidatat ea sunt labore eu dolore. Sunt duis ad fugiat ullamco proident magna.",
+        "content_of_the_subject": "Non ipsum aute Lorem deserunt nulla esse occaecat. Id officia irure tempor ipsum dolor incididunt minim qui.",
+        "didactic_methods": "Proident ullamco proident proident culpa quis nostrud do voluptate elit eiusmod deserunt fugiat. Nostrud amet nostrud consectetur deserunt id aute non amet esse esse anim quis laboris.",
+        "literature": "Lorem enim laboris non tempor esse nostrud eiusmod consectetur eu culpa aliquip. Nisi sint in officia et dolor aute.",
+        "balance_of_work_of_an_avg_student": "Sunt excepteur Lorem consectetur consectetur. Ad nulla anim velit minim irure sint laboris qui sunt ullamco esse."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 73,
+      "fields": {
+        "name": "Veniam do consequat esse officia consequat ad dolor fugiat do amet consequat consectetur id id.",
+        "points_value": 5,
+        "prerequisites": "Officia veniam culpa sint esse adipisicing nisi elit incididunt esse aliqua magna. Est tempor ea consequat exercitation eiusmod velit excepteur magna nulla laborum qui cupidatat.",
+        "purposes": "Culpa officia adipisicing ea minim ex et dolor elit ullamco esse. Esse nisi nulla minim nisi irure ipsum deserunt ut reprehenderit consectetur cupidatat aliquip voluptate.",
+        "subject_learning_outcomes": "Ullamco mollit do exercitation anim do minim nostrud magna dolor deserunt nostrud aliqua. Ad ex ea officia nostrud enim aliquip excepteur sit nulla et quis nisi exercitation nostrud.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Eiusmod quis sit nostrud do ut quis irure. Mollit eiusmod id et adipisicing elit nostrud anim deserunt incididunt.",
+        "content_of_the_subject": "Fugiat esse laborum sint eu culpa cupidatat anim id nisi minim ullamco eiusmod aute et. Quis ea tempor voluptate reprehenderit exercitation sint do labore pariatur ea.",
+        "didactic_methods": "Officia aute do sint magna anim enim enim ex et fugiat anim Lorem. Et quis incididunt amet aliquip occaecat anim id consequat consequat consequat occaecat sunt tempor.",
+        "literature": "Aute deserunt minim esse cupidatat proident consectetur non pariatur ad ut tempor. Fugiat in cillum ea ut exercitation culpa id adipisicing qui proident Lorem esse velit.",
+        "balance_of_work_of_an_avg_student": "Laborum Lorem mollit ipsum nostrud ea. Incididunt qui aute nisi nulla reprehenderit anim ipsum nulla do excepteur sunt."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 74,
+      "fields": {
+        "name": "Ut velit enim ex et quis cupidatat anim dolor sint.",
+        "points_value": 1,
+        "prerequisites": "Duis consectetur ullamco et sunt labore esse reprehenderit dolor cupidatat sit cillum proident laboris ut. Aliqua occaecat anim quis laborum occaecat et aute mollit anim quis consequat anim nulla ipsum.",
+        "purposes": "Adipisicing et sint proident ex ut aute pariatur officia amet. Voluptate aute qui excepteur enim laborum magna anim amet aute nulla velit consequat veniam.",
+        "subject_learning_outcomes": "Voluptate ullamco culpa sit ipsum et quis sint nostrud consequat. Dolor cupidatat cupidatat magna laboris enim est.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Quis ipsum eiusmod nostrud duis. Ut reprehenderit Lorem non ullamco magna occaecat in labore eiusmod veniam proident culpa.",
+        "content_of_the_subject": "Laborum dolor minim fugiat ex minim aute enim ad sit eu esse cupidatat. Velit amet minim anim proident pariatur dolore exercitation dolor ea veniam incididunt in ut occaecat.",
+        "didactic_methods": "Esse exercitation minim labore culpa dolore. Magna enim proident aute irure cillum quis magna Lorem quis minim elit cillum minim.",
+        "literature": "Proident esse excepteur labore dolore deserunt deserunt sunt Lorem. Aliqua irure eiusmod dolor dolor et et eiusmod minim nisi.",
+        "balance_of_work_of_an_avg_student": "Aliquip do ullamco eu dolore culpa cillum id excepteur et ut incididunt ipsum et. Et est occaecat labore incididunt reprehenderit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 75,
+      "fields": {
+        "name": "Occaecat velit officia nulla incididunt qui ut cillum duis cillum.",
+        "points_value": 3,
+        "prerequisites": "Amet enim anim mollit duis ut aliqua ad culpa eiusmod cillum. Irure cupidatat exercitation dolore eiusmod reprehenderit ipsum sit irure occaecat ad aliqua ullamco qui.",
+        "purposes": "Ut aute ad elit sit mollit quis. Magna do pariatur nisi ad.",
+        "subject_learning_outcomes": "Enim eiusmod aute ipsum veniam consectetur do mollit pariatur dolore irure. Tempor dolore proident esse est mollit laboris id quis anim occaecat deserunt proident.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Laboris ad fugiat aliqua excepteur amet dolor. In do irure commodo culpa do enim.",
+        "content_of_the_subject": "Proident nulla consectetur officia incididunt consequat culpa enim eu exercitation ullamco. Eiusmod aute aliquip proident commodo duis reprehenderit ut non anim eiusmod eiusmod.",
+        "didactic_methods": "Sint dolore ullamco amet exercitation id quis consectetur esse officia occaecat ut veniam voluptate sit. Sunt anim nostrud minim enim elit non excepteur nostrud reprehenderit.",
+        "literature": "Ullamco mollit mollit laborum non in eu deserunt. Proident laborum id culpa amet sunt in adipisicing minim culpa amet dolore.",
+        "balance_of_work_of_an_avg_student": "Commodo pariatur sunt dolor ullamco consectetur dolor veniam ut laborum occaecat sunt. Irure ipsum voluptate adipisicing pariatur sint exercitation officia anim."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 76,
+      "fields": {
+        "name": "Quis mollit exercitation irure sint pariatur irure exercitation consequat et fugiat ea.",
+        "points_value": 2,
+        "prerequisites": "Proident laboris deserunt exercitation occaecat fugiat exercitation anim. Deserunt enim sint do velit nostrud mollit.",
+        "purposes": "Laborum est deserunt sunt adipisicing minim esse. Incididunt consectetur tempor est occaecat.",
+        "subject_learning_outcomes": "Incididunt occaecat esse ad mollit quis. Eu voluptate incididunt cillum tempor occaecat adipisicing ad mollit ullamco esse.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ut ad adipisicing ea do enim sint. Pariatur est occaecat sint velit qui et ut ullamco.",
+        "content_of_the_subject": "Laboris qui mollit quis eiusmod consectetur. Fugiat consectetur ipsum qui incididunt.",
+        "didactic_methods": "Adipisicing pariatur tempor qui mollit incididunt ea cupidatat laborum laborum deserunt laboris. Nulla officia veniam exercitation voluptate nostrud veniam.",
+        "literature": "Commodo id eu dolore do reprehenderit enim fugiat incididunt. Irure tempor cupidatat cupidatat pariatur et non deserunt consectetur eu minim dolor laborum aliquip aute.",
+        "balance_of_work_of_an_avg_student": "Proident aliquip ex laboris fugiat nostrud est pariatur. Aliquip do occaecat aliquip deserunt laborum ullamco esse qui."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 77,
+      "fields": {
+        "name": "Ut veniam amet aute mollit esse.",
+        "points_value": 5,
+        "prerequisites": "In in consectetur eiusmod proident tempor veniam aute minim. Ea nisi mollit tempor laborum labore pariatur quis magna ad anim ea fugiat excepteur.",
+        "purposes": "Cillum nostrud anim laboris tempor veniam proident exercitation cillum nisi consequat. Id occaecat velit commodo cillum ea minim cillum.",
+        "subject_learning_outcomes": "Elit veniam proident adipisicing in cupidatat cupidatat nisi sint cupidatat enim in. Mollit tempor adipisicing quis officia pariatur adipisicing aliquip mollit sit non deserunt commodo.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aute commodo nostrud quis qui eiusmod fugiat qui ea ad. Nulla aliqua culpa qui deserunt sit occaecat reprehenderit eiusmod aliqua nisi irure in.",
+        "content_of_the_subject": "Velit tempor elit nisi tempor elit sunt occaecat in dolor id ad pariatur fugiat anim. Aliqua fugiat quis aliquip eu irure sint nulla ullamco cillum irure sint tempor.",
+        "didactic_methods": "Et incididunt sunt officia aliquip est tempor voluptate ullamco. Consequat adipisicing ipsum laboris reprehenderit voluptate id irure pariatur occaecat.",
+        "literature": "Consequat velit irure est do incididunt sunt amet ea voluptate nulla laboris esse id. Exercitation officia sunt incididunt non sint occaecat nostrud ullamco ipsum duis enim Lorem veniam.",
+        "balance_of_work_of_an_avg_student": "Sunt et nulla cillum et eiusmod ad nisi cillum deserunt. Veniam nulla nulla esse non velit duis exercitation officia anim dolor adipisicing commodo."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 78,
+      "fields": {
+        "name": "Labore occaecat nulla culpa elit Lorem duis elit exercitation deserunt aliqua veniam in.",
+        "points_value": 4,
+        "prerequisites": "In sit eiusmod et deserunt anim mollit laboris non est occaecat Lorem cillum qui ex. Irure excepteur ut velit ullamco enim eu mollit esse occaecat consectetur occaecat.",
+        "purposes": "Amet deserunt reprehenderit voluptate elit ipsum duis id aliquip ullamco. Fugiat nisi minim ipsum eiusmod anim et fugiat eiusmod cupidatat laboris adipisicing do voluptate.",
+        "subject_learning_outcomes": "Aliquip consequat sunt sit ipsum eiusmod cillum aliqua. Dolor aute est culpa laborum ut reprehenderit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Est culpa velit ut consectetur enim cillum ex consectetur deserunt. Aliquip ex aute sint enim aute ad dolor ex deserunt id deserunt qui.",
+        "content_of_the_subject": "Nisi id et enim id. Duis et ea nostrud enim dolore qui culpa aliqua ex amet est aliquip.",
+        "didactic_methods": "Ullamco ullamco est voluptate adipisicing incididunt fugiat velit labore anim ullamco eiusmod. Pariatur laborum ea minim proident ea.",
+        "literature": "Magna sit exercitation anim eiusmod cillum nisi incididunt nisi Lorem laborum. Enim commodo ipsum ea excepteur adipisicing sit est cillum consectetur laborum ea.",
+        "balance_of_work_of_an_avg_student": "Ad est cupidatat aliqua amet amet voluptate amet magna pariatur occaecat pariatur. Do enim ea ex ullamco eu veniam qui mollit nulla commodo nulla minim aute."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 79,
+      "fields": {
+        "name": "Veniam excepteur eu consectetur veniam commodo in irure.",
+        "points_value": 2,
+        "prerequisites": "Incididunt consectetur esse do amet consequat excepteur fugiat eu Lorem do cupidatat. Non nostrud cillum esse fugiat reprehenderit amet nisi laborum duis cupidatat ad.",
+        "purposes": "Commodo ex sit Lorem commodo qui dolore nostrud veniam nostrud reprehenderit occaecat. Commodo et incididunt exercitation elit ea amet veniam eiusmod amet anim eiusmod eu magna quis.",
+        "subject_learning_outcomes": "Ex dolore tempor mollit elit occaecat cillum adipisicing eiusmod occaecat id est. Aliquip ea magna ex dolor Lorem labore sunt.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ullamco consequat tempor exercitation mollit mollit voluptate ex. Enim ipsum sit ex non.",
+        "content_of_the_subject": "Non aliquip dolore enim occaecat et elit sint officia aute sint Lorem aliqua incididunt sint. Amet est nulla cillum aliqua ex qui culpa amet ex reprehenderit nisi nulla ipsum.",
+        "didactic_methods": "Mollit enim duis laboris magna labore incididunt laboris dolore esse officia laborum. Laboris dolor reprehenderit excepteur fugiat nulla et et do consectetur qui qui dolore duis.",
+        "literature": "Labore consectetur cillum eiusmod est. In qui aliqua laboris fugiat mollit cupidatat aliqua non magna cillum.",
+        "balance_of_work_of_an_avg_student": "Exercitation et magna elit nisi id amet ut. Incididunt aute aute est id et duis id nulla ex exercitation officia officia est occaecat."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 80,
+      "fields": {
+        "name": "Sit laboris sit exercitation adipisicing aute occaecat sit pariatur.",
+        "points_value": 1,
+        "prerequisites": "Lorem duis amet amet magna qui cupidatat ad excepteur fugiat aute sit mollit occaecat. Aliquip ex eu exercitation nulla.",
+        "purposes": "Fugiat voluptate adipisicing excepteur dolor exercitation nisi ea qui anim irure est deserunt officia. Aliquip incididunt cillum elit officia sint duis officia consectetur et nisi commodo.",
+        "subject_learning_outcomes": "Commodo ex cillum fugiat mollit mollit excepteur culpa laborum id officia fugiat nisi. Non laboris aute aliquip et.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Deserunt commodo tempor anim voluptate officia elit cupidatat pariatur. Pariatur Lorem tempor amet ea qui exercitation.",
+        "content_of_the_subject": "Tempor commodo exercitation deserunt fugiat enim incididunt dolore consequat. Labore nisi cillum consectetur sunt esse officia dolore in dolor id tempor duis Lorem est.",
+        "didactic_methods": "Nulla anim excepteur consequat deserunt dolore et non. Occaecat quis enim aliquip deserunt do do ad.",
+        "literature": "Amet proident voluptate excepteur proident officia. Dolore Lorem dolor nulla exercitation quis culpa elit excepteur.",
+        "balance_of_work_of_an_avg_student": "Dolore magna aliquip do aute adipisicing. Eu amet in cupidatat qui fugiat adipisicing ad minim enim ea aliqua culpa."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 81,
+      "fields": {
+        "name": "Amet id est velit nostrud aliqua sint nulla deserunt qui exercitation velit voluptate consectetur.",
+        "points_value": 4,
+        "prerequisites": "Proident ea et quis eiusmod tempor sit aliqua non exercitation eu incididunt exercitation voluptate consectetur. Lorem esse officia quis qui enim pariatur do tempor commodo.",
+        "purposes": "Aute dolore nostrud fugiat fugiat esse culpa ipsum adipisicing consequat elit aute non do quis. Magna consequat eiusmod ut et ullamco pariatur eiusmod laboris duis fugiat do tempor labore.",
+        "subject_learning_outcomes": "Duis excepteur ad sint cillum enim qui cupidatat enim aliquip proident aute nulla qui duis. Duis esse labore pariatur fugiat ut non veniam est labore adipisicing.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ea dolor incididunt sunt id culpa ullamco quis sint. Officia tempor magna voluptate ex.",
+        "content_of_the_subject": "Occaecat quis quis cillum est elit ullamco dolore irure veniam irure. Cupidatat nisi esse mollit nostrud fugiat.",
+        "didactic_methods": "Dolore duis dolor quis anim. Deserunt mollit irure velit est id velit irure tempor ad cillum minim.",
+        "literature": "Ullamco velit adipisicing esse excepteur ad eu excepteur culpa dolore aute laboris. Veniam dolor ad exercitation exercitation quis adipisicing mollit.",
+        "balance_of_work_of_an_avg_student": "Deserunt aute qui eu tempor veniam aliquip deserunt ex pariatur ullamco deserunt. Ea irure cillum et proident."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 82,
+      "fields": {
+        "name": "Sunt sit mollit non ex reprehenderit ea mollit anim.",
+        "points_value": 2,
+        "prerequisites": "Lorem ut non laborum exercitation enim ex sit in ad commodo labore consectetur ipsum. Quis dolor est ipsum culpa sit pariatur incididunt qui ad dolor ut consequat.",
+        "purposes": "Commodo occaecat reprehenderit proident deserunt et. Id commodo nostrud aute elit.",
+        "subject_learning_outcomes": "Ad est quis occaecat deserunt exercitation amet eiusmod dolor consequat anim ex veniam. Irure tempor enim non et eu aute enim eu labore sunt cupidatat.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Incididunt excepteur non enim ea excepteur do. Elit non elit do non cillum elit incididunt nostrud.",
+        "content_of_the_subject": "Elit reprehenderit commodo officia enim non est voluptate sint duis nisi ullamco. Nostrud irure ut anim nisi labore sunt qui voluptate ut ex aliqua consectetur.",
+        "didactic_methods": "Tempor ullamco ullamco labore aliquip ipsum eu culpa aliquip esse adipisicing. Qui aute id anim est eu irure quis nulla velit proident.",
+        "literature": "Ea ullamco excepteur enim eiusmod est nostrud reprehenderit consectetur culpa aliqua laborum. Tempor aliquip anim velit quis.",
+        "balance_of_work_of_an_avg_student": "Lorem reprehenderit reprehenderit tempor occaecat esse fugiat eu magna et anim. Ex laboris labore pariatur reprehenderit incididunt eiusmod occaecat ut ullamco exercitation eiusmod."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 83,
+      "fields": {
+        "name": "Occaecat ea ullamco sunt mollit amet.",
+        "points_value": 2,
+        "prerequisites": "Exercitation cillum ea aliquip duis cupidatat excepteur. Aute occaecat commodo qui sint sunt Lorem excepteur pariatur ipsum culpa nostrud.",
+        "purposes": "Esse laboris quis excepteur aliquip ea. Deserunt sint sunt in deserunt in non occaecat anim voluptate ex culpa.",
+        "subject_learning_outcomes": "Veniam ad adipisicing dolore est cupidatat in voluptate veniam in proident. Est velit laboris proident sunt pariatur eiusmod laboris nostrud.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aute ad irure nostrud proident amet esse voluptate dolore. Incididunt irure officia nulla dolore et dolor deserunt dolore consequat irure eu aute irure pariatur.",
+        "content_of_the_subject": "Labore quis enim excepteur ipsum ea incididunt. Aute fugiat aliquip amet velit ad velit consequat id do cupidatat sit mollit sit.",
+        "didactic_methods": "Qui nulla irure eiusmod labore. Consequat do cupidatat exercitation amet non.",
+        "literature": "Minim ipsum voluptate reprehenderit eiusmod aliquip sint ex consequat. Quis quis fugiat non ut minim pariatur sunt.",
+        "balance_of_work_of_an_avg_student": "Enim ex aliqua aliqua laboris fugiat sint anim tempor duis labore. Laborum ex dolore deserunt cupidatat consectetur consequat elit et fugiat ipsum."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 84,
+      "fields": {
+        "name": "Sint eiusmod magna excepteur est.",
+        "points_value": 2,
+        "prerequisites": "Dolor do amet dolore proident deserunt reprehenderit. Incididunt ex aliquip adipisicing do cillum veniam magna sunt qui mollit.",
+        "purposes": "Aliqua occaecat Lorem pariatur minim velit cillum irure nostrud est dolore. Est eu dolore qui tempor magna ipsum.",
+        "subject_learning_outcomes": "Deserunt proident quis cupidatat laborum duis deserunt ad duis aute ex. Voluptate ut nisi non exercitation sint.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aute proident cillum ipsum nostrud et laborum nostrud deserunt fugiat elit. Est tempor adipisicing adipisicing deserunt esse duis ullamco dolore eiusmod mollit consectetur non.",
+        "content_of_the_subject": "Occaecat dolore incididunt adipisicing irure exercitation reprehenderit. Tempor elit ea ut voluptate minim exercitation ut ex laboris do qui pariatur dolor.",
+        "didactic_methods": "Esse dolore anim excepteur pariatur velit magna qui adipisicing occaecat excepteur magna veniam pariatur nisi. Sunt ea ea veniam adipisicing cupidatat velit do pariatur non nisi non labore enim.",
+        "literature": "Occaecat laborum laboris sunt mollit eu esse ea in enim mollit do consectetur minim ullamco. In aute exercitation anim aliquip nostrud nulla veniam laboris incididunt laboris amet elit.",
+        "balance_of_work_of_an_avg_student": "Consectetur nulla aliqua reprehenderit aliquip elit deserunt ex et incididunt laborum nostrud velit cupidatat aliqua. Tempor reprehenderit est consequat sit elit eiusmod aute."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 85,
+      "fields": {
+        "name": "Aliquip eu sunt veniam nulla nostrud cillum labore ullamco voluptate et pariatur veniam.",
+        "points_value": 3,
+        "prerequisites": "Laboris incididunt id elit fugiat nostrud est est aliquip anim consectetur. Veniam ut minim ullamco adipisicing nostrud excepteur ad.",
+        "purposes": "Non amet in pariatur officia officia duis fugiat laborum aute magna pariatur cupidatat ad esse. Qui nostrud sit voluptate excepteur proident do sunt.",
+        "subject_learning_outcomes": "Cupidatat proident Lorem fugiat commodo. Magna enim dolore eu tempor ut pariatur duis esse irure reprehenderit nisi.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Occaecat dolore eiusmod fugiat id occaecat eiusmod quis incididunt pariatur anim id eiusmod amet nisi. Nostrud dolor aliqua excepteur ex nostrud fugiat cupidatat do.",
+        "content_of_the_subject": "Mollit tempor occaecat veniam elit velit magna consectetur commodo. Incididunt reprehenderit consequat ullamco dolore consequat consequat exercitation.",
+        "didactic_methods": "Quis aliquip deserunt sit est sit sunt et quis excepteur enim. Aute Lorem sunt excepteur elit cupidatat in officia reprehenderit culpa cupidatat id et Lorem reprehenderit.",
+        "literature": "Cupidatat irure aliqua culpa magna voluptate laborum. Eiusmod pariatur velit adipisicing excepteur.",
+        "balance_of_work_of_an_avg_student": "Irure aliqua ipsum enim cupidatat et non aliqua velit exercitation nostrud labore. Voluptate non ad officia proident irure ipsum sint ullamco in exercitation dolor."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 86,
+      "fields": {
+        "name": "Fugiat quis fugiat ut eu anim proident occaecat nisi culpa quis et deserunt dolor officia.",
+        "points_value": 1,
+        "prerequisites": "Quis ad officia excepteur consequat in nulla exercitation ad aute. Duis esse ea excepteur Lorem consequat cillum elit ullamco aute.",
+        "purposes": "Incididunt sunt nisi veniam sit excepteur officia veniam enim exercitation consectetur minim elit enim ad. Excepteur ipsum nisi in laboris mollit excepteur.",
+        "subject_learning_outcomes": "Esse veniam dolor id exercitation non aliquip cillum excepteur nisi. Exercitation eu cillum tempor do quis elit eiusmod excepteur nulla veniam.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Non sit est nisi consectetur tempor dolor esse. Lorem duis dolor deserunt consequat.",
+        "content_of_the_subject": "Consequat sunt proident elit aliquip reprehenderit cillum consequat excepteur dolor Lorem. Voluptate in commodo ad sunt nulla reprehenderit deserunt incididunt commodo dolore sint dolor consequat.",
+        "didactic_methods": "Laboris sunt adipisicing incididunt eu fugiat esse pariatur aute quis. Dolore mollit laboris et mollit dolor duis cupidatat quis consequat mollit eu.",
+        "literature": "Proident nulla minim mollit esse id quis anim nulla. Deserunt sunt nisi minim eiusmod deserunt tempor.",
+        "balance_of_work_of_an_avg_student": "Eu irure ipsum quis consequat excepteur laboris ex velit nulla esse veniam cillum adipisicing duis. Nulla est anim sunt cupidatat irure elit sunt aute dolor mollit."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 87,
+      "fields": {
+        "name": "Dolore consectetur aute qui veniam fugiat aliquip aliquip ex irure in elit.",
+        "points_value": 2,
+        "prerequisites": "Adipisicing eiusmod sint excepteur occaecat Lorem tempor consectetur aliquip. Enim veniam excepteur dolore dolor.",
+        "purposes": "Aliqua excepteur sint consectetur amet et Lorem ullamco ut tempor. Excepteur irure cillum eu deserunt.",
+        "subject_learning_outcomes": "Nostrud sint ad cillum est minim magna non esse do in laborum ullamco. Labore officia esse et aute ullamco.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Consequat consectetur eu aliqua minim amet. Consectetur irure tempor proident eiusmod ad velit deserunt aliquip labore consequat Lorem.",
+        "content_of_the_subject": "Magna reprehenderit Lorem reprehenderit culpa magna quis magna dolore enim. Nulla non excepteur officia cupidatat in proident aliqua qui non.",
+        "didactic_methods": "Minim consequat anim mollit non do laboris magna in qui. Voluptate ex aliqua deserunt sint laboris Lorem Lorem.",
+        "literature": "Occaecat enim ea eu ad fugiat sit adipisicing. Non incididunt labore nulla laboris enim cillum aliqua et sunt.",
+        "balance_of_work_of_an_avg_student": "Cillum consectetur ut velit ex id deserunt ea enim quis adipisicing amet. Sit sunt laborum tempor id adipisicing mollit ipsum."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 88,
+      "fields": {
+        "name": "Cillum tempor in officia minim exercitation ullamco fugiat reprehenderit non exercitation esse duis.",
+        "points_value": 5,
+        "prerequisites": "Dolore ut eiusmod ex ullamco non. Id do consequat cupidatat proident irure veniam duis in et culpa non id laborum adipisicing.",
+        "purposes": "Mollit occaecat adipisicing qui eiusmod proident culpa dolore nisi incididunt in culpa sunt. Mollit Lorem duis ea cupidatat pariatur.",
+        "subject_learning_outcomes": "Nisi esse cillum minim adipisicing aute pariatur nulla officia quis mollit laborum nisi. In elit reprehenderit cupidatat ea proident sunt officia anim laboris duis officia.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Cupidatat eu dolor laborum laborum et anim voluptate deserunt irure magna commodo sunt aliqua. Tempor adipisicing ut anim sunt ipsum aliqua occaecat pariatur.",
+        "content_of_the_subject": "Pariatur magna mollit nostrud irure velit. Duis aliquip consequat laborum cillum exercitation commodo.",
+        "didactic_methods": "Ad sit cillum incididunt tempor. Consequat tempor ullamco commodo sunt nulla in ullamco aute ad aliquip laboris commodo ad.",
+        "literature": "Labore commodo amet ad velit ut occaecat. Laboris esse enim labore ipsum magna laboris ex qui proident tempor et ullamco ipsum pariatur.",
+        "balance_of_work_of_an_avg_student": "Enim fugiat Lorem enim excepteur voluptate. Excepteur aliquip nostrud id nostrud."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 89,
+      "fields": {
+        "name": "Esse cupidatat proident qui aliquip ipsum mollit excepteur ut.",
+        "points_value": 5,
+        "prerequisites": "Ex reprehenderit aliquip nostrud esse do consequat ullamco tempor eiusmod. Do ad officia laboris non aliquip.",
+        "purposes": "Magna sunt labore labore ea proident ipsum sunt pariatur eu. Consectetur sunt duis aliqua officia officia consectetur in qui Lorem sit excepteur aute.",
+        "subject_learning_outcomes": "Minim nisi quis elit eu duis cillum ut. Adipisicing velit labore cupidatat enim eu dolor eiusmod dolore esse ipsum.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Et tempor ullamco adipisicing magna qui mollit sint consectetur laborum adipisicing amet cillum. Esse reprehenderit culpa duis eiusmod irure enim ad culpa est reprehenderit adipisicing.",
+        "content_of_the_subject": "Lorem eu cillum dolor ut eiusmod occaecat labore ut enim. Cillum veniam ex est occaecat et ea deserunt dolore ut.",
+        "didactic_methods": "Enim esse Lorem anim nisi ea pariatur irure. Minim exercitation labore veniam mollit quis velit sint eiusmod Lorem amet.",
+        "literature": "Est ex commodo minim duis Lorem fugiat irure aliqua duis. Minim ut ea consectetur sunt laborum labore reprehenderit cupidatat cupidatat Lorem mollit velit.",
+        "balance_of_work_of_an_avg_student": "Anim elit ullamco non commodo. Ullamco quis occaecat et ipsum officia velit veniam anim cupidatat."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 90,
+      "fields": {
+        "name": "Lorem laboris eiusmod deserunt ut occaecat.",
+        "points_value": 2,
+        "prerequisites": "Culpa sunt qui laborum velit proident culpa incididunt consectetur. Ad mollit deserunt id cillum voluptate adipisicing elit cupidatat quis id adipisicing aliqua.",
+        "purposes": "Sit sunt consequat officia adipisicing excepteur. Id eu voluptate qui adipisicing labore reprehenderit veniam laboris voluptate nulla amet ea.",
+        "subject_learning_outcomes": "Ullamco dolor eu ullamco ipsum. Sunt elit sit ullamco esse dolore consectetur officia deserunt laborum amet.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Elit sit eu anim consectetur occaecat amet ea culpa aliquip. Aliquip pariatur aute dolore adipisicing deserunt velit dolore dolor fugiat ad quis pariatur eu officia.",
+        "content_of_the_subject": "Enim eu proident minim officia sit tempor mollit velit nisi officia ea sit sit voluptate. Excepteur amet consequat cillum non magna occaecat non aliqua qui ex esse.",
+        "didactic_methods": "Laboris eiusmod magna laborum voluptate ex culpa elit Lorem qui. Tempor commodo do ex aute ex sit ullamco sit nostrud officia et id consectetur.",
+        "literature": "Sunt aliquip amet commodo nostrud cupidatat in in sint cillum cupidatat elit aute est. Id minim incididunt officia duis aute Lorem sunt.",
+        "balance_of_work_of_an_avg_student": "Magna est exercitation consequat id magna pariatur dolor aliquip. Duis pariatur laborum ad qui adipisicing do officia dolor elit enim ullamco."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 91,
+      "fields": {
+        "name": "Qui excepteur id dolore nostrud magna.",
+        "points_value": 2,
+        "prerequisites": "Ad do consequat laboris consequat. Eiusmod veniam quis et aliqua aliqua id cillum amet ad elit.",
+        "purposes": "Voluptate quis consequat id elit qui laboris elit adipisicing sunt. Esse anim est ea elit dolore labore nostrud ea in Lorem nisi.",
+        "subject_learning_outcomes": "Veniam duis nisi proident ut sit occaecat. Consequat nulla cillum dolore magna laboris.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Proident laborum Lorem laboris in laborum laborum ex. Non velit magna reprehenderit ipsum laborum exercitation.",
+        "content_of_the_subject": "Esse deserunt cillum eiusmod aliquip quis. Adipisicing dolor voluptate sunt duis do occaecat adipisicing consectetur et sint consectetur consectetur consectetur sit.",
+        "didactic_methods": "Magna sunt deserunt elit velit tempor est cupidatat et quis adipisicing adipisicing non adipisicing ad. Nostrud ad aute id deserunt exercitation cupidatat exercitation consequat eu et in est proident.",
+        "literature": "Deserunt nulla non esse sint consequat. Exercitation reprehenderit elit ullamco Lorem cupidatat duis ullamco.",
+        "balance_of_work_of_an_avg_student": "Irure officia nostrud aliqua ut dolor esse commodo. Ex culpa sit sit non consequat non sit quis nostrud laboris do velit adipisicing."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 92,
+      "fields": {
+        "name": "Tempor culpa aliqua amet qui ex pariatur dolore aute.",
+        "points_value": 5,
+        "prerequisites": "Sint reprehenderit consectetur dolore reprehenderit eiusmod. Ut sunt ullamco labore quis sint et ut mollit voluptate.",
+        "purposes": "Qui ut dolor magna nulla amet cupidatat Lorem culpa deserunt officia do. Magna non voluptate id est ea nostrud duis.",
+        "subject_learning_outcomes": "Eiusmod pariatur in aliquip velit cupidatat tempor do dolor est cillum Lorem tempor labore. Laboris elit quis sunt duis non elit aliquip ad id.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Ad occaecat quis magna reprehenderit ex voluptate velit culpa. Consectetur quis deserunt ad nostrud commodo ut ut elit commodo nostrud.",
+        "content_of_the_subject": "Id do exercitation esse magna laborum ex exercitation dolore tempor amet et deserunt laborum. Ad aliqua nulla cillum fugiat et quis.",
+        "didactic_methods": "Occaecat occaecat sunt culpa id eu qui minim sunt laborum proident tempor. Aliquip ex quis proident elit incididunt ad labore ut cillum ullamco ipsum.",
+        "literature": "Adipisicing reprehenderit ipsum pariatur consequat ipsum exercitation minim sit cillum. Officia aute nulla fugiat consequat dolor Lorem mollit reprehenderit.",
+        "balance_of_work_of_an_avg_student": "Dolore nostrud ullamco excepteur nisi duis nisi esse consequat. Deserunt dolore cillum aliqua velit excepteur ea aliquip consequat aliquip tempor do anim do ea."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 93,
+      "fields": {
+        "name": "Dolor dolore ea sit culpa ad et velit deserunt pariatur aliquip.",
+        "points_value": 2,
+        "prerequisites": "Aliquip et tempor adipisicing amet officia consequat est magna minim velit voluptate ea. Cillum tempor est ipsum pariatur ad occaecat consequat dolore fugiat.",
+        "purposes": "Sit ex Lorem aliqua cupidatat est ipsum. Aliquip sunt commodo et aliquip Lorem qui.",
+        "subject_learning_outcomes": "Qui occaecat est Lorem minim nostrud occaecat sint adipisicing eiusmod deserunt. Duis ea esse est dolore sint id incididunt minim sunt qui.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Exercitation duis consectetur ea do cillum labore officia tempor sint nisi. Laboris eu minim eu ullamco est tempor enim mollit sint cillum.",
+        "content_of_the_subject": "Et aliqua laborum pariatur eiusmod incididunt do laborum culpa enim ullamco pariatur. Qui adipisicing tempor tempor nisi ut aute officia.",
+        "didactic_methods": "Do in veniam officia sint laboris. Id velit magna sint qui reprehenderit commodo.",
+        "literature": "Cupidatat culpa tempor mollit consequat incididunt. Et fugiat est sit tempor id anim laboris in anim ex.",
+        "balance_of_work_of_an_avg_student": "Quis sint culpa enim nisi sunt in voluptate cupidatat. Reprehenderit nisi esse reprehenderit dolore minim eiusmod."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 94,
+      "fields": {
+        "name": "Pariatur non commodo est velit non ipsum quis consequat non fugiat.",
+        "points_value": 3,
+        "prerequisites": "Eu id culpa qui ut laborum. Deserunt voluptate ex officia aliquip irure officia excepteur proident.",
+        "purposes": "Nulla voluptate aute consectetur do ullamco dolore. Quis duis exercitation ex ea ex ea minim culpa dolor quis incididunt nisi.",
+        "subject_learning_outcomes": "Magna Lorem consequat amet amet commodo occaecat magna nostrud proident. Anim magna cupidatat officia eu esse qui ad consectetur sint ea elit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Nostrud voluptate laboris dolor aliquip veniam incididunt et laborum. Aute ex magna culpa non commodo anim adipisicing excepteur ea tempor pariatur minim cillum.",
+        "content_of_the_subject": "Ullamco nostrud consectetur eiusmod consequat do minim consectetur id id quis anim officia. Aute voluptate quis quis nulla do officia anim elit aliquip nisi aliqua deserunt esse.",
+        "didactic_methods": "Et esse laboris consectetur culpa ea excepteur dolore labore pariatur magna labore est. Pariatur labore in exercitation commodo reprehenderit nisi minim id eu nostrud ipsum ut adipisicing id.",
+        "literature": "Ut adipisicing ex mollit nostrud eu ullamco id nulla in ea nisi adipisicing officia sint. Enim sit pariatur et Lorem deserunt commodo dolor ex elit cillum qui cillum ex nulla.",
+        "balance_of_work_of_an_avg_student": "In aliqua ex officia qui ad adipisicing duis duis. Commodo incididunt occaecat consectetur est laborum non nulla."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 95,
+      "fields": {
+        "name": "Incididunt occaecat deserunt sunt sit aute culpa aliqua Lorem dolor est sunt nulla dolor nostrud.",
+        "points_value": 3,
+        "prerequisites": "Deserunt sint sint aliqua amet eu et mollit pariatur. Lorem officia fugiat elit incididunt pariatur veniam sint irure deserunt deserunt sit nostrud culpa.",
+        "purposes": "Qui esse enim occaecat exercitation adipisicing ipsum anim. Deserunt in eu commodo fugiat incididunt ad aliqua amet Lorem anim dolor.",
+        "subject_learning_outcomes": "Proident minim sunt occaecat occaecat proident dolor. Exercitation mollit cupidatat cillum nisi excepteur ullamco nostrud adipisicing proident labore minim veniam elit.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Do do ad officia commodo nisi consequat anim nisi velit sunt nostrud. Aliquip esse irure pariatur non nostrud adipisicing.",
+        "content_of_the_subject": "Do aliqua esse qui aliqua do culpa nulla aliqua fugiat est culpa. Minim aliqua anim enim consequat irure ipsum quis quis minim exercitation ex irure.",
+        "didactic_methods": "Anim labore magna do et culpa Lorem exercitation proident esse reprehenderit. Nisi ullamco tempor incididunt id elit.",
+        "literature": "Consectetur eu pariatur labore proident ad incididunt minim voluptate magna dolor cillum enim. Aute laborum aute magna fugiat.",
+        "balance_of_work_of_an_avg_student": "Fugiat ad elit sit reprehenderit ullamco quis culpa nulla est. Ut ipsum mollit cupidatat esse eu."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 96,
+      "fields": {
+        "name": "Elit nulla in occaecat nostrud id velit reprehenderit ipsum in proident sunt laborum irure consequat.",
+        "points_value": 5,
+        "prerequisites": "Reprehenderit ullamco eu irure consequat cillum dolore ut magna quis nisi nulla dolore ipsum est. Aliquip ad veniam cillum in reprehenderit velit laboris ex ad nulla non anim laborum.",
+        "purposes": "Et dolor tempor aliquip tempor in mollit magna do laboris velit veniam reprehenderit in aliquip. Veniam do nostrud cupidatat veniam eu sunt voluptate sit eu.",
+        "subject_learning_outcomes": "Sit excepteur id ea esse Lorem nisi voluptate est aliqua. Tempor nulla qui esse elit deserunt quis.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Tempor commodo ut tempor laboris adipisicing dolor minim. Reprehenderit amet cupidatat cillum duis amet proident fugiat officia eu.",
+        "content_of_the_subject": "Ut do magna aliqua eu cupidatat. Aute est anim id occaecat ut qui ex do minim elit.",
+        "didactic_methods": "Adipisicing amet sint reprehenderit eiusmod labore anim fugiat dolor est culpa exercitation id. Enim veniam in aute occaecat do ut voluptate nisi Lorem magna reprehenderit.",
+        "literature": "Magna magna exercitation et amet fugiat. Occaecat amet irure fugiat anim laboris id ea exercitation velit ullamco laboris laborum enim dolore.",
+        "balance_of_work_of_an_avg_student": "Nostrud nulla quis anim anim aute cillum voluptate laborum sunt. Labore ullamco excepteur culpa minim in sit in."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 97,
+      "fields": {
+        "name": "Quis veniam et sunt laborum reprehenderit ipsum culpa aliquip.",
+        "points_value": 5,
+        "prerequisites": "Velit tempor aliqua ut ex ea laborum in. Ullamco Lorem esse minim non laborum ipsum voluptate deserunt.",
+        "purposes": "Duis culpa ullamco eu voluptate mollit consectetur. Exercitation reprehenderit do quis deserunt commodo velit eiusmod officia ex sint dolore amet sunt.",
+        "subject_learning_outcomes": "Pariatur ad mollit id exercitation amet et proident ut do ex veniam. Nulla commodo esse consequat deserunt veniam anim cupidatat fugiat.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Do culpa culpa sit dolore aliquip et consectetur eiusmod duis. Ex laboris ad ad cillum ut incididunt quis sunt.",
+        "content_of_the_subject": "Occaecat cupidatat aute officia nostrud minim aliquip ullamco ullamco Lorem nisi. Duis do dolore Lorem mollit deserunt labore ipsum.",
+        "didactic_methods": "Ullamco ad quis consequat amet irure excepteur minim laborum occaecat minim veniam. Velit laboris aute consectetur irure laborum nostrud excepteur.",
+        "literature": "Cillum sint officia pariatur nisi irure consequat occaecat ut do mollit ad. Consequat velit deserunt proident sit ad nostrud et excepteur culpa fugiat adipisicing.",
+        "balance_of_work_of_an_avg_student": "Labore velit esse aliqua labore sint ut deserunt veniam enim. Non quis ea nulla minim aute ex exercitation ex."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 98,
+      "fields": {
+        "name": "Est elit amet esse aliquip officia eiusmod adipisicing et nisi deserunt.",
+        "points_value": 5,
+        "prerequisites": "Est deserunt ad ex sunt magna eiusmod nulla exercitation sint duis. Velit sint qui excepteur cupidatat laboris sit sunt pariatur do consectetur officia sunt aute anim.",
+        "purposes": "Ad sint consectetur eu cupidatat deserunt amet magna anim proident ut incididunt et voluptate. Cillum nisi ipsum non incididunt proident nulla deserunt eu.",
+        "subject_learning_outcomes": "Eu aliqua tempor officia ullamco cupidatat fugiat nisi consectetur do in officia ullamco. Amet magna sunt est consequat exercitation ut.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Pariatur labore occaecat magna enim commodo consequat quis dolor excepteur sunt in proident. Nisi nisi in fugiat adipisicing pariatur adipisicing ut culpa deserunt ad occaecat quis ad labore.",
+        "content_of_the_subject": "Enim consequat laboris non labore. Irure ea esse duis esse elit cillum in cillum eiusmod commodo.",
+        "didactic_methods": "Elit enim qui tempor minim duis laborum proident aliqua ipsum magna et. Commodo velit deserunt duis consectetur id culpa quis do irure sunt ipsum in dolor fugiat.",
+        "literature": "Pariatur nulla ut irure nisi aute ut amet. Et nulla duis ad sit ut ut est.",
+        "balance_of_work_of_an_avg_student": "Aute cupidatat aute aute duis eiusmod consectetur. Tempor duis veniam consectetur ipsum dolor."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 99,
+      "fields": {
+        "name": "Proident excepteur do laborum fugiat tempor labore ipsum aliqua.",
+        "points_value": 3,
+        "prerequisites": "Id eu enim minim aliquip. Exercitation anim qui ipsum Lorem ad voluptate enim eiusmod dolor qui nostrud occaecat ut proident.",
+        "purposes": "Minim cillum occaecat cupidatat adipisicing non enim consectetur magna eiusmod deserunt exercitation. In anim minim pariatur sunt officia anim sunt non id aute minim ex id reprehenderit.",
+        "subject_learning_outcomes": "Ex duis laboris laborum exercitation do est amet enim elit incididunt labore fugiat eu. In sit enim sint laborum veniam pariatur voluptate eiusmod.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Aute enim mollit officia ea ut sint dolore mollit. Laboris nostrud dolore fugiat in dolor tempor quis ullamco velit est id.",
+        "content_of_the_subject": "Nulla irure dolor proident pariatur ut et aliqua aute nulla et. Anim ipsum ea dolor culpa Lorem.",
+        "didactic_methods": "Ullamco quis do Lorem ea commodo elit ad ipsum irure deserunt quis incididunt pariatur ex. Nulla nostrud consectetur ea irure excepteur laborum in voluptate nulla.",
+        "literature": "Sit elit minim eiusmod nostrud quis cupidatat nulla consectetur ullamco. Veniam minim laboris reprehenderit pariatur Lorem Lorem cupidatat Lorem.",
+        "balance_of_work_of_an_avg_student": "Id occaecat commodo quis commodo enim enim eu quis aliquip eu eiusmod cupidatat. Fugiat deserunt laboris commodo commodo cillum dolore irure eu exercitation culpa nulla id laborum pariatur."
+      }
+    },
+    {
+      "model": "api.Course",
+      "pk": 100,
+      "fields": {
+        "name": "Quis pariatur sint amet labore duis Lorem fugiat minim ullamco enim magna.",
+        "points_value": 5,
+        "prerequisites": "Adipisicing ea culpa nisi cupidatat veniam magna commodo dolore qui proident occaecat fugiat ex. Fugiat aliquip do aute sint tempor dolore Lorem.",
+        "purposes": "Reprehenderit consectetur consequat ea ipsum ea dolor cupidatat aliqua laboris incididunt. Laborum ex proident in elit elit do.",
+        "subject_learning_outcomes": "Quis pariatur et duis aliquip in sit. Cupidatat laborum exercitation esse nostrud.",
+        "methods_of_verification_of_learning_outcomes_and_criteria": "Fugiat laborum excepteur nostrud fugiat. Nulla voluptate magna amet est aute deserunt cupidatat aliquip.",
+        "content_of_the_subject": "Aliqua adipisicing laboris velit culpa veniam excepteur mollit. Voluptate aliquip est esse commodo culpa.",
+        "didactic_methods": "Velit laboris aliqua ea sit dolor aute laboris eiusmod mollit sint incididunt ipsum. Reprehenderit minim fugiat ea Lorem nostrud minim irure adipisicing enim sit proident velit.",
+        "literature": "Nulla laborum enim commodo esse dolor. Ullamco consequat irure culpa adipisicing labore sint.",
+        "balance_of_work_of_an_avg_student": "Nostrud mollit excepteur mollit aliquip nulla proident duis et Lorem aliqua deserunt voluptate. Voluptate minim eiusmod cillum incididunt anim Lorem magna occaecat Lorem aliqua irure labore."
+      }
+    }
+  ]

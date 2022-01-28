@@ -11,7 +11,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
-
+      - es
+  
   db:
     image: postgres:13
     container_name: db
@@ -21,3 +22,15 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+      
+  es:
+    image: elasticsearch:7.14.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    deploy:
+      resources: 
+        limits: 
+          cpus: "0.50"  # Use at most 50% of one CPU core
+          memory: 2048M  # Use at most 50 MB of RAM
